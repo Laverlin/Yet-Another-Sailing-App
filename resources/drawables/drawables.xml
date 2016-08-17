@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 <drawables>
     <bitmap id="LauncherIcon" filename="launcher_icon.png" />
 </drawables>
+=======
+<drawables>
+    <bitmap id="LauncherIcon" filename="launcher_icon.png" />
+</drawables>
+>>>>>>> 8287446a037b0986c7ccf7085d0ecada9f0f0873
