@@ -5,6 +5,6 @@
     <label id="BearingLabel" x="200" y="60" font="Graphics.FONT_NUMBER_HOT" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" />
     <label id="BearingMarkLabel" x="208" y="134" font="Graphics.FONT_XTINY" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" text="bearing" />
     <label id="MaxSpeedLabel" x="center" y="174" font="Graphics.FONT_MEDIUM" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_CENTER" />
-
-    <shape id="GPSRed" type="circle" x="200" y="52" radius="4" color="Gfx.COLOR_RED" />
+    
+	<!-- <shape id="GPSRed" type="circle" x="200" y="52" radius="4" color="Gfx.COLOR_RED" />   -->
 </layout>

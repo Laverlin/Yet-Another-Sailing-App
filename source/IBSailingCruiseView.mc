@@ -49,13 +49,29 @@ class IBSailingCruiseView extends Ui.View
         
         // Show speed and bearing if GPS available
         //
+        var GpsStateColor = Gfx.COLOR_RED;
         if (_positionInfo != null)
         {
+        	if (_positionInfo.accuracy == 2)
+        	{
+        		GpsStateColor = Gfx.COLOR_ORANGE;
+        	}
+        	
+        	if (_positionInfo.accuracy == 3)
+        	{
+        		GpsStateColor = Gfx.COLOR_YELLOW;
+        	}
+        	
+        	if (_positionInfo.accuracy == 4)
+        	{
+        		GpsStateColor = Gfx.COLOR_GREEN;
+        	}
+        
         	var speed = (_positionInfo.speed.toDouble() * 1.94384);
         	var speedString = speed.format("%2.1f");
         	View.findDrawableById("SpeedLabel").setText(speedString);
         	
-        	var headingDegree = Math.toDegrees(positionInfo.heading);
+        	var headingDegree = Math.toDegrees(_positionInfo.heading);
         	var bearingString = ((headingDegree > 0) ? headingDegree : 360 + headingDegree).format("%003d");
         	View.findDrawableById("BearingLabel").setText(bearingString);
         	
@@ -63,17 +79,19 @@ class IBSailingCruiseView extends Ui.View
         	{
         		_maxSpeed = speed;
         	}
-        	View.findDrawableById("MaxSpeedLabel").setText(maxSpeed.format("%2.1f"));	
-        }
-        else
-        {
-        	View.findDrawableById("GPSRed").Draw();	
+        	View.findDrawableById("MaxSpeedLabel").setText(_maxSpeed.format("%2.1f"));	
         }
 
        	View.onUpdate(dc);
         
+        // Show GPS quality
+        //
+        dc.setColor(GpsStateColor, Gfx.COLOR_TRANSPARENT);
+        dc.fillCircle(182, 50, 4);
+        
         // Draw a grid
         //
+        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
         dc.drawLine(0,60,218,60);
 		dc.drawLine(0,160,218,160);
 		dc.drawLine(109,60,109,160); 
