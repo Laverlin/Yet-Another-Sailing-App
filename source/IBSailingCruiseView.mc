@@ -8,24 +8,24 @@ class IBSailingCruiseView extends Ui.View
 {
 
 	hidden var _timer;
-	hidden var positionInfo;
-	hidden var maxSpeed;
+	hidden var _positionInfo;
+	hidden var _maxSpeed;
 
     function initialize() 
     {
         View.initialize();
-        maxSpeed = 0.0;
+        _maxSpeed = 0.0;
     }
 
     // Load your resources here
+    //
     function onLayout(dc) 
     {
         setLayout(Rez.Layouts.MainLayout(dc));
     }
 
-    // Called when this View is brought to the foreground. Restore
-    // the state of this View and prepare it to be shown. This includes
-    // loading resources into memory.
+    // SetUp timer on show
+    //
     function onShow() 
     {
     	_timer = new Timer.Timer();
@@ -33,10 +33,13 @@ class IBSailingCruiseView extends Ui.View
     }
 
     // Update the view
+    //
     function onUpdate(dc) 
     {
     	var clockTime = Sys.getClockTime();
     	
+    	// show current time
+    	//
         var timeString = Lang.format("$1$:$2$:$3$", 
         	[clockTime.hour.format("%02d"), 
         	 clockTime.min.format("%02d"), 
@@ -44,46 +47,52 @@ class IBSailingCruiseView extends Ui.View
         var view = View.findDrawableById("TimeLabel");
         view.setText(timeString);
         
-        if (positionInfo != null)
+        // Show speed and bearing if GPS available
+        //
+        if (_positionInfo != null)
         {
-        	var speed = (positionInfo.speed.toDouble() * 1.94384);
+        	var speed = (_positionInfo.speed.toDouble() * 1.94384);
         	var speedString = speed.format("%2.1f");
         	View.findDrawableById("SpeedLabel").setText(speedString);
         	
-        	var bearingString = (180-Math.toDegrees(positionInfo.heading)).format("%003d");
+        	var headingDegree = Math.toDegrees(positionInfo.heading);
+        	var bearingString = ((headingDegree > 0) ? headingDegree : 360 + headingDegree).format("%003d");
         	View.findDrawableById("BearingLabel").setText(bearingString);
         	
-        	if (maxSpeed < speed)
+        	if (_maxSpeed < speed)
         	{
-        		maxSpeed = speed;
+        		_maxSpeed = speed;
         	}
         	View.findDrawableById("MaxSpeedLabel").setText(maxSpeed.format("%2.1f"));	
         }
 
        	View.onUpdate(dc);
         
-        // Draw a grig
+        // Draw a grid
         //
         dc.drawLine(0,60,218,60);
 		dc.drawLine(0,160,218,160);
 		dc.drawLine(109,60,109,160); 
     }
 
-    // Called when this View is removed from the screen. Save the
-    // state of this View here. This includes freeing resources from
-    // memory.
+    // Stop timer then hide
+    //
     function onHide() 
     {
     	_timer.stop();
     }
     
+    // Refresh view every second
+    //
     function onTimerUpdate()
     {
     	Ui.requestUpdate();
     }
     
+    // update position from GPS
+    //
     function setPosition(info)
     {
-    	positionInfo = info;
+    	_positionInfo = info;
     }
 }
