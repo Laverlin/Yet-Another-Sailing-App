@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 <menu id="MainMenu">
     <menu-item id="item_1">@Strings.menu_label_1</menu-item>
     <menu-item id="item_2">@Strings.menu_label_2</menu-item>
 </menu>
-=======
-<menu id="MainMenu">
-    <menu-item id="item_1">@Strings.menu_label_1</menu-item>
-    <menu-item id="item_2">@Strings.menu_label_2</menu-item>
-</menu>
->>>>>>> 8287446a037b0986c7ccf7085d0ecada9f0f0873
+

@@ -65,6 +65,10 @@ class IBSailingCruiseView extends Ui.View
         	}
         	View.findDrawableById("MaxSpeedLabel").setText(maxSpeed.format("%2.1f"));	
         }
+        else
+        {
+        	View.findDrawableById("GPSRed").Draw();	
+        }
 
        	View.onUpdate(dc);
         
