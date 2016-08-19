@@ -10,6 +10,6 @@
     <label id="MaxSpeedLabel" x="94" y="162" font="Graphics.FONT_LARGE" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" />
     <label id="MaxSpeedMarkLabel" x="102" y="192" font="Graphics.FONT_XTINY" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" text="max"/>
     
-    <label id="AvgSpeedLabel" x="134" y="162" font="Graphics.FONT_LARGE" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" />
+    <label id="AvgSpeedLabel" x="168" y="162" font="Graphics.FONT_LARGE" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" />
     <label id="AvgSpeedMarkLabel" x="154" y="192" font="Graphics.FONT_XTINY" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" text="avg"/>
 </layout>

@@ -15,6 +15,9 @@ class IBSailingCruiseView extends Ui.View
 	hidden var _recordSession;
 	hidden var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, Gfx.COLOR_GREEN];
 	hidden var _isGpsAvailable = false;
+	
+	hidden var _speedSum = 0.0;
+	hidden var _speedCount = 0;
 
     function initialize() 
     {
@@ -76,6 +79,16 @@ class IBSailingCruiseView extends Ui.View
         	//
         	_maxSpeed = (_maxSpeed < speed) ? speed : _maxSpeed;
         	View.findDrawableById("MaxSpeedLabel").setText(_maxSpeed.format("%2.1f"));	
+        	
+        	// Display average speed if recorded
+        	//
+        	if (_recordSession.isRecording())
+        	{
+        		_speedCount = _speedCount + 1;
+        		_speedSum = _speedSum + speed;
+        		var avgSpeed = _speedSum / _speedCount;
+        		View.findDrawableById("AvgSpeedLabel").setText(avgSpeed.format("%2.1f"));  
+        	}      	
         }
 
        	View.onUpdate(dc);
@@ -138,6 +151,8 @@ class IBSailingCruiseView extends Ui.View
     	}
     	else
     	{
+    		_speedSum = 0.0;
+    		_speedCount = 0;
     		_recordSession.stop();
     	}
     }
