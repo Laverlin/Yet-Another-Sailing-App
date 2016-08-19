@@ -1,10 +1,15 @@
 <layout id="MainLayout" >
     <label id="TimeLabel" x="center" y="15" font="Graphics.FONT_MEDIUM" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_CENTER" />
+    
     <label id="SpeedLabel" x="90" y="60" font="Graphics.FONT_NUMBER_HOT" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" />
     <label id="SpeedMarkLabel" x="102" y="134" font="Graphics.FONT_XTINY" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" text="knot" />
+    
     <label id="BearingLabel" x="200" y="60" font="Graphics.FONT_NUMBER_HOT" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" />
     <label id="BearingMarkLabel" x="208" y="134" font="Graphics.FONT_XTINY" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" text="bearing" />
-    <label id="MaxSpeedLabel" x="center" y="174" font="Graphics.FONT_MEDIUM" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_CENTER" />
     
-	<!-- <shape id="GPSRed" type="circle" x="200" y="52" radius="4" color="Gfx.COLOR_RED" />   -->
+    <label id="MaxSpeedLabel" x="94" y="162" font="Graphics.FONT_LARGE" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" />
+    <label id="MaxSpeedMarkLabel" x="102" y="192" font="Graphics.FONT_XTINY" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" text="max"/>
+    
+    <label id="AvgSpeedLabel" x="134" y="162" font="Graphics.FONT_LARGE" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" />
+    <label id="AvgSpeedMarkLabel" x="154" y="192" font="Graphics.FONT_XTINY" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT" text="avg"/>
 </layout>
