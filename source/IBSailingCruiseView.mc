@@ -10,6 +10,7 @@ class IBSailingCruiseView extends Ui.View
 	hidden var _timer;
 	hidden var _positionInfo;
 	hidden var _maxSpeed;
+	hidden var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, fx.COLOR_GREEN];
 
     function initialize() 
     {
@@ -38,47 +39,36 @@ class IBSailingCruiseView extends Ui.View
     {
     	var clockTime = Sys.getClockTime();
     	
-    	// show current time
+    	// Display current time
     	//
         var timeString = Lang.format("$1$:$2$:$3$", 
         	[clockTime.hour.format("%02d"), 
         	 clockTime.min.format("%02d"), 
         	 clockTime.sec.format("%02d")]);
-        var view = View.findDrawableById("TimeLabel");
-        view.setText(timeString);
+        View.findDrawableById("TimeLabel").setText(timeString);
         
-        // Show speed and bearing if GPS available
+        // Display speed and bearing if GPS available
         //
-        var GpsStateColor = Gfx.COLOR_RED;
+        var gpsStateColor = Gfx.COLOR_RED;
         if (_positionInfo != null)
         {
-        	if (_positionInfo.accuracy == 2)
-        	{
-        		GpsStateColor = Gfx.COLOR_ORANGE;
-        	}
-        	
-        	if (_positionInfo.accuracy == 3)
-        	{
-        		GpsStateColor = Gfx.COLOR_YELLOW;
-        	}
-        	
-        	if (_positionInfo.accuracy == 4)
-        	{
-        		GpsStateColor = Gfx.COLOR_GREEN;
-        	}
+        	gpsStateColor = _gpsColorsArray[_positionInfo.accuracy];
         
+        	// Display knots
+        	//
         	var speed = (_positionInfo.speed.toDouble() * 1.94384);
         	var speedString = speed.format("%2.1f");
         	View.findDrawableById("SpeedLabel").setText(speedString);
         	
+        	// Display bearing
+        	//
         	var headingDegree = Math.toDegrees(_positionInfo.heading);
         	var bearingString = ((headingDegree > 0) ? headingDegree : 360 + headingDegree).format("%003d");
         	View.findDrawableById("BearingLabel").setText(bearingString);
         	
-        	if (_maxSpeed < speed)
-        	{
-        		_maxSpeed = speed;
-        	}
+        	// Display max speed 
+        	//
+        	_maxSpeed = (_maxSpeed < speed) ? speed : _maxSpeed;
         	View.findDrawableById("MaxSpeedLabel").setText(_maxSpeed.format("%2.1f"));	
         }
 
@@ -86,7 +76,7 @@ class IBSailingCruiseView extends Ui.View
         
         // Show GPS quality
         //
-        dc.setColor(GpsStateColor, Gfx.COLOR_TRANSPARENT);
+        dc.setColor(gpsStateColor, Gfx.COLOR_TRANSPARENT);
         dc.fillCircle(182, 50, 4);
         
         // Draw a grid
