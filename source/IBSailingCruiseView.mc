@@ -87,7 +87,7 @@ class IBSailingCruiseView extends Ui.View
         // Show GPS quality
         //
         dc.setColor(GpsStateColor, Gfx.COLOR_TRANSPARENT);
-        dc.fillCircle(182, 50, 4);
+        dc.fillCircle(180, 48, 6);
         
         // Draw a grid
         //
