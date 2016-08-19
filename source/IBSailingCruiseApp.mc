@@ -4,7 +4,6 @@ using Toybox.Position as Position;
 
 class IBSailingCruiseApp extends App.AppBase 
 {
-
 	hidden var _cruiseView;
 	
     function initialize() 
@@ -25,13 +24,17 @@ class IBSailingCruiseApp extends App.AppBase
     {
     	Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
     }
+    
 
     // Return the initial view of your application here
     //
     function getInitialView() 
     {
     	_cruiseView = new IBSailingCruiseView();
-        return [ _cruiseView, new IBSailingCruiseDelegate() ];
+    	var delegate = new IBSailingCruiseDelegate();
+    	delegate.setHandlerView(_cruiseView);
+    	
+        return [ _cruiseView, delegate ];
     }
     
     // handle position event

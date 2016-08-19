@@ -3,6 +3,8 @@ using Toybox.System as Sys;
 using Toybox.Graphics as Gfx;
 using Toybox.Lang as Lang;
 using Toybox.Math as Math;
+using Toybox.Attention as Attention;
+using Toybox.ActivityRecording as Fit;
 
 class IBSailingCruiseView extends Ui.View 
 {
@@ -10,11 +12,14 @@ class IBSailingCruiseView extends Ui.View
 	hidden var _timer;
 	hidden var _positionInfo;
 	hidden var _maxSpeed;
+	hidden var _recordSession;
 	hidden var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, Gfx.COLOR_GREEN];
+	hidden var _isGpsAvailable = false;
 
     function initialize() 
     {
         View.initialize();
+        _recordSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
         _maxSpeed = 0.0;
     }
 
@@ -53,6 +58,7 @@ class IBSailingCruiseView extends Ui.View
         if (_positionInfo != null && _positionInfo.accuracy > 0)
         {
         	gpsStateColor = _gpsColorsArray[_positionInfo.accuracy];
+        	_isGpsAvailable = (_positionInfo.accuracy > 2) ? true : false;
         
         	// Display knots
         	//
@@ -78,6 +84,11 @@ class IBSailingCruiseView extends Ui.View
         //
         dc.setColor(gpsStateColor, Gfx.COLOR_TRANSPARENT);
         dc.fillCircle(180, 48, 6);
+        
+        // Show recording status
+        //
+        dc.setColor(_recordSession.isRecording() ? Gfx.COLOR_GREEN : Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
+        dc.fillCircle(180, 172, 6);
         
         // Draw a grid
         //
@@ -106,5 +117,46 @@ class IBSailingCruiseView extends Ui.View
     function setPosition(info)
     {
     	_positionInfo = info;
+    }
+    
+    // Start & Pause activity recording
+    //
+    function StartStopActivity()
+    {
+    	if (!_isGpsAvailable && !_recordSession.isRecording())
+    	{
+    		return;
+    	}
+    	
+    	var vibe = [new Attention.VibeProfile(30, 300)];
+    	Attention.playTone(Attention.TONE_LOUD_BEEP);
+    	Attention.vibrate(vibe);
+    	
+    	if (!_recordSession.isRecording())
+    	{
+    		_recordSession.start();
+    	}
+    	else
+    	{
+    		_recordSession.stop();
+    	}
+    }
+    
+    // Save activity session
+    //
+    function SaveActivity()
+    {
+    	if (_recordSession != null)
+    	{
+    		_recordSession.save();
+    	}
+    }
+    
+    function DiscardActivity()
+    {
+        if (_recordSession != null)
+    	{
+    		_recordSession.discard();
+    	}
     }
 }
