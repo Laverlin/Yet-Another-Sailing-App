@@ -27,13 +27,6 @@ class IBSailingCruiseView extends Ui.View
         _maxSpeed = 0.0;
     }
 
-    // Load your resources here
-    //
-   /* function onLayout(dc) 
-    {
-        setLayout(Rez.Layouts.MainLayout(dc));
-    }
-*/
     // SetUp timer on show
     //
     function onShow() 

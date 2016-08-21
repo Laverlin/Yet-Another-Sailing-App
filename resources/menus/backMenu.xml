@@ -1,4 +1,4 @@
-<menu id="BackMenu">
+<menu id="BackMenu" title="Exit">
     <menu-item id="exitSave">Exit and save</menu-item>
     <menu-item id="exitDiscard">Exit and discard</menu-item>
     <menu-item id="resume">Resume</menu-item>
