@@ -1,0 +1,6 @@
+<menu id="BackMenu">
+    <menu-item id="exitSave">Exit and save</menu-item>
+    <menu-item id="exitDiscard">Exit and discard</menu-item>
+    <menu-item id="resume">Resume</menu-item>
+    <menu-item id="inverse">Inverse Layout</menu-item>
+</menu>

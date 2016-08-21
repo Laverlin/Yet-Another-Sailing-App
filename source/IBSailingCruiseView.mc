@@ -9,12 +9,13 @@ using Toybox.ActivityRecording as Fit;
 class IBSailingCruiseView extends Ui.View 
 {
 
+	hidden var _drawObjects = new DrawObjects();
 	hidden var _timer;
 	hidden var _positionInfo;
 	hidden var _maxSpeed;
 	hidden var _recordSession;
-	hidden var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, Gfx.COLOR_GREEN];
-	hidden var _isGpsAvailable = false;
+	hidden var _isInversed = false;
+	hidden var _gpsStatus = 0;
 	
 	hidden var _speedSum = 0.0;
 	hidden var _speedCount = 0;
@@ -28,11 +29,11 @@ class IBSailingCruiseView extends Ui.View
 
     // Load your resources here
     //
-    function onLayout(dc) 
+   /* function onLayout(dc) 
     {
         setLayout(Rez.Layouts.MainLayout(dc));
     }
-
+*/
     // SetUp timer on show
     //
     function onShow() 
@@ -44,7 +45,9 @@ class IBSailingCruiseView extends Ui.View
     // Update the view
     //
     function onUpdate(dc) 
-    {
+    {   
+    	_drawObjects.SetBackground(dc);
+    
     	var clockTime = Sys.getClockTime();
     	
     	// Display current time
@@ -53,32 +56,30 @@ class IBSailingCruiseView extends Ui.View
         	[clockTime.hour.format("%02d"), 
         	 clockTime.min.format("%02d"), 
         	 clockTime.sec.format("%02d")]);
-        View.findDrawableById("TimeLabel").setText(timeString);
+        _drawObjects.PrintTime(dc, timeString);
         
         // Display speed and bearing if GPS available
         //
-        var gpsStateColor = Gfx.COLOR_RED;
         if (_positionInfo != null && _positionInfo.accuracy > 0)
         {
-        	gpsStateColor = _gpsColorsArray[_positionInfo.accuracy];
-        	_isGpsAvailable = (_positionInfo.accuracy > 2) ? true : false;
+        	_gpsStatus = _positionInfo.accuracy;
         
         	// Display knots
         	//
         	var speed = (_positionInfo.speed.toDouble() * 1.94384);
         	var speedString = speed.format("%2.1f");
-        	View.findDrawableById("SpeedLabel").setText(speedString);
+        	_drawObjects.PrintSpeed(dc, speedString);
         	
         	// Display bearing
         	//
         	var headingDegree = Math.toDegrees(_positionInfo.heading);
         	var bearingString = ((headingDegree > 0) ? headingDegree : 360 + headingDegree).format("%003d");
-        	View.findDrawableById("BearingLabel").setText(bearingString);
+        	_drawObjects.PrintBearing(dc, bearingString);
         	
         	// Display max speed 
         	//
         	_maxSpeed = (_maxSpeed < speed) ? speed : _maxSpeed;
-        	View.findDrawableById("MaxSpeedLabel").setText(_maxSpeed.format("%2.1f"));	
+        	_drawObjects.PrintMaxSpeed(dc, _maxSpeed.format("%2.1f"));	
         	
         	// Display average speed if recorded
         	//
@@ -87,28 +88,14 @@ class IBSailingCruiseView extends Ui.View
         		_speedCount = _speedCount + 1;
         		_speedSum = _speedSum + speed;
         		var avgSpeed = _speedSum / _speedCount;
-        		View.findDrawableById("AvgSpeedLabel").setText(avgSpeed.format("%2.1f"));  
+        		_drawObjects.PrintAvgSpeed(dc, avgSpeed.format("%2.1f"));  
         	}      	
         }
-
-       	View.onUpdate(dc);
         
-        // Show GPS quality
-        //
-        dc.setColor(gpsStateColor, Gfx.COLOR_TRANSPARENT);
-        dc.fillCircle(180, 48, 6);
+        _drawObjects.DisplayStatuses(dc, _gpsStatus, _recordSession.isRecording());
         
-        // Show recording status
-        //
-        dc.setColor(_recordSession.isRecording() ? Gfx.COLOR_GREEN : Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
-        dc.fillCircle(180, 172, 6);
-        
-        // Draw a grid
-        //
-        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
-        dc.drawLine(0,60,218,60);
-		dc.drawLine(0,160,218,160);
-		dc.drawLine(109,60,109,160); 
+        _drawObjects.DrawGrid(dc);
+ 
     }
 
     // Stop timer then hide
@@ -136,7 +123,7 @@ class IBSailingCruiseView extends Ui.View
     //
     function StartStopActivity()
     {
-    	if (!_isGpsAvailable && !_recordSession.isRecording())
+    	if (_gpsStatus < 2 && !_recordSession.isRecording())
     	{
     		return;
     	}
@@ -173,5 +160,19 @@ class IBSailingCruiseView extends Ui.View
     	{
     		_recordSession.discard();
     	}
+    }
+    
+    function InverseLayout()
+    {
+    	_isInversed = !_isInversed;
+    	if (_isInversed)
+    	{
+    		_drawObjects.SetColors(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
+    	}
+    	else
+    	{
+    		_drawObjects.SetColors(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
+    	}
+    	
     }
 }
