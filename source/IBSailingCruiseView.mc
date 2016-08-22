@@ -26,6 +26,7 @@ class IBSailingCruiseView extends Ui.View
         _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
         _maxSpeed = 0.0;
         _isWhiteBackground = Application.getApp().getProperty("isWhiteBackground");
+        _dcDraw.SetupColors(_isWhiteBackground);
     }
 
 	// Up timer on show to update every second
