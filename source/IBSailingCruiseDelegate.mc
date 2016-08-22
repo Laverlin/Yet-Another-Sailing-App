@@ -25,7 +25,6 @@ class IBSailingCruiseDelegate extends Ui.BehaviorDelegate
     function onBack()
     {
         _cruiseView.AddLap();
-        //Ui.pushView(new Rez.Menus.BackMenu(), new IBBackMenuDelegate(_cruiseView), Ui.SLIDE_UP);
         return true;
     }
 }

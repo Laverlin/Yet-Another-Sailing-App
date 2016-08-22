@@ -23,6 +23,10 @@ class IBSailingCruiseMenuDelegate extends Ui.MenuInputDelegate
         {
             _cruiseView.DiscardActivity();
             Sys.exit();
-        }        
+        }      
+        else if (item == :inverseColor)
+        {
+        	_cruiseView.InverseColor();
+        }  
     }
 }

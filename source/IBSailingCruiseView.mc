@@ -14,7 +14,7 @@ class IBSailingCruiseView extends Ui.View
 	hidden var _positionInfo;
 	hidden var _maxSpeed;
 	hidden var _activeSession;
-	hidden var _isInversed = false;
+	hidden var _isWhiteBackground = false;
 	hidden var _gpsStatus = 0;
 	
 	hidden var _speedSum = 0.0;
@@ -25,9 +25,10 @@ class IBSailingCruiseView extends Ui.View
         View.initialize();
         _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
         _maxSpeed = 0.0;
+        _isWhiteBackground = Application.getApp().getProperty("isWhiteBackground");
     }
 
-    // SetUp timer on show to update every second
+	// Up timer on show to update every second
     //
     function onShow() 
     {
@@ -150,7 +151,6 @@ class IBSailingCruiseView extends Ui.View
             _speedCount = 0;            
             _activeSession.addLap();
         }
-
     }
 
     function SaveActivity()
@@ -169,16 +169,12 @@ class IBSailingCruiseView extends Ui.View
     	}
     }
     
-    function InverseLayout()
+    function InverseColor()
     {
-    	_isInversed = !_isInversed;
-    	if (_isInversed)
-    	{
-    		_dcDraw.SetupColors(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
-    	}
-    	else
-    	{
-    		_dcDraw.SetupColors(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
-    	}
+    	_isWhiteBackground = !_isWhiteBackground;
+    	
+    	Application.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
+    	
+   		_dcDraw.SetupColors(_isWhiteBackground);
     }
 }

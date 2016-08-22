@@ -1,0 +1,4 @@
+<properties>
+    <property id="appVersion" type="string">0.9</property>
+    <property id="isWhiteBackground" type="boolean">false</property>
+</properties>
