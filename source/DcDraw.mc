@@ -17,10 +17,18 @@ class DcDraw
     	dc.clear();
     }
     
-    function SetupColors(foreground, background)
+    function SetupColors(isWhiteBackground)
     {
-    	_foregroundColor = foreground;
-    	_backgroundColor = background;
+    	if (isWhiteBackground)
+    	{
+    		_foregroundColor = Gfx.COLOR_BLACK;
+    		_backgroundColor = Gfx.COLOR_WHITE;
+    	}
+    	else
+    	{
+    		_foregroundColor = Gfx.COLOR_WHITE;
+    		_backgroundColor = Gfx.COLOR_BLACK;    	
+    	}
     }
 
 	function PrintTime(dc, timeString)

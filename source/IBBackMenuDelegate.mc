@@ -23,9 +23,9 @@ class IBBackMenuDelegate extends Ui.MenuInputDelegate
             _cruiseView.DiscardActivity();
             Sys.exit();
         }
-        else if (item == :inverse)
+        else if (item == :inverseColor)
         {
-        	_cruiseView.InverseLayout();
+        	_cruiseView.InverseColor();
         }
     }
 
