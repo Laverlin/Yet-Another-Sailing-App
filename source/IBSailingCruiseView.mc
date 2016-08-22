@@ -9,11 +9,11 @@ using Toybox.ActivityRecording as Fit;
 class IBSailingCruiseView extends Ui.View 
 {
 
-	hidden var _drawObjects = new DrawObjects();
+	hidden var _dcDraw = new DcDraw();
 	hidden var _timer;
 	hidden var _positionInfo;
 	hidden var _maxSpeed;
-	hidden var _recordSession;
+	hidden var _activeSession;
 	hidden var _isInversed = false;
 	hidden var _gpsStatus = 0;
 	
@@ -23,11 +23,11 @@ class IBSailingCruiseView extends Ui.View
     function initialize() 
     {
         View.initialize();
-        _recordSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
+        _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
         _maxSpeed = 0.0;
     }
 
-    // SetUp timer on show
+    // SetUp timer on show to update every second
     //
     function onShow() 
     {
@@ -39,7 +39,7 @@ class IBSailingCruiseView extends Ui.View
     //
     function onUpdate(dc) 
     {   
-    	_drawObjects.SetBackground(dc);
+    	_dcDraw.ClearDc(dc);
     
     	var clockTime = Sys.getClockTime();
     	
@@ -49,7 +49,7 @@ class IBSailingCruiseView extends Ui.View
         	[clockTime.hour.format("%02d"), 
         	 clockTime.min.format("%02d"), 
         	 clockTime.sec.format("%02d")]);
-        _drawObjects.PrintTime(dc, timeString);
+        _dcDraw.PrintTime(dc, timeString);
         
         // Display speed and bearing if GPS available
         //
@@ -61,34 +61,33 @@ class IBSailingCruiseView extends Ui.View
         	//
         	var speed = (_positionInfo.speed.toDouble() * 1.94384);
         	var speedString = speed.format("%2.1f");
-        	_drawObjects.PrintSpeed(dc, speedString);
+        	_dcDraw.PrintSpeed(dc, speedString);
         	
         	// Display bearing
         	//
         	var headingDegree = Math.toDegrees(_positionInfo.heading);
         	var bearingString = ((headingDegree > 0) ? headingDegree : 360 + headingDegree).format("%003d");
-        	_drawObjects.PrintBearing(dc, bearingString);
+        	_dcDraw.PrintBearing(dc, bearingString);
         	
         	// Display max speed 
         	//
         	_maxSpeed = (_maxSpeed < speed) ? speed : _maxSpeed;
-        	_drawObjects.PrintMaxSpeed(dc, _maxSpeed.format("%2.1f"));	
+        	_dcDraw.PrintMaxSpeed(dc, _maxSpeed.format("%2.1f"));	
         	
         	// Display average speed if recorded
         	//
-        	if (_recordSession.isRecording())
+        	if (_activeSession.isRecording())
         	{
         		_speedCount = _speedCount + 1;
         		_speedSum = _speedSum + speed;
         		var avgSpeed = _speedSum / _speedCount;
-        		_drawObjects.PrintAvgSpeed(dc, avgSpeed.format("%2.1f"));  
+        		_dcDraw.PrintAvgSpeed(dc, avgSpeed.format("%2.1f"));  
         	}      	
         }
         
-        _drawObjects.DisplayStatuses(dc, _gpsStatus, _recordSession.isRecording());
+        _dcDraw.DisplayState(dc, _gpsStatus, _activeSession.isRecording());
         
-        _drawObjects.DrawGrid(dc);
- 
+        _dcDraw.DrawGrid(dc);
     }
 
     // Stop timer then hide
@@ -116,7 +115,7 @@ class IBSailingCruiseView extends Ui.View
     //
     function StartStopActivity()
     {
-    	if (_gpsStatus < 2 && !_recordSession.isRecording())
+    	if (_gpsStatus < 2 && !_activeSession.isRecording())
     	{
     		return;
     	}
@@ -125,33 +124,31 @@ class IBSailingCruiseView extends Ui.View
     	Attention.playTone(Attention.TONE_LOUD_BEEP);
     	Attention.vibrate(vibe);
     	
-    	if (!_recordSession.isRecording())
+    	if (!_activeSession.isRecording())
     	{
-    		_recordSession.start();
+    		_activeSession.start();
     	}
     	else
     	{
     		_speedSum = 0.0;
     		_speedCount = 0;
-    		_recordSession.stop();
+    		_activeSession.stop();
     	}
     }
-    
-    // Save activity session
-    //
+
     function SaveActivity()
     {
-    	if (_recordSession != null)
+    	if (_activeSession != null)
     	{
-    		_recordSession.save();
+    		_activeSession.save();
     	}
     }
     
     function DiscardActivity()
     {
-        if (_recordSession != null)
+        if (_activeSession != null)
     	{
-    		_recordSession.discard();
+    		_activeSession.discard();
     	}
     }
     
@@ -160,12 +157,11 @@ class IBSailingCruiseView extends Ui.View
     	_isInversed = !_isInversed;
     	if (_isInversed)
     	{
-    		_drawObjects.SetColors(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
+    		_dcDraw.SetupColors(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
     	}
     	else
     	{
-    		_drawObjects.SetColors(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
+    		_dcDraw.SetupColors(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
     	}
-    	
     }
 }

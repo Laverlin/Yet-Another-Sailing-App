@@ -31,8 +31,7 @@ class IBSailingCruiseApp extends App.AppBase
     function getInitialView() 
     {
     	_cruiseView = new IBSailingCruiseView();
-    	var delegate = new IBSailingCruiseDelegate();
-    	delegate.setHandlerView(_cruiseView);
+    	var delegate = new IBSailingCruiseDelegate(_cruiseView);
     	
         return [ _cruiseView, delegate ];
     }

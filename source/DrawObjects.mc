@@ -1,19 +1,23 @@
 using Toybox.WatchUi as Ui;
 using Toybox.Graphics as Gfx;
 
-class DrawObjects
+/// Since there is no way o setup a background color in layout.xml
+/// all boiler-plate code for drawing objects need to be done manually.
+/// This class dedicated to hide all dirty work around dc
+/// 
+class DcDraw
 {
 	hidden var _backgroundColor = Gfx.COLOR_BLACK;
 	hidden var _foregroundColor = Gfx.COLOR_WHITE;
 	hidden var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, Gfx.COLOR_GREEN];	
 
-	function SetBackground(dc)
+	function ClearDc(dc)
 	{
     	dc.setColor(_foregroundColor, _backgroundColor);
     	dc.clear();
     }
     
-    function SetColors(foreground, background)
+    function SetupColors(foreground, background)
     {
     	_foregroundColor = foreground;
     	_backgroundColor = background;
@@ -61,7 +65,7 @@ class DrawObjects
 		dc.drawLine(109,60,109,160);
     }
     
-    function DisplayStatuses(dc, gpsStatus, recordingStatus)
+    function DisplayState(dc, gpsStatus, recordingStatus)
     {
     	dc.setColor(_gpsColorsArray[gpsStatus], Gfx.COLOR_TRANSPARENT);
         dc.fillCircle(180, 48, 6);

@@ -2,21 +2,17 @@ using Toybox.WatchUi as Ui;
 
 class IBSailingCruiseDelegate extends Ui.BehaviorDelegate 
 {
-	hidden var _handlerView;
+	hidden var _cruiseView;
 	
-	function setHandlerView(handlerView)
-	{
-		_handlerView = handlerView;
-	}
-
-    function initialize() 
+    function initialize(cruiseView) 
     {
         BehaviorDelegate.initialize();
+        _cruiseView = cruiseView;
     }
     
     function onSelect()
     {
-    	_handlerView.StartStopActivity();
+    	_cruiseView.StartStopActivity();
     	return true;
     }
 
@@ -28,7 +24,7 @@ class IBSailingCruiseDelegate extends Ui.BehaviorDelegate
     
     function onBack()
     {
-        Ui.pushView(new Rez.Menus.BackMenu(), new IBBackMenuDelegate(_handlerView), Ui.SLIDE_UP);
+        Ui.pushView(new Rez.Menus.BackMenu(), new IBBackMenuDelegate(_cruiseView), Ui.SLIDE_UP);
         return true;
     }
 }
