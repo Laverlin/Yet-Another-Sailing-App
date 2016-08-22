@@ -18,13 +18,14 @@ class IBSailingCruiseDelegate extends Ui.BehaviorDelegate
 
     function onMenu() 
     {
-        Ui.pushView(new Rez.Menus.MainMenu(), new IBSailingCruiseMenuDelegate(), Ui.SLIDE_UP);
+        Ui.pushView(new Rez.Menus.MainMenu(), new IBSailingCruiseMenuDelegate(_cruiseView), Ui.SLIDE_UP);
         return true;
     }
     
     function onBack()
     {
-        Ui.pushView(new Rez.Menus.BackMenu(), new IBBackMenuDelegate(_cruiseView), Ui.SLIDE_UP);
+        _cruiseView.AddLap();
+        //Ui.pushView(new Rez.Menus.BackMenu(), new IBBackMenuDelegate(_cruiseView), Ui.SLIDE_UP);
         return true;
     }
 }

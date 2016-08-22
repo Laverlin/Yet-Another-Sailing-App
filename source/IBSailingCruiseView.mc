@@ -136,6 +136,23 @@ class IBSailingCruiseView extends Ui.View
     	}
     }
 
+    // Add new lap and drop all lap counters 
+    //
+    function AddLap()
+    {
+        if (_activeSession.isRecording())
+        {
+            var vibe = [new Attention.VibeProfile(30, 300)];
+            Attention.playTone(Attention.TONE_LOUD_BEEP);        
+            Attention.vibrate(vibe);
+            
+            _speedSum = 0.0;
+            _speedCount = 0;            
+            _activeSession.addLap();
+        }
+
+    }
+
     function SaveActivity()
     {
     	if (_activeSession != null)

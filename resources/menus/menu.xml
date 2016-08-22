@@ -1,4 +1,6 @@
-<menu id="MainMenu">
-    <menu-item id="item_1">@Strings.menu_label_1</menu-item>
-    <menu-item id="item_2">@Strings.menu_label_2</menu-item>
+<menu id="MainMenu" title="Menu">
+	<menu-item id="raceTimer">Race Timer</menu-item>
+    <menu-item id="exitSave">Exit Save</menu-item>
+    <menu-item id="exitDiscard">Exit Discard</menu-item>
+    <menu-item id="inverseColor">Inverse Color</menu-item>
 </menu>
