@@ -1,6 +1,6 @@
 using Toybox.WatchUi as Ui;
 
-class IBSailingCruiseDelegate extends Ui.BehaviorDelegate 
+class CruiseDelegate extends Ui.BehaviorDelegate 
 {
 	hidden var _cruiseView;
 	
@@ -18,7 +18,7 @@ class IBSailingCruiseDelegate extends Ui.BehaviorDelegate
 
     function onMenu() 
     {
-        Ui.pushView(new Rez.Menus.MainMenu(), new IBSailingCruiseMenuDelegate(_cruiseView), Ui.SLIDE_UP);
+        Ui.pushView(new Rez.Menus.CruiseMenu(), new CruiseMenuDelegate(_cruiseView), Ui.SLIDE_UP);
         return true;
     }
     

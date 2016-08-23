@@ -2,7 +2,7 @@ using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
 using Toybox.Position as Position;
 
-class IBSailingCruiseApp extends App.AppBase 
+class YASailingApp extends App.AppBase 
 {
 	hidden var _cruiseView;
 	
@@ -30,8 +30,8 @@ class IBSailingCruiseApp extends App.AppBase
     //
     function getInitialView() 
     {
-    	_cruiseView = new IBSailingCruiseView();
-    	var delegate = new IBSailingCruiseDelegate(_cruiseView);
+    	_cruiseView = new CruiseView();
+    	var delegate = new CruiseDelegate(_cruiseView);
     	
         return [ _cruiseView, delegate ];
     }

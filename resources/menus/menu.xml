@@ -1,4 +1,4 @@
-<menu id="MainMenu" title="Menu">
+<menu id="CruiseMenu" title="Menu">
 	<menu-item id="raceTimer">Race Timer</menu-item>
     <menu-item id="exitSave">Exit Save</menu-item>
     <menu-item id="exitDiscard">Exit Discard</menu-item>
