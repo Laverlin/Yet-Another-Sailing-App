@@ -1,7 +1,7 @@
 using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
 
-class IBSailingCruiseMenuDelegate extends Ui.MenuInputDelegate 
+class CruiseMenuDelegate extends Ui.MenuInputDelegate 
 {
 
     var _cruiseView;

@@ -6,7 +6,7 @@ using Toybox.Math as Math;
 using Toybox.Attention as Attention;
 using Toybox.ActivityRecording as Fit;
 
-class IBSailingCruiseView extends Ui.View 
+class CruiseView extends Ui.View 
 {
 
 	hidden var _dcDraw = new DcDraw();
