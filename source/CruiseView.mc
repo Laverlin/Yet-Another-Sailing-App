@@ -16,13 +16,10 @@ class CruiseView extends Ui.View
 	hidden var _activeSession;
 	hidden var _isWhiteBackground = false;
 	hidden var _gpsStatus = 0;
+	hidden var _speedUtility = new SpeedUtility();
 	
 	hidden var _speedSum = 0.0;
 	hidden var _speedCount = 0;
-
-	hidden var _avgSpeedIterator = 0;
-	hidden var _avgSpeedSum = 0;
-	hidden var _avgSpeedValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     function initialize() 
     {
@@ -82,7 +79,7 @@ class CruiseView extends Ui.View
         	
         	// Display average speed for last 10 sec.
         	//
-        	var avgSpeed = AvgLast10(speed);
+        	var avgSpeed = _speedUtility.AvgLast10(speed);
         	_dcDraw.PrintAvgSpeed(dc, avgSpeed.format("%2.1f"));
         }
         
@@ -176,16 +173,5 @@ class CruiseView extends Ui.View
     	Application.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
     	
    		_dcDraw.SetupColors(_isWhiteBackground);
-    }
-
-    // calculates avg speed for last 10 seconds
-    //
-    function AvgLast10(currentSpeed)
-    {
-    	_avgSpeedSum = _avgSpeedSum - _avgSpeedValues[_avgSpeedIterator] + currentSpeed;
-    	_avgSpeedValues[_avgSpeedIterator] = currentSpeed;
-    	_avgSpeedIterator = (_avgSpeedIterator + 1) % 10;    	
-
-    	return _avgSpeedSum/10;
     }
 }
