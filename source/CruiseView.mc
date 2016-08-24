@@ -54,15 +54,10 @@ class CruiseView extends Ui.View
     {   
     	_dcDraw.ClearDc(dc);
     
-    	var clockTime = Sys.getClockTime();
-    	
     	// Display current time
     	//
-        var timeString = Lang.format("$1$:$2$:$3$", 
-        	[clockTime.hour.format("%02d"), 
-        	 clockTime.min.format("%02d"), 
-        	 clockTime.sec.format("%02d")]);
-        _dcDraw.PrintTime(dc, timeString);
+        var clockTime = Sys.getClockTime();        
+        _dcDraw.PrintTime(dc, clockTime);
         
         // Display speed and bearing if GPS available
         //
@@ -70,20 +65,19 @@ class CruiseView extends Ui.View
         {
         	// Display knots
         	//
-        	var speedString = _gpsHelper.SpeedKnot().format("%2.1f");
-        	_dcDraw.PrintSpeed(dc, speedString);
+        	_dcDraw.PrintSpeed(dc, _gpsHelper.SpeedKnot());
         	
         	// Display bearing
         	//
-        	_dcDraw.PrintBearing(dc, _gpsHelper.BearingDegree().format("%003d"));
+        	_dcDraw.PrintBearing(dc, _gpsHelper.BearingDegree());
         	
         	// Display max speed 
         	//
-        	_dcDraw.PrintMaxSpeed(dc, _gpsHelper.MaxSpeedKnot().format("%2.1f"));	
+        	_dcDraw.PrintMaxSpeed(dc, _gpsHelper.MaxSpeedKnot());	
         	
         	// Display average speed for last 10 sec.
         	//
-        	_dcDraw.PrintAvgSpeed(dc, _gpsHelper.AvgSpeedKnotLast10().format("%2.1f"));
+        	_dcDraw.PrintAvgSpeed(dc, _gpsHelper.AvgSpeedKnotLast10());
         }
         
         _dcDraw.DisplayState(dc, _gpsHelper.Accuracy(), _activeSession.isRecording());
