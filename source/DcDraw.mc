@@ -79,11 +79,11 @@ class DcDraw
 		dc.drawLine(109,60,109,160);
     }
     
-    function DisplayState(dc, gpsStatus, recordingStatus)
+    function DisplayState(dc, gpsStatus, recordingStatus, lapCount)
     {
     	dc.setColor(_foregroundColor, _backgroundColor);
     	
-    	dc.drawText(60, 38, Gfx.FONT_XTINY, "lap: 0", Gfx.TEXT_JUSTIFY_RIGHT);
+    	dc.drawText(60, 38, Gfx.FONT_XTINY, Lang.format("lap: $1$",[lapCount]), Gfx.TEXT_JUSTIFY_RIGHT);
     	dc.drawText(110, 38, Gfx.FONT_XTINY, "gps:", Gfx.TEXT_JUSTIFY_RIGHT);
     	dc.drawText(170, 38, Gfx.FONT_XTINY, "rec:", Gfx.TEXT_JUSTIFY_RIGHT);
     	
@@ -110,5 +110,4 @@ class DcDraw
         	dc.fillPolygon([[176, 188], [170, 168], [182, 168]]);
         }
     }
-    
 }
