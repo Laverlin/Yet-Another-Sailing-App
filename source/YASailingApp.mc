@@ -4,7 +4,9 @@ using Toybox.Position as Position;
 
 class YASailingApp extends App.AppBase 
 {
-	hidden var _cruiseView;
+    hidden var _gpsHelper = new GpsHelper();
+	hidden var _cruiseView = new CruiseView(_gpsHelper);
+    
 	
     function initialize() 
     {
@@ -29,7 +31,6 @@ class YASailingApp extends App.AppBase
     //
     function getInitialView() 
     {
-    	_cruiseView = new CruiseView();
     	var delegate = new CruiseDelegate(_cruiseView);
     	
         return [ _cruiseView, delegate ];
@@ -39,6 +40,6 @@ class YASailingApp extends App.AppBase
     //
     function onPosition(info) 
     {
-        _cruiseView.SetPositionInfo(info);
+        _gpsHelper.SetPositionInfo(info);
     }
 }

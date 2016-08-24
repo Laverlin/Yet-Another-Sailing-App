@@ -24,14 +24,18 @@ class GpsHelper
 		return (_positionInfo != null) ? _positionInfo.accuracy : 0;
 	}
 
-	// return current speed in knots
+	// Return current speed in knots
+	// !! _positionInfo should be initialised otherwise exception will be thrown
+	// !! check Accuracy before invoke
 	//
-	function CurrentSpeedKnt() 
+	function SpeedKnot() 
 	{
 		return _positionInfo.speed.toDouble() * 1.9438444924574;
 	}
 
-	// return bearing in degrees
+	// Return bearing in degrees
+	// !! _positionInfo should be initialised otherwise exception will be thrown
+	// !! check Accuracy before invoke
 	//
 	function BearingDegree()
 	{
@@ -39,11 +43,13 @@ class GpsHelper
        	return ((headingDegree > 0) ? bearingDegree : 360 + bearingDegree);
 	}
 	
-	// calculates avg speed for last 10 seconds
+	// Return avg speed for last 10 seconds
+	// !! _positionInfo should be initialised otherwise exception will be thrown
+	// !! check Accuracy before invoke
     //
-    function AvgLast10()
+    function AvgSpeedKnotLast10()
     {
-    	var currentSpeed = CurrentSpeedKnt();
+    	var currentSpeed = SpeedKnot();
     	_avgSpeedSum = _avgSpeedSum - _avgSpeedValues[_avgSpeedIterator] + currentSpeed;
     	_avgSpeedValues[_avgSpeedIterator] = currentSpeed;
     	_avgSpeedIterator = (_avgSpeedIterator + 1) % 10;    	
@@ -51,11 +57,13 @@ class GpsHelper
     	return _avgSpeedSum/10;
     }
 
-    // return max speed
+    // Return max speed
+	// !! _positionInfo should be initialised otherwise exception will be thrown
+	// !! check Accuracy before invoke    
     //
-    function MaxSpeed()
+    function MaxSpeedKnot()
     {
-    	var currentSpeed = CurrentSpeedKnt();
+    	var currentSpeed = SpeedKnot();
     	_maxSpeed = (_maxSpeed < currentSpeed) ? currentSpeed : _maxSpeed;
     	return _maxSpeed;
     }
