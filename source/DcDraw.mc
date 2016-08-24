@@ -34,7 +34,7 @@ class DcDraw
 	function PrintTime(dc, timeString)
 	{
 		dc.setColor(_foregroundColor, _backgroundColor);
-        dc.drawText(109, 15, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(109, 12, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 	
     function PrintSpeed(dc, speedString)
@@ -75,10 +75,16 @@ class DcDraw
     
     function DisplayState(dc, gpsStatus, recordingStatus)
     {
+    	dc.setColor(_foregroundColor, _backgroundColor);
+    	
+    	dc.drawText(60, 38, Gfx.FONT_XTINY, "lap: 0", Gfx.TEXT_JUSTIFY_RIGHT);
+    	dc.drawText(110, 38, Gfx.FONT_XTINY, "gps:", Gfx.TEXT_JUSTIFY_RIGHT);
+    	dc.drawText(170, 38, Gfx.FONT_XTINY, "rec:", Gfx.TEXT_JUSTIFY_RIGHT);
+    	
     	dc.setColor(_gpsColorsArray[gpsStatus], Gfx.COLOR_TRANSPARENT);
-        dc.fillCircle(180, 48, 6);
+        dc.fillCircle(120, 48, 6);
         
         dc.setColor(recordingStatus ? Gfx.COLOR_GREEN : Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
-        dc.fillCircle(180, 172, 6);
+        dc.fillCircle(180, 48, 6);
     }
 }

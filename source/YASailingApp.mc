@@ -25,7 +25,6 @@ class YASailingApp extends App.AppBase
     	Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
     }
     
-
     // Return the initial view of your application here
     //
     function getInitialView() 
