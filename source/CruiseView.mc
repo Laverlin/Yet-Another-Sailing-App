@@ -65,7 +65,8 @@ class CruiseView extends Ui.View
         {
         	// Display knots
         	//
-        	_dcDraw.PrintSpeed(dc, _gpsHelper.SpeedKnot());
+        	var currentSpeed = _gpsHelper.SpeedKnot();
+        	_dcDraw.PrintSpeed(dc, currentSpeed);
         	
         	// Display bearing
         	//
@@ -77,7 +78,12 @@ class CruiseView extends Ui.View
         	
         	// Display average speed for last 10 sec.
         	//
-        	_dcDraw.PrintAvgSpeed(dc, _gpsHelper.AvgSpeedKnotLast10());
+        	var avgSpeed = _gpsHelper.AvgSpeedKnotLast10();
+        	_dcDraw.PrintAvgSpeed(dc, avgSpeed);
+        	
+        	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
+        	//
+        	_dcDraw.DisplaySpeedTrend(dc, currentSpeed - avgSpeed); 
         }
         
         _dcDraw.DisplayState(dc, _gpsHelper.Accuracy(), _activeSession.isRecording());

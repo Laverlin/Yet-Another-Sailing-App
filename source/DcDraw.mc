@@ -93,4 +93,22 @@ class DcDraw
         dc.setColor(recordingStatus ? Gfx.COLOR_GREEN : Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
         dc.fillCircle(180, 48, 6);
     }
+    
+    // Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
+    //
+    function DisplaySpeedTrend(dc, speedDiff)
+    {
+    	if (speedDiff > 0)
+        {
+        	dc.setColor(Gfx.COLOR_GREEN, _backgroundColor);
+        	dc.fillPolygon([[176, 166], [170, 188], [182, 188]]);
+        }
+        
+        if (speedDiff < 0)
+        {
+        	dc.setColor(Gfx.COLOR_RED, _backgroundColor);
+        	dc.fillPolygon([[176, 188], [170, 168], [182, 168]]);
+        }
+    }
+    
 }
