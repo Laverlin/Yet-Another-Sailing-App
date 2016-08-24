@@ -39,6 +39,6 @@ class YASailingApp extends App.AppBase
     //
     function onPosition(info) 
     {
-        _cruiseView.setPosition(info);
+        _cruiseView.SetPositionInfo(info);
     }
 }

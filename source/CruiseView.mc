@@ -10,22 +10,17 @@ class CruiseView extends Ui.View
 {
 
 	hidden var _dcDraw = new DcDraw();
+    hidden var _gpsHelper = new GpsHelper();
 	hidden var _timer;
 	hidden var _positionInfo;
-	hidden var _maxSpeed;
+
 	hidden var _activeSession;
 	hidden var _isWhiteBackground = false;
-	hidden var _gpsStatus = 0;
-	hidden var _speedUtility = new SpeedUtility();
-	
-	hidden var _speedSum = 0.0;
-	hidden var _speedCount = 0;
 
     function initialize() 
     {
         View.initialize();
         _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
-        _maxSpeed = 0.0;
         _isWhiteBackground = Application.getApp().getProperty("isWhiteBackground");
         _dcDraw.SetupColors(_isWhiteBackground);
     }
@@ -56,34 +51,27 @@ class CruiseView extends Ui.View
         
         // Display speed and bearing if GPS available
         //
-        if (_positionInfo != null && _positionInfo.accuracy > 0)
+        if (_gpsHelper.Accuracy() > 0)
         {
-        	_gpsStatus = _positionInfo.accuracy;
-        
         	// Display knots
         	//
-        	var speed = (_positionInfo.speed.toDouble() * 1.94384);
-        	var speedString = speed.format("%2.1f");
+        	var speedString = _gpsHelper.CurrentSpeenKnt().format("%2.1f");
         	_dcDraw.PrintSpeed(dc, speedString);
         	
         	// Display bearing
         	//
-        	var headingDegree = Math.toDegrees(_positionInfo.heading);
-        	var bearingString = ((headingDegree > 0) ? headingDegree : 360 + headingDegree).format("%003d");
-        	_dcDraw.PrintBearing(dc, bearingString);
+        	_dcDraw.PrintBearing(dc, _gpsHelper.BearingDegree().format("%003d"));
         	
         	// Display max speed 
         	//
-        	_maxSpeed = (_maxSpeed < speed) ? speed : _maxSpeed;
-        	_dcDraw.PrintMaxSpeed(dc, _maxSpeed.format("%2.1f"));	
+        	_dcDraw.PrintMaxSpeed(dc, _gpsHelper.MaxSpeed().format("%2.1f"));	
         	
         	// Display average speed for last 10 sec.
         	//
-        	var avgSpeed = _speedUtility.AvgLast10(speed);
-        	_dcDraw.PrintAvgSpeed(dc, avgSpeed.format("%2.1f"));
+        	_dcDraw.PrintAvgSpeed(dc, _gpsHelper.AvgLast10().format("%2.1f"));
         }
         
-        _dcDraw.DisplayState(dc, _gpsStatus, _activeSession.isRecording());
+        _dcDraw.DisplayState(dc, _gpsHelper.Accuracy(), _activeSession.isRecording());
         
         _dcDraw.DrawGrid(dc);
     }
@@ -104,16 +92,16 @@ class CruiseView extends Ui.View
     
     // update position from GPS
     //
-    function setPosition(info)
+    function SetPositionInfo(info)
     {
-    	_positionInfo = info;
+    	_gpsHelper.SetPositionInfo(info);
     }
     
     // Start & Pause activity recording
     //
     function StartStopActivity()
     {
-    	if (_gpsStatus < 2 && !_activeSession.isRecording())
+    	if (_gpsHelper.Accuracy() < 2 && !_activeSession.isRecording())
     	{
     		return;
     	}
@@ -128,8 +116,6 @@ class CruiseView extends Ui.View
     	}
     	else
     	{
-    		_speedSum = 0.0;
-    		_speedCount = 0;
     		_activeSession.stop();
     	}
     }
@@ -143,9 +129,7 @@ class CruiseView extends Ui.View
             var vibe = [new Attention.VibeProfile(30, 300)];
             Attention.playTone(Attention.TONE_LOUD_BEEP);        
             Attention.vibrate(vibe);
-            
-            _speedSum = 0.0;
-            _speedCount = 0;            
+           
             _activeSession.addLap();
         }
     }
