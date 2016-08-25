@@ -11,8 +11,6 @@ class CruiseView extends Ui.View
 	hidden var _dcDraw = new DcDraw();
     hidden var _gpsHelper;
 	hidden var _timer;
-	hidden var _lapCounter = 0;
-	hidden var _lapArray = new [10];
 	hidden var _activeSession;
 	
 	hidden var _isWhiteBackground = false;
@@ -84,9 +82,11 @@ class CruiseView extends Ui.View
         	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
         	//
         	_dcDraw.DisplaySpeedTrend(dc, currentSpeed - avgSpeed); 
+
+            _gpsHelper.UpdateLapData();
         }
         
-        _dcDraw.DisplayState(dc, _gpsHelper.Accuracy(), _activeSession.isRecording(), _lapCounter);
+        _dcDraw.DisplayState(dc, _gpsHelper.Accuracy(), _activeSession.isRecording(), _gpsHelper.GetLapCount());
         
         _dcDraw.DrawGrid(dc);
     }
@@ -105,7 +105,7 @@ class CruiseView extends Ui.View
         	return;	
         }
         
-        _lapCounter = _lapCounter + 1;
+        _gpsHelper.AddLap();
         
         var vibe = [new Attention.VibeProfile(30, 300)];
         Attention.playTone(Attention.TONE_LOUD_BEEP);        
