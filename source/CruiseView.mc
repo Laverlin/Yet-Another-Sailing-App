@@ -8,13 +8,13 @@ using Toybox.ActivityRecording as Fit;
 
 class CruiseView extends Ui.View 
 {
-
 	hidden var _dcDraw = new DcDraw();
     hidden var _gpsHelper;
 	hidden var _timer;
-	hidden var _positionInfo;
-
+	hidden var _lapCounter = 0;
+	hidden var _lapArray = new [10];
 	hidden var _activeSession;
+	
 	hidden var _isWhiteBackground = false;
 
     function initialize(gpsHelper) 
@@ -65,7 +65,8 @@ class CruiseView extends Ui.View
         {
         	// Display knots
         	//
-        	_dcDraw.PrintSpeed(dc, _gpsHelper.SpeedKnot());
+        	var currentSpeed = _gpsHelper.SpeedKnot();
+        	_dcDraw.PrintSpeed(dc, currentSpeed);
         	
         	// Display bearing
         	//
@@ -77,10 +78,15 @@ class CruiseView extends Ui.View
         	
         	// Display average speed for last 10 sec.
         	//
-        	_dcDraw.PrintAvgSpeed(dc, _gpsHelper.AvgSpeedKnotLast10());
+        	var avgSpeed = _gpsHelper.AvgSpeedKnotLast10();
+        	_dcDraw.PrintAvgSpeed(dc, avgSpeed);
+        	
+        	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
+        	//
+        	_dcDraw.DisplaySpeedTrend(dc, currentSpeed - avgSpeed); 
         }
         
-        _dcDraw.DisplayState(dc, _gpsHelper.Accuracy(), _activeSession.isRecording());
+        _dcDraw.DisplayState(dc, _gpsHelper.Accuracy(), _activeSession.isRecording(), _lapCounter);
         
         _dcDraw.DrawGrid(dc);
     }
@@ -91,12 +97,19 @@ class CruiseView extends Ui.View
     {
         if (_activeSession.isRecording())
         {
-            var vibe = [new Attention.VibeProfile(30, 300)];
-            Attention.playTone(Attention.TONE_LOUD_BEEP);        
-            Attention.vibrate(vibe);
-           
             _activeSession.addLap();
         }
+        
+        if (_gpsHelper.Accuracy() < 2)	
+        {
+        	return;	
+        }
+        
+        _lapCounter = _lapCounter + 1;
+        
+        var vibe = [new Attention.VibeProfile(30, 300)];
+        Attention.playTone(Attention.TONE_LOUD_BEEP);        
+        Attention.vibrate(vibe);        
     }    
     
     // Start & Pause activity recording
