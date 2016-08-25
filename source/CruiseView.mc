@@ -20,7 +20,7 @@ class CruiseView extends Ui.View
         View.initialize();
         _gpsHelper = gpsHelper;
         _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
-        _isWhiteBackground = Application.getApp().getProperty(@Strings.BackgroundPropertyName);
+        _isWhiteBackground = Application.getApp().getProperty("isWhiteBackground");
         _dcDraw.SetupColors(_isWhiteBackground);
     }
 
@@ -155,7 +155,7 @@ class CruiseView extends Ui.View
     {
     	_isWhiteBackground = !_isWhiteBackground;
     	
-    	Application.getApp().setProperty(@Strings.BackgroundPropertyName, _isWhiteBackground);
+    	Application.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
     	
    		_dcDraw.SetupColors(_isWhiteBackground);
     }

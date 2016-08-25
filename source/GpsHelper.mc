@@ -82,14 +82,14 @@ class GpsHelper
     //
     function UpdateLapData()
     {
-    	var currentSpeed = SpeedKnot();
+    	var currentSpeed = _speedKnot;
     	_currentLap.MaxSpeed = (_currentLap.MaxSpeed < currentSpeed) ? currentSpeed : _currentLap.MaxSpeed;
     	_lapSpeedSum = _lapSpeedSum + currentSpeed;
     	_currentLap.LapTime = _currentLap.LapTime + 1;
 
     	// speed in m/s, once we take data every second, it means how many meters we pass from last time.
     	//
-    	_currentLap.Distance = _positionInfo.speed.toDouble();
+    	_currentLap.Distance = _currentLap.Distance + _positionInfo.speed.toDouble();
     }
 
     // Add new lap statistic
@@ -99,10 +99,11 @@ class GpsHelper
     	// Since time calculated once in second, time = number of speed measurements
     	//
     	_currentLap.AvgSpeed = _lapSpeedSum / _currentLap.LapTime;
+    	_lapSpeedSum = 0;
 
     	// convert distance to nautical miles
     	//
-    	_currentLap.Distance = _currentLap.Distance / 1852
+    	_currentLap.Distance = _currentLap.Distance / 1852;
 
     	_lapArray[_lapCount] = _currentLap;
 
@@ -117,12 +118,14 @@ class GpsHelper
     	Sys.println(Lang.format("lap time  : $1$ sec, $2$:$3$:$4$", 
     		[_currentLap.LapTime.format("%02d"), hour.format("%02d"), min.format("%02d"), sec.format("%02d")]));
     	Sys.println(Lang.format("distance  : $1$ nm", [_currentLap.Distance.format("%3.2f")]));
-    	Sys.println(Lang.format("distance2 : $1$ nm", [_currentLap.AvgSpeed/(_currentLap.LapTime/3600).format("%3.2f")]));
+    	var timeInHour = (_currentLap.LapTime.toDouble()/3600);
+    	var distance = _currentLap.AvgSpeed/timeInHour;
+    	Sys.println(Lang.format("distance2 : $1$ nm", [distance.format("%3.2f")]));
 
     	// new lap
     	//
     	_currentLap = new LapInfo();
-    	_lapCount = _lapCount + 1
+    	_lapCount = _lapCount + 1;
     }
 
     function GetLapCount()
