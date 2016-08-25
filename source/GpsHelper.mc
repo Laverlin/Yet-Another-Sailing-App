@@ -44,6 +44,7 @@ class GpsHelper
 	}
 	
 	// Return avg speed for last 10 seconds
+	// !! Must be called just once per second !
 	// !! _positionInfo should be initialised otherwise exception will be thrown
 	// !! check Accuracy before invoke
     //
