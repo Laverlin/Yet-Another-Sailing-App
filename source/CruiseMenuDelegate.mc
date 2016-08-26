@@ -3,7 +3,6 @@ using Toybox.System as Sys;
 
 class CruiseMenuDelegate extends Ui.MenuInputDelegate 
 {
-
     var _cruiseView;
     
     function initialize(cruiseView) 

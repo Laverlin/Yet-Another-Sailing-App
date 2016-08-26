@@ -1,5 +1,6 @@
 using Toybox.System as Sys;
 using Toybox.Lang as Lang;
+using Toybox.Time as Time;
 
 /// Helper class to work with GPS features
 ///
@@ -112,14 +113,11 @@ class GpsHelper
     	Sys.println("====== lap :: " + _lapCount.toString());
     	Sys.println(Lang.format("max speed : $1$ knot", [_currentLap.MaxSpeed.format("%2.1f")]));
     	Sys.println(Lang.format("avg speed : $1$ knot", [_currentLap.AvgSpeed.format("%2.1f")]));
-    	var hour = _currentLap.LapTime / 3600;
-    	var min = (_currentLap.LapTime % 3600) / 60;
-    	var sec = (_currentLap.LapTime % 3600) % 60;
-    	Sys.println(Lang.format("lap time  : $1$ sec, $2$:$3$:$4$", 
-    		[_currentLap.LapTime.format("%02d"), hour.format("%02d"), min.format("%02d"), sec.format("%02d")]));
+    	Sys.println(Lang.format("lap time  : $1$ sec, $2$", 
+    		[_currentLap.LapTime.format("%02d"), SecToString(_currentLap.LapTime)]));
     	Sys.println(Lang.format("distance  : $1$ nm", [_currentLap.Distance.format("%3.2f")]));
     	var timeInHour = (_currentLap.LapTime.toDouble()/3600);
-    	var distance = _currentLap.AvgSpeed/timeInHour;
+    	var distance = _currentLap.AvgSpeed * timeInHour;
     	Sys.println(Lang.format("distance2 : $1$ nm", [distance.format("%3.2f")]));
 
     	// new lap
@@ -131,5 +129,31 @@ class GpsHelper
     function GetLapCount()
     {
     	return _lapCount;
+    }
+
+    // write statistic of app usage to log file
+    //
+    function LogAppStatistic(timeStart, timeEnd)
+    {
+        var timeInfo = Gregorian.info(timeStart, Time.FORMAT_MEDIUM);
+        var duration = timeEnd.subtract(timeStart);
+        Sys.println(
+            Lang.format("====== app usage data :: $1$-$2$-$3$ $4$:$5$:$6$", 
+            [timeInfo.year.format("%4d"), timeInfo.month, timeInfo.day.format("%02d"),
+            timeInfo.hour.format("%02d"), timeInfo.min.format("%02d"), timeInfo.sec.format("%02d")]));
+        Sys.println(Lang.format("max speed : $1$ knot", [_maxSpeed.format("%2.1f")]));
+        Sys.println("duration : " + SecToString(duration.value));
+    }
+
+    // convert time in seconds to string in hh:mm:ss
+    //
+    function SecToString(timeInSec)
+    {
+        var hour = _currentLap.LapTime / 3600;
+        var min = (_currentLap.LapTime % 3600) / 60;
+        var sec = (_currentLap.LapTime % 3600) % 60;
+        return Lang.format(
+            "$1$:$2$:$3$", 
+            [hour.format("%02d"), min.format("%02d"), sec.format("%02d")]);
     }
 }

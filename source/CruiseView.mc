@@ -5,6 +5,7 @@ using Toybox.Lang as Lang;
 using Toybox.Math as Math;
 using Toybox.Attention as Attention;
 using Toybox.ActivityRecording as Fit;
+using Toybox.Time as Time;
 
 class CruiseView extends Ui.View 
 {
@@ -12,6 +13,7 @@ class CruiseView extends Ui.View
     hidden var _gpsHelper;
 	hidden var _timer;
 	hidden var _activeSession;
+    hidden var _startTime;
 	
 	hidden var _isWhiteBackground = false;
 
@@ -22,6 +24,7 @@ class CruiseView extends Ui.View
         _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
         _isWhiteBackground = Application.getApp().getProperty("isWhiteBackground");
         _dcDraw.SetupColors(_isWhiteBackground);
+        _startTime = Time.now();
     }
 
 	// SetUp timer on show to update every second
@@ -105,11 +108,11 @@ class CruiseView extends Ui.View
         	return;	
         }
         
-        _gpsHelper.AddLap();
-        
         var vibe = [new Attention.VibeProfile(30, 300)];
         Attention.playTone(Attention.TONE_LOUD_BEEP);        
         Attention.vibrate(vibe);        
+
+        _gpsHelper.AddLap();        
     }    
     
     // Start & Pause activity recording
@@ -141,6 +144,7 @@ class CruiseView extends Ui.View
     	{
     		_activeSession.save();
     	}
+        _gpsHelper.LogAppStatistic(_startTime, Time.now());
     }
     
     function DiscardActivity()
@@ -149,6 +153,7 @@ class CruiseView extends Ui.View
     	{
     		_activeSession.discard();
     	}
+        _gpsHelper.LogAppStatistic(_startTime, Time.now());
     }
     
     function InverseColor()
