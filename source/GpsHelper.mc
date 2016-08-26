@@ -135,23 +135,23 @@ class GpsHelper
     //
     function LogAppStatistic(timeStart, timeEnd)
     {
-        var timeInfo = Gregorian.info(timeStart, Time.FORMAT_MEDIUM);
+        var timeInfo = Time.Gregorian.info(timeStart, Time.FORMAT_MEDIUM);
         var duration = timeEnd.subtract(timeStart);
         Sys.println(
             Lang.format("====== app usage data :: $1$-$2$-$3$ $4$:$5$:$6$", 
             [timeInfo.year.format("%4d"), timeInfo.month, timeInfo.day.format("%02d"),
             timeInfo.hour.format("%02d"), timeInfo.min.format("%02d"), timeInfo.sec.format("%02d")]));
         Sys.println(Lang.format("max speed : $1$ knot", [_maxSpeed.format("%2.1f")]));
-        Sys.println("duration : " + SecToString(duration.value));
+        Sys.println("duration : " + SecToString(duration.value()));
     }
 
     // convert time in seconds to string in hh:mm:ss
     //
     function SecToString(timeInSec)
     {
-        var hour = _currentLap.LapTime / 3600;
-        var min = (_currentLap.LapTime % 3600) / 60;
-        var sec = (_currentLap.LapTime % 3600) % 60;
+        var hour = timeInSec / 3600;
+        var min = (timeInSec % 3600) / 60;
+        var sec = (timeInSec % 3600) % 60;
         return Lang.format(
             "$1$:$2$:$3$", 
             [hour.format("%02d"), min.format("%02d"), sec.format("%02d")]);
