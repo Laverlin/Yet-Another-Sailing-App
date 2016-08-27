@@ -4,7 +4,7 @@ using Toybox.Time as Time;
 
 /// Helper class to work with GPS features
 ///
-class GpsHelper
+class GpsWrapper
 {
 	hidden var _positionInfo;
 

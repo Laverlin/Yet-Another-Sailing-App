@@ -1,16 +1,13 @@
 using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
-using Toybox.Graphics as Gfx;
-using Toybox.Lang as Lang;
-using Toybox.Math as Math;
 using Toybox.Attention as Attention;
 using Toybox.ActivityRecording as Fit;
 using Toybox.Time as Time;
 
 class CruiseView extends Ui.View 
 {
-	hidden var _dcDraw = new DcDraw();
-    hidden var _gpsHelper;
+	hidden var _dcWrapper = new DcWrapper();
+    hidden var _gpsWrapper;
 	hidden var _timer;
 	hidden var _activeSession;
     hidden var _startTime;
@@ -20,10 +17,10 @@ class CruiseView extends Ui.View
     function initialize(gpsHelper) 
     {
         View.initialize();
-        _gpsHelper = gpsHelper;
+        _gpsWrapper = gpsHelper;
         _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
         _isWhiteBackground = Application.getApp().getProperty("isWhiteBackground");
-        _dcDraw.SetupColors(_isWhiteBackground);
+        _dcWrapper.SetupColors(_isWhiteBackground);
         _startTime = Time.now();
     }
 
@@ -53,45 +50,45 @@ class CruiseView extends Ui.View
     //
     function onUpdate(dc) 
     {   
-    	_dcDraw.ClearDc(dc);
+    	_dcWrapper.ClearDc(dc);
     
     	// Display current time
     	//
         var clockTime = Sys.getClockTime();        
-        _dcDraw.PrintTime(dc, clockTime);
+        _dcWrapper.PrintTime(dc, clockTime);
         
         // Display speed and bearing if GPS available
         //
-        if (_gpsHelper.Accuracy() > 0)
+        if (_gpsWrapper.Accuracy() > 0)
         {
         	// Display knots
         	//
-        	var currentSpeed = _gpsHelper.SpeedKnot();
-        	_dcDraw.PrintSpeed(dc, currentSpeed);
+        	var currentSpeed = _gpsWrapper.SpeedKnot();
+        	_dcWrapper.PrintSpeed(dc, currentSpeed);
         	
         	// Display bearing
         	//
-        	_dcDraw.PrintBearing(dc, _gpsHelper.BearingDegree());
+        	_dcWrapper.PrintBearing(dc, _gpsWrapper.BearingDegree());
         	
         	// Display max speed 
         	//
-        	_dcDraw.PrintMaxSpeed(dc, _gpsHelper.MaxSpeedKnot());	
+        	_dcWrapper.PrintMaxSpeed(dc, _gpsWrapper.MaxSpeedKnot());	
         	
         	// Display average speed for last 10 sec.
         	//
-        	var avgSpeed = _gpsHelper.AvgSpeedKnotLast10();
-        	_dcDraw.PrintAvgSpeed(dc, avgSpeed);
+        	var avgSpeed = _gpsWrapper.AvgSpeedKnotLast10();
+        	_dcWrapper.PrintAvgSpeed(dc, avgSpeed);
         	
         	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
         	//
-        	_dcDraw.DisplaySpeedTrend(dc, currentSpeed - avgSpeed); 
+        	_dcWrapper.DisplaySpeedTrend(dc, currentSpeed - avgSpeed); 
 
-            _gpsHelper.UpdateLapData();
+            _gpsWrapper.UpdateLapData();
         }
         
-        _dcDraw.DisplayState(dc, _gpsHelper.Accuracy(), _activeSession.isRecording(), _gpsHelper.GetLapCount());
+        _dcWrapper.DisplayState(dc, _gpsWrapper.Accuracy(), _activeSession.isRecording(), _gpsWrapper.GetLapCount());
         
-        _dcDraw.DrawGrid(dc);
+        _dcWrapper.DrawGrid(dc);
     }
 
     // Add new lap and drop all lap counters 
@@ -103,7 +100,7 @@ class CruiseView extends Ui.View
             _activeSession.addLap();
         }
         
-        if (_gpsHelper.Accuracy() < 2)	
+        if (_gpsWrapper.Accuracy() < 2)	
         {
         	return;	
         }
@@ -112,14 +109,14 @@ class CruiseView extends Ui.View
         Attention.playTone(Attention.TONE_LOUD_BEEP);        
         Attention.vibrate(vibe);        
 
-        _gpsHelper.AddLap();        
+        _gpsWrapper.AddLap();        
     }    
     
     // Start & Pause activity recording
     //
     function StartStopActivity()
     {
-    	if (_gpsHelper.Accuracy() < 2 && !_activeSession.isRecording())
+    	if (_gpsWrapper.Accuracy() < 2 && !_activeSession.isRecording())
     	{
     		return;
     	}
@@ -144,7 +141,7 @@ class CruiseView extends Ui.View
     	{
     		_activeSession.save();
     	}
-        _gpsHelper.LogAppStatistic(_startTime, Time.now());
+        _gpsWrapper.LogAppStatistic(_startTime, Time.now());
     }
     
     function DiscardActivity()
@@ -153,7 +150,7 @@ class CruiseView extends Ui.View
     	{
     		_activeSession.discard();
     	}
-        _gpsHelper.LogAppStatistic(_startTime, Time.now());
+        _gpsWrapper.LogAppStatistic(_startTime, Time.now());
     }
     
     function InverseColor()
@@ -162,6 +159,6 @@ class CruiseView extends Ui.View
     	
     	Application.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
     	
-   		_dcDraw.SetupColors(_isWhiteBackground);
+   		_dcWrapper.SetupColors(_isWhiteBackground);
     }
 }

@@ -5,7 +5,7 @@ using Toybox.Graphics as Gfx;
 /// all boiler-plate code for drawing objects need to be done manually.
 /// This class dedicated to hide all dirty work around dc
 /// 
-class DcDraw
+class DcWrapper
 {
 	hidden var _backgroundColor = Gfx.COLOR_BLACK;
 	hidden var _foregroundColor = Gfx.COLOR_WHITE;
