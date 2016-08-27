@@ -44,7 +44,7 @@ class DcWrapper
         var speedString = speed.format("%2.1f");
     	dc.setColor(_foregroundColor, _backgroundColor);
         dc.drawText(90, 60, Gfx.FONT_NUMBER_HOT, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(102, 134, Gfx.FONT_XTINY, "knot", Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(102, 134, Gfx.FONT_XTINY, "SOG", Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
     function PrintBearing(dc, bearing)
@@ -52,7 +52,7 @@ class DcWrapper
         var bearingString = bearing.format("%003d");
     	dc.setColor(_foregroundColor, _backgroundColor);
         dc.drawText(200, 60, Gfx.FONT_NUMBER_HOT, bearingString, Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(208, 134, Gfx.FONT_XTINY, "bearing", Gfx.TEXT_JUSTIFY_RIGHT);    
+        dc.drawText(208, 134, Gfx.FONT_XTINY, "COG", Gfx.TEXT_JUSTIFY_RIGHT);    
     }
     
     function PrintMaxSpeed(dc, maxSpeed)
