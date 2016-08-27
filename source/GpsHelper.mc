@@ -116,7 +116,7 @@ class GpsHelper
     	Sys.println(Lang.format("lap time  : $1$ sec, $2$", 
     		[_currentLap.LapTime.format("%02d"), SecToString(_currentLap.LapTime)]));
     	Sys.println(Lang.format("distance  : $1$ nm", [_currentLap.Distance.format("%3.2f")]));
-    	var timeInHour = (_currentLap.LapTime.toDouble()/3600);
+    	var timeInHour = (_currentLap.LapTime.toDouble()/Time.Gregorian.SECONDS_PER_HOUR);
     	var distance = _currentLap.AvgSpeed * timeInHour;
     	Sys.println(Lang.format("distance2 : $1$ nm", [distance.format("%3.2f")]));
 
@@ -149,9 +149,9 @@ class GpsHelper
     //
     function SecToString(timeInSec)
     {
-        var hour = timeInSec / 3600;
-        var min = (timeInSec % 3600) / 60;
-        var sec = (timeInSec % 3600) % 60;
+        var hour = timeInSec / Time.Gregorian.SECONDS_PER_HOUR;
+        var min = (timeInSec % Time.Gregorian.SECONDS_PER_HOUR) / Time.Gregorian.SECONDS_PER_MINUTE;
+        var sec = (timeInSec % Time.Gregorian.SECONDS_PER_HOUR) % Time.Gregorian.SECONDS_PER_MINUTE;
         return Lang.format(
             "$1$:$2$:$3$", 
             [hour.format("%02d"), min.format("%02d"), sec.format("%02d")]);

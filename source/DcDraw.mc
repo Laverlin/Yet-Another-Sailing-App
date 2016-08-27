@@ -101,13 +101,13 @@ class DcDraw
     	if (speedDiff > 0)
         {
         	dc.setColor(Gfx.COLOR_GREEN, _backgroundColor);
-        	dc.fillPolygon([[176, 166], [170, 188], [182, 188]]);
+        	dc.fillPolygon([[100, 64], [94, 86], [106, 86]]);
         }
         
         if (speedDiff < 0)
         {
         	dc.setColor(Gfx.COLOR_RED, _backgroundColor);
-        	dc.fillPolygon([[176, 188], [170, 168], [182, 168]]);
+        	dc.fillPolygon([[94, 64], [100, 86], [106, 64]]);
         }
     }
 }
