@@ -22,7 +22,13 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
         {
             _cruiseView.DiscardActivity();
             Sys.exit();
-        }      
+        }   
+        else if (item == :lapView)
+        {
+        	var view = new LapView(_cruiseView.GpsWrapper());
+        	Ui.switchToView(view, new LapViewDelegate(view), Ui.SLIDE_RIGHT);
+        	return true;
+        }    
         else if (item == :inverseColor)
         {
         	_cruiseView.InverseColor();

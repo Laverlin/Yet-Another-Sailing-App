@@ -130,6 +130,11 @@ class GpsWrapper
     {
     	return _lapCount;
     }
+    
+    function GetLap(lapNum)
+    {
+    	return _lapArray[lapNum];
+    }
 
     // write statistic of app usage to log file
     //

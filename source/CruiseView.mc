@@ -161,4 +161,9 @@ class CruiseView extends Ui.View
     	
    		_dcWrapper.SetupColors(_isWhiteBackground);
     }
+    
+    function GpsWrapper()
+    {
+    	return _gpsWrapper;
+    }
 }
