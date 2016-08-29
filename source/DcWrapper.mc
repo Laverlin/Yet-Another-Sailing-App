@@ -126,5 +126,5 @@ class DcWrapper
         dc.drawText(109, 110, Gfx.FONT_MEDIUM, "distance : " + lapInfo.Distance.format("%2d"), Gfx.TEXT_JUSTIFY_CENTER);
         dc.drawText(109, 140, Gfx.FONT_MEDIUM, "lap time : " + lapInfo.LapTime.toString(), Gfx.TEXT_JUSTIFY_CENTER);
     }        
-    }
+    
 }
