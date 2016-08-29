@@ -2,12 +2,12 @@ using Toybox.WatchUi as Ui;
 
 class LapViewDelegate extends Ui.BehaviorDelegate 
 {
-	hidden var _lapView;
+	hidden var _lapAppay;
 	
-    function initialize(lapView) 
+    function initialize(lapArray) 
     {
         BehaviorDelegate.initialize();
-        _lapView = lapView;
+        _lapArray = lapArray;
     }
     
     function onSelect()

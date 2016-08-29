@@ -20,6 +20,10 @@ class GpsWrapper
 	hidden var _lapSpeedSum = 0;
 	hidden var _lapCount = 0;
 
+    function initialize()
+    {
+        _currentLap.LapStartTime = Time.now();
+    }
 
 	// Should call every GPS info change
 	//
@@ -123,6 +127,7 @@ class GpsWrapper
     	// new lap
     	//
     	_currentLap = new LapInfo();
+        _currentLap.LapStartTime = Time.now();
     	_lapCount = _lapCount + 1;
     }
 
@@ -131,9 +136,9 @@ class GpsWrapper
     	return _lapCount;
     }
     
-    function GetLap(lapNum)
+    function GetLapArray()
     {
-    	return _lapArray[lapNum];
+    	return _lapArray;
     }
 
     // write statistic of app usage to log file

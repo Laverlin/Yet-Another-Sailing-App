@@ -6,7 +6,7 @@ using Toybox.Time as Time;
 
 class CruiseView extends Ui.View 
 {
-	hidden var _dcWrapper = new DcWrapper();
+	hidden var _dcWrapper;
     hidden var _gpsWrapper;
 	hidden var _timer;
 	hidden var _activeSession;
@@ -14,10 +14,11 @@ class CruiseView extends Ui.View
 	
 	hidden var _isWhiteBackground = false;
 
-    function initialize(gpsHelper) 
+    function initialize(gpsWrapper, dcWrapper) 
     {
         View.initialize();
-        _gpsWrapper = gpsHelper;
+        _gpsWrapper = gpsWrapper;
+        _dcWrapper = dcWrapper;
         _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
         _isWhiteBackground = Application.getApp().getProperty("isWhiteBackground");
         _dcWrapper.SetupColors(_isWhiteBackground);
@@ -160,10 +161,5 @@ class CruiseView extends Ui.View
     	Application.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
     	
    		_dcWrapper.SetupColors(_isWhiteBackground);
-    }
-    
-    function GpsWrapper()
-    {
-    	return _gpsWrapper;
     }
 }

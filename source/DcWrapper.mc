@@ -110,4 +110,21 @@ class DcWrapper
         	dc.fillPolygon([[94, 64], [100, 86], [106, 64]]);
         }
     }
+
+    function PrintLapInfo(lapInfo)
+    {
+        dc.setColor(_foregroundColor, _backgroundColor);
+        dc.clear();
+        
+        var timeInfo = Time.Gregorian.info(lapInfo.LapstartTime, Time.FORMAT_MEDIUM);
+
+
+        dc.drawText(109, 12, Gfx.FONT_MEDIUM, Lang.format("lap :: %1% [%2%:%3%]",
+             [lapInfo.LapNum.format("%2d"), timeInfo.hour.format("%02d"), timeInfo.min.format("%02d")], Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(109, 50, Gfx.FONT_MEDIUM, "max speed : " + lapInfo.MaxSpeed.format("%2.1f"), Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(109, 80, Gfx.FONT_MEDIUM, "avg speed : " + lapInfo.AvgSpeed.format("%2.1f"), Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(109, 110, Gfx.FONT_MEDIUM, "distance : " + lapInfo.Distance.format("%2d"), Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(109, 140, Gfx.FONT_MEDIUM, "lap time : " + lapInfo.LapTime.toString(), Gfx.TEXT_JUSTIFY_CENTER);
+    }        
+    }
 }
