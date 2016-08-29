@@ -23,6 +23,7 @@ class GpsWrapper
     function initialize()
     {
         _currentLap.LapStartTime = Time.now();
+        _currentLap.LapNum = _lapCount;
     }
 
 	// Should call every GPS info change
@@ -129,6 +130,7 @@ class GpsWrapper
     	_currentLap = new LapInfo();
         _currentLap.LapStartTime = Time.now();
     	_lapCount = _lapCount + 1;
+        _currentLap.LapNum = _lapCount;
     }
 
     function GetLapCount()
@@ -152,18 +154,6 @@ class GpsWrapper
             [timeInfo.year.format("%4d"), timeInfo.month, timeInfo.day.format("%02d"),
             timeInfo.hour.format("%02d"), timeInfo.min.format("%02d"), timeInfo.sec.format("%02d")]));
         Sys.println(Lang.format("max speed : $1$ knot", [_maxSpeed.format("%2.1f")]));
-        Sys.println("duration : " + SecToString(duration.value()));
-    }
-
-    // convert time in seconds to string in hh:mm:ss
-    //
-    function SecToString(timeInSec)
-    {
-        var hour = timeInSec / Time.Gregorian.SECONDS_PER_HOUR;
-        var min = (timeInSec % Time.Gregorian.SECONDS_PER_HOUR) / Time.Gregorian.SECONDS_PER_MINUTE;
-        var sec = (timeInSec % Time.Gregorian.SECONDS_PER_HOUR) % Time.Gregorian.SECONDS_PER_MINUTE;
-        return Lang.format(
-            "$1$:$2$:$3$", 
-            [hour.format("%02d"), min.format("%02d"), sec.format("%02d")]);
+        Sys.println("duration : " + YALib.SecToString(duration.value()));
     }
 }
