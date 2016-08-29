@@ -111,18 +111,24 @@ class DcWrapper
         }
     }
 
-    function PrintLapInfo(lapInfo)
+    function PrintLapInfo(dc, lapInfo)
     {
         dc.setColor(_foregroundColor, _backgroundColor);
         dc.clear();
         
-        var timeInfo = Time.Gregorian.info(lapInfo.LapstartTime, Time.FORMAT_MEDIUM);
+        if (lapInfo == null)
+        {
+        	dc.drawText(109, 80, Gfx.FONT_MEDIUM, "There is no laps\n to display", Gfx.TEXT_JUSTIFY_CENTER);
+        	return;
+        }
+        
+        var timeInfo = Time.Gregorian.info(lapInfo.LapStartTime, Time.FORMAT_MEDIUM);
 
-        dc.drawText(109, 12, Gfx.FONT_MEDIUM, Lang.format("lap :: %1% [%2%:%3%]",
-             [lapInfo.LapNum.format("%2d"), timeInfo.hour.format("%02d"), timeInfo.min.format("%02d")], Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(109, 50, Gfx.FONT_MEDIUM, "max speed : " + lapInfo.MaxSpeed.format("%2.1f"), Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(109, 80, Gfx.FONT_MEDIUM, "avg speed : " + lapInfo.AvgSpeed.format("%2.1f"), Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(109, 110, Gfx.FONT_MEDIUM, "distance : " + lapInfo.Distance.format("%2d"), Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(109, 140, Gfx.FONT_MEDIUM, "lap time : " + YALib.SecToString(lapInfo.LapTime), Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(109, 14, Gfx.FONT_TINY, Lang.format("lap $1$ [ $2$:$3$ ]",
+             [lapInfo.LapNum.format("%2d"), timeInfo.hour.format("%02d"), timeInfo.min.format("%02d")]), Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(20, 50, Gfx.FONT_MEDIUM, "max speed : " + lapInfo.MaxSpeed.format("%2.1f"), Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(18, 80, Gfx.FONT_MEDIUM, "avg speed   : " + lapInfo.AvgSpeed.format("%2.1f"), Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(18, 110, Gfx.FONT_MEDIUM, "distance      : " + lapInfo.Distance.format("%3.2f"), Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(20, 140, Gfx.FONT_MEDIUM, "lap time : " + YALib.SecToString(lapInfo.LapTime), Gfx.TEXT_JUSTIFY_LEFT);
     }        
 }

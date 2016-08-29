@@ -16,6 +16,6 @@ class LapView extends Ui.View
 
     function onUpdate(dc) 
     {   
-    	_dcWrapper.PringLapInfo(lapInfo);
+    	_dcWrapper.PrintLapInfo(dc, _lapInfo);
 	}
 }

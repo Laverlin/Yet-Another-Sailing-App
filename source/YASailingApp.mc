@@ -13,7 +13,7 @@ class YASailingApp extends App.AppBase
         AppBase.initialize();
         _gpsWrapper = new GpsWrapper();
         _dcWrapper = new DcWrapper();
-		_cruiseView = new CruiseView(_gpsWrapper);
+		_cruiseView = new CruiseView(_gpsWrapper, _dcWrapper);
     }
 
     // onStart() is called on application start up

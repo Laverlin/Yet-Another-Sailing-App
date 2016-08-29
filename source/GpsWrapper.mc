@@ -119,7 +119,7 @@ class GpsWrapper
     	Sys.println(Lang.format("max speed : $1$ knot", [_currentLap.MaxSpeed.format("%2.1f")]));
     	Sys.println(Lang.format("avg speed : $1$ knot", [_currentLap.AvgSpeed.format("%2.1f")]));
     	Sys.println(Lang.format("lap time  : $1$ sec, $2$", 
-    		[_currentLap.LapTime.format("%02d"), SecToString(_currentLap.LapTime)]));
+    		[_currentLap.LapTime.format("%02d"), YALib.SecToString(_currentLap.LapTime)]));
     	Sys.println(Lang.format("distance  : $1$ nm", [_currentLap.Distance.format("%3.2f")]));
     	var timeInHour = (_currentLap.LapTime.toDouble()/Time.Gregorian.SECONDS_PER_HOUR);
     	var distance = _currentLap.AvgSpeed * timeInHour;
