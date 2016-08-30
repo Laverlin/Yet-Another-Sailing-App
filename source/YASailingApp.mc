@@ -12,7 +12,7 @@ class YASailingApp extends App.AppBase
         AppBase.initialize();
         _gpsWrapper = new GpsWrapper();
 		
-        Settings.LoadValue();
+        Settings.LoadSettings();
         _cruiseView = new CruiseView(_gpsWrapper);
     }
 

@@ -1,5 +1,7 @@
 using Toybox.WatchUi as Ui;
 using Toybox.Graphics as Gfx;
+using Toybox.Lang as Lang;
+using Toybox.Time as Time;
 
 /// Since there is no way o setup a background color in layout.xml
 /// all boiler-plate code for drawing objects need to be done manually.

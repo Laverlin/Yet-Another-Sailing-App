@@ -1,4 +1,5 @@
 using Toybox.Graphics as Gfx;
+using Toybox.Application as App;
 
 // set of permanently stored values
 //
@@ -11,22 +12,22 @@ class Settings
 
 	static function LoadSettings()
 	{
-		_isWhiteBackground = Application.getApp().getProperty("isWhiteBackground");
-		SetColors(_isWhiteBackground);
+		_isWhiteBackground = App.getApp().getProperty("isWhiteBackground");
+		setColors(_isWhiteBackground);
 	}
 
 	static function SaveSettings()
 	{
-		Application.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
+		App.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
 	}
 
 	static function InverseColors()
 	{
 		_isWhiteBackground = !_isWhiteBackground;
-		SetColors(_isWhiteBackground);
+		setColors(_isWhiteBackground);
 	}
 
-	static hidden function SetColors(isWhiteBackground)
+	static hidden function setColors(isWhiteBackground)
 	{
 		if (isWhiteBackground)
         {
