@@ -36,7 +36,9 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
         }    
         else if (item == :inverseColor)
         {
-        	_cruiseView.InverseColor();
+        	Settings.InverseColor();
+            Settings.SaveSettings();
+            return true;
         }  
     }
 }

@@ -11,8 +11,6 @@ class CruiseView extends Ui.View
 	hidden var _timer;
 	hidden var _activeSession;
     hidden var _startTime;
-	
-	hidden var _isWhiteBackground = false;
 
     function initialize(gpsWrapper, dcWrapper) 
     {
@@ -20,8 +18,6 @@ class CruiseView extends Ui.View
         _gpsWrapper = gpsWrapper;
         _dcWrapper = dcWrapper;
         _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
-        _isWhiteBackground = Application.getApp().getProperty("isWhiteBackground");
-        _dcWrapper.SetupColors(_isWhiteBackground);
         _startTime = Time.now();
     }
 
@@ -154,12 +150,4 @@ class CruiseView extends Ui.View
         _gpsWrapper.LogAppStatistic(_startTime, Time.now());
     }
     
-    function InverseColor()
-    {
-    	_isWhiteBackground = !_isWhiteBackground;
-    	
-    	Application.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
-    	
-   		_dcWrapper.SetupColors(_isWhiteBackground);
-    }
 }
