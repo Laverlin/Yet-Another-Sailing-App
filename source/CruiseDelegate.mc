@@ -4,14 +4,12 @@ class CruiseDelegate extends Ui.BehaviorDelegate
 {
     hidden var _cruiseView;
     hidden var _gpsWrapper;
-    hidden var _dcWrapper;
     
-    function initialize(cruiseView, gpsWrapper, dcWrapper) 
+    function initialize(cruiseView, gpsWrapper) 
     {
         BehaviorDelegate.initialize();
         _cruiseView = cruiseView;
         _gpsWrapper = gpsWrapper;
-        _dcWrapper = dcWrapper;
     }    
     
     function onSelect()
@@ -22,7 +20,7 @@ class CruiseDelegate extends Ui.BehaviorDelegate
 
     function onMenu() 
     {
-        Ui.pushView(new Rez.Menus.CruiseMenu(), new CruiseMenuDelegate(_cruiseView, _gpsWrapper, _dcWrapper), Ui.SLIDE_UP);
+        Ui.pushView(new Rez.Menus.CruiseMenu(), new CruiseMenuDelegate(_cruiseView, _gpsWrapper), Ui.SLIDE_UP);
         return true;
     }
     

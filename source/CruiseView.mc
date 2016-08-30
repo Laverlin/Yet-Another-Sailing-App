@@ -6,17 +6,15 @@ using Toybox.Time as Time;
 
 class CruiseView extends Ui.View 
 {
-	hidden var _dcWrapper;
     hidden var _gpsWrapper;
 	hidden var _timer;
 	hidden var _activeSession;
     hidden var _startTime;
 
-    function initialize(gpsWrapper, dcWrapper) 
+    function initialize(gpsWrapper) 
     {
         View.initialize();
         _gpsWrapper = gpsWrapper;
-        _dcWrapper = dcWrapper;
         _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
         _startTime = Time.now();
     }
@@ -47,12 +45,12 @@ class CruiseView extends Ui.View
     //
     function onUpdate(dc) 
     {   
-    	_dcWrapper.ClearDc(dc);
+    	DcWrapper.ClearDc(dc);
     
     	// Display current time
     	//
         var clockTime = Sys.getClockTime();        
-        _dcWrapper.PrintTime(dc, clockTime);
+        DcWrapper.PrintTime(dc, clockTime);
         
         // Display speed and bearing if GPS available
         //
@@ -61,31 +59,31 @@ class CruiseView extends Ui.View
         	// Display knots
         	//
         	var currentSpeed = _gpsWrapper.SpeedKnot();
-        	_dcWrapper.PrintSpeed(dc, currentSpeed);
+        	DcWrapper.PrintSpeed(dc, currentSpeed);
         	
         	// Display bearing
         	//
-        	_dcWrapper.PrintBearing(dc, _gpsWrapper.BearingDegree());
+        	DcWrapper.PrintBearing(dc, _gpsWrapper.BearingDegree());
         	
         	// Display max speed 
         	//
-        	_dcWrapper.PrintMaxSpeed(dc, _gpsWrapper.MaxSpeedKnot());	
+        	DcWrapper.PrintMaxSpeed(dc, _gpsWrapper.MaxSpeedKnot());	
         	
         	// Display average speed for last 10 sec.
         	//
         	var avgSpeed = _gpsWrapper.AvgSpeedKnotLast10();
-        	_dcWrapper.PrintAvgSpeed(dc, avgSpeed);
+        	DcWrapper.PrintAvgSpeed(dc, avgSpeed);
         	
         	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
         	//
-        	_dcWrapper.DisplaySpeedTrend(dc, currentSpeed - avgSpeed); 
+        	DcWrapper.DisplaySpeedTrend(dc, currentSpeed - avgSpeed); 
 
             _gpsWrapper.UpdateLapData();
         }
         
-        _dcWrapper.DisplayState(dc, _gpsWrapper.Accuracy(), _activeSession.isRecording(), _gpsWrapper.GetLapCount());
+        DcWrapper.DisplayState(dc, _gpsWrapper.Accuracy(), _activeSession.isRecording(), _gpsWrapper.GetLapCount());
         
-        _dcWrapper.DrawGrid(dc);
+        DcWrapper.DrawGrid(dc);
     }
 
     // Add new lap and drop all lap counters 
@@ -149,5 +147,4 @@ class CruiseView extends Ui.View
     	}
         _gpsWrapper.LogAppStatistic(_startTime, Time.now());
     }
-    
 }

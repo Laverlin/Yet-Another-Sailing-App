@@ -2,15 +2,13 @@ using Toybox.WatchUi as Ui;
 
 class LapViewDelegate extends Ui.BehaviorDelegate 
 {
-	hidden var _dcWrapper;
 	hidden var _lapArray;
     hidden var _lamNum = 0;
 	
-    function initialize(lapArray, dcWrapper) 
+    function initialize(lapArray) 
     {
         BehaviorDelegate.initialize();
         _lapArray = lapArray;
-        _dcWrapper = dcWrapper;
     }
     
     function onNextPage()
@@ -22,7 +20,7 @@ class LapViewDelegate extends Ui.BehaviorDelegate
             return true;
         }
 
-        var view = new LapView(_lapArray[_lamNum], _dcWrapper);
+        var view = new LapView(_lapArray[_lamNum]);
         Ui.switchToView(view, self, Ui.SLIDE_DOWN);
     	return true;
     }
@@ -36,7 +34,7 @@ class LapViewDelegate extends Ui.BehaviorDelegate
             return true;
         }
 
-        var view = new LapView(_lapArray[_lamNum], _dcWrapper);
+        var view = new LapView(_lapArray[_lamNum]);
         Ui.switchToView(view, self, Ui.SLIDE_UP);        
         return true;
     }
