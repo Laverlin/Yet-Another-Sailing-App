@@ -2,21 +2,18 @@ using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
 using Toybox.Attention as Attention;
 using Toybox.ActivityRecording as Fit;
-using Toybox.Time as Time;
 
 class CruiseView extends Ui.View 
 {
     hidden var _gpsWrapper;
 	hidden var _timer;
 	hidden var _activeSession;
-    hidden var _startTime;
 
     function initialize(gpsWrapper) 
     {
         View.initialize();
         _gpsWrapper = gpsWrapper;
         _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
-        _startTime = Time.now();
     }
 
 	// SetUp timer on show to update every second
@@ -77,8 +74,6 @@ class CruiseView extends Ui.View
         	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
         	//
         	DcWrapper.DisplaySpeedTrend(dc, currentSpeed - avgSpeed); 
-
-            _gpsWrapper.UpdateLapData();
         }
         
         DcWrapper.DisplayState(dc, _gpsWrapper.Accuracy(), _activeSession.isRecording(), _gpsWrapper.GetLapCount());
@@ -136,7 +131,7 @@ class CruiseView extends Ui.View
     	{
     		_activeSession.save();
     	}
-        _gpsWrapper.LogAppStatistic(_startTime, Time.now());
+        _gpsWrapper.LogAppStatistic();
     }
     
     function DiscardActivity()
@@ -145,6 +140,6 @@ class CruiseView extends Ui.View
     	{
     		_activeSession.discard();
     	}
-        _gpsWrapper.LogAppStatistic(_startTime, Time.now());
+        _gpsWrapper.LogAppStatistic();
     }
 }

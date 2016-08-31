@@ -10,9 +10,10 @@ class YASailingApp extends App.AppBase
     function initialize() 
     {
         AppBase.initialize();
+
+        Settings.LoadSettings();        
+
         _gpsWrapper = new GpsWrapper();
-		
-        Settings.LoadSettings();
         _cruiseView = new CruiseView(_gpsWrapper);
     }
 
@@ -20,14 +21,15 @@ class YASailingApp extends App.AppBase
     //
     function onStart(state) 
     {
-    	Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
+    	Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:_gpsWrapper.onPosition));
     }
 
     // onStop() is called when your application is exiting
     //
     function onStop(state) 
     {
-    	Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
+    	Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:_gpsWrapper.onPosition));
+        _gpsWrapper.Cleanup();
     }
     
     // Return the initial view of your application here
