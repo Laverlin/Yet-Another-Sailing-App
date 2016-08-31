@@ -131,7 +131,7 @@ class CruiseView extends Ui.View
     	{
     		_activeSession.save();
     	}
-        _gpsWrapper.LogAppStatistic();
+        //_gpsWrapper.LogAppStatistic();
     }
     
     function DiscardActivity()
@@ -140,6 +140,6 @@ class CruiseView extends Ui.View
     	{
     		_activeSession.discard();
     	}
-        _gpsWrapper.LogAppStatistic();
+        //_gpsWrapper.LogAppStatistic();
     }
 }

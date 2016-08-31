@@ -21,15 +21,16 @@ class YASailingApp extends App.AppBase
     //
     function onStart(state) 
     {
-    	Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:_gpsWrapper.onPosition));
+    	Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
     }
 
     // onStop() is called when your application is exiting
     //
     function onStop(state) 
     {
-    	Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:_gpsWrapper.onPosition));
+    	Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
         _gpsWrapper.Cleanup();
+        _gpsWrapper.LogAppStatistic();
     }
     
     // Return the initial view of your application here

@@ -58,7 +58,7 @@ class GpsWrapper
         _avgSpeedValues[_avgSpeedCounter] = _speedKnot;
         _avgSpeedCounter = (_avgSpeedCounter + 1) % 10;
 
-        // calculat elap data
+        // calculate lap data
         //
         _currentLap.MaxSpeed = (_currentLap.MaxSpeed < _speedKnot) ? _speedKnot : _currentLap.MaxSpeed;        
 
@@ -71,9 +71,9 @@ class GpsWrapper
         _duration = _duration +1;
     }
 
-	function onPosition(info)
+	function SetPositionInfo(positionInfo)
 	{
-		_positionInfo = info;
+		_positionInfo = positionInfo;
 	}
 
 	// Rturn accuracy of GPS position
@@ -120,7 +120,7 @@ class GpsWrapper
         //
         _currentLap.Distance = (_distance - _currentLap.Distance) / 1852;
         _currentLap.LapTime = (_duration - _currentLap.LapTime);
-        _currentLap.AvgSpeed = _currentLap.Distance/(_currentLap.LapTime/Time.Gregorian.SECONDS_PER_HOUR)
+        _currentLap.AvgSpeed = _currentLap.Distance/(_currentLap.LapTime.toDouble()/Time.Gregorian.SECONDS_PER_HOUR);
 
     	_lapArray[_lapCount] = _currentLap;
 
@@ -170,6 +170,6 @@ class GpsWrapper
         Sys.println("duration : " + YALib.SecToString(duration.value()));
         Sys.println("sec taken : " + _duration);
         Sys.println("distance : " + _distance / 1852);
-        Sys.println("avg speed : " + (_distance / 1852) / (_duration / Time.Gregorian.SECONDS_PER_HOUR);
+        Sys.println("avg speed : " + (_distance / 1852) / (_duration.toDouble() / Time.Gregorian.SECONDS_PER_HOUR));
     }
 }
