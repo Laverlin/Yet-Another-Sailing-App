@@ -73,40 +73,19 @@ class GpsWrapper
 		_positionInfo = positionInfo;
 	}
 
-	// Rturn accuracy of GPS position
-	//
-	function Accuracy()
-	{
-		return _accuracy;
-	}
-
-	// Return current speed in knots
-	//
-	function SpeedKnot() 
-	{
-		return _speedKnot;
-	}
-
-	// Return bearing in degrees
-	//
-	function BearingDegree()
-	{
-       	var bearingDegree = Math.toDegrees(_heading);
-       	return ((bearingDegree > 0) ? bearingDegree : 360 + bearingDegree);
-	}
-	
-	// Return avg speed for last 10 seconds
-    //
-    function AvgSpeedKnotLast10()
+    function GetGpsInfo()
     {
-    	return _avgSpeedSum/10;
-    }
+        var bearingDegree = Math.toDegrees(_heading);
 
-    // Return max speed
-    //
-    function MaxSpeedKnot()
-    {
-    	return _globalLap.MaxSpeed;
+        var gpsInfo = new GpsInfo();
+        gpsInfo.Accuracy = _accuracy;
+        gpsInfo.SpeedKnot = _speedKnot;
+        gpsInfo.BearingDegree = ((bearingDegree > 0) ? bearingDegree : 360 + bearingDegree);
+        gpsInfo.AvgSpeedKnot = _avgSpeedSum/10;
+        gpsInfo.MaxSpeedKnot = _globalLap.MaxSpeed;
+        gpsInfo.LapCount = _lapCount;
+
+        return gpsInfo;
     }
 
     // Add new lap statistic
@@ -133,11 +112,6 @@ class GpsWrapper
         _currentLap.LapNum = _lapCount;
     }
 
-    function GetLapCount()
-    {
-    	return _lapCount;
-    }
-    
     function GetLapArray()
     {
     	return _lapArray;

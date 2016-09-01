@@ -8,6 +8,7 @@ class CruiseView extends Ui.View
     hidden var _gpsWrapper;
 	hidden var _timer;
 	hidden var _activeSession;
+    hidden var _lastKnownAccuracy = 0;
 
     function initialize(gpsWrapper) 
     {
@@ -51,32 +52,21 @@ class CruiseView extends Ui.View
         
         // Display speed and bearing if GPS available
         //
-        if (_gpsWrapper.Accuracy() > 0)
+        var gpsInfo = _gpsWrapper.GetGpsInfo();
+        _lastKnownAccuracy = gpsInfo.Accuracy;
+        if (_lastKnownAccuracy > 0)
         {
-        	// Display knots
-        	//
-        	var currentSpeed = _gpsWrapper.SpeedKnot();
-        	DcWrapper.PrintSpeed(dc, currentSpeed);
-        	
-        	// Display bearing
-        	//
-        	DcWrapper.PrintBearing(dc, _gpsWrapper.BearingDegree());
-        	
-        	// Display max speed 
-        	//
-        	DcWrapper.PrintMaxSpeed(dc, _gpsWrapper.MaxSpeedKnot());	
-        	
-        	// Display average speed for last 10 sec.
-        	//
-        	var avgSpeed = _gpsWrapper.AvgSpeedKnotLast10();
-        	DcWrapper.PrintAvgSpeed(dc, avgSpeed);
+        	DcWrapper.PrintSpeed(dc, gpsInfo.SpeedKnot);
+        	DcWrapper.PrintBearing(dc, gpsInfo.BearingDegree;
+        	DcWrapper.PrintMaxSpeed(dc, gpsInfo.MaxSpeedKnot;	
+        	DcWrapper.PrintAvgSpeed(dc, gpsInfo.AvgSpeedKnot);
         	
         	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
         	//
-        	DcWrapper.DisplaySpeedTrend(dc, currentSpeed - avgSpeed); 
+        	DcWrapper.DisplaySpeedTrend(dc, gpsInfo.SpeedKnot - gpsInfo.AvgSpeedKnot); 
         }
         
-        DcWrapper.DisplayState(dc, _gpsWrapper.Accuracy(), _activeSession.isRecording(), _gpsWrapper.GetLapCount());
+        DcWrapper.DisplayState(dc, gpsInfo.Accuracy, _activeSession.isRecording(), gpsInfo.LapCount);
         
         DcWrapper.DrawGrid(dc);
     }
@@ -90,7 +80,7 @@ class CruiseView extends Ui.View
             _activeSession.addLap();
         }
         
-        if (_gpsWrapper.Accuracy() < 2)	
+        if (_lastKnownAccuracy < 2)	
         {
         	return;	
         }
@@ -106,7 +96,7 @@ class CruiseView extends Ui.View
     //
     function StartStopActivity()
     {
-    	if (_gpsWrapper.Accuracy() < 2 && !_activeSession.isRecording())
+    	if (_lastKnownAccuracy < 2 && !_activeSession.isRecording())
     	{
     		return;
     	}
@@ -131,7 +121,6 @@ class CruiseView extends Ui.View
     	{
     		_activeSession.save();
     	}
-        //_gpsWrapper.LogAppStatistic();
     }
     
     function DiscardActivity()
@@ -140,6 +129,5 @@ class CruiseView extends Ui.View
     	{
     		_activeSession.discard();
     	}
-        //_gpsWrapper.LogAppStatistic();
     }
 }
