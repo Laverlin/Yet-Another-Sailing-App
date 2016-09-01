@@ -23,6 +23,7 @@ class YASailingApp extends App.AppBase
     function onStart(state) 
     {
     	Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
+
         LogWrapper.WriteAppStart(Time.now());
     }
 
@@ -31,10 +32,10 @@ class YASailingApp extends App.AppBase
     function onStop(state) 
     {
     	Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
+
         Settings.SaveSettings();
-        _gpsWrapper.Cleanup();
+
         LogWrapper.WriteAppStatistic(_gpsWrapper.GetAppStatistic(), Time.now());
-        
     }
     
     // Return the initial view of your application here

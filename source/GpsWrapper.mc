@@ -6,8 +6,6 @@ using Toybox.Time as Time;
 ///
 class GpsWrapper
 {
-	hidden var _positionInfo;
-
 	hidden var _avgSpeedCounter = 0;
 	hidden var _avgSpeedSum = 0;
 	hidden var _avgSpeedValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -16,7 +14,7 @@ class GpsWrapper
     hidden var _accuracy = 0;
     hidden var _heading = 0.0;
 
-    hidden var _timer;
+    hidden var _lastTimeCall = 0L;
 
 	hidden var _currentLap = new LapInfo();
     hidden var _globalLap = new LapInfo();
@@ -27,50 +25,39 @@ class GpsWrapper
     {
         _globalLap.LapStartTime = Time.now();
         _currentLap.LapStartTime = _globalLap.LapStartTime;
-
-        _timer = new Timer.Timer();
-        _timer.start(method(:onTimer), 1000, true);
     }
 
-    function Cleanup()
-    {
-        _timer.stop();
-    }
-
-    // should be called once in a second, otherwise calculation will be inaccurate
-    //
-    function onTimer()
-    {
-        _accuracy = (_positionInfo != null) ? _positionInfo.accuracy : 0;
+	function SetPositionInfo(positionInfo)
+	{
+        _accuracy = (positionInfo != null) ? positionInfo.accuracy : 0;
         if (_accuracy < 1 )
         {
             return;
         }
 
-        _speedKnot = _positionInfo.speed.toDouble() * 1.9438444924574;
-        _heading = _positionInfo.heading;
+        // difference between two method's calls 
+        //
+        var timeCall = Sys.getTimer();
+        var timelaps = timeCall - _lastTimeCall;
+        _lastTimeCall = timeCall;
+
+        // log this == debug only !!
+        //
+        Sys.println(" - " + timelaps);
+
+        _speedKnot = positionInfo.speed.toDouble() * 1.9438444924574;
+        _heading = positionInfo.heading;
         _globalLap.MaxSpeed = (_globalLap.MaxSpeed < _speedKnot) ? _speedKnot : _globalLap.MaxSpeed;
 
         _avgSpeedSum = _avgSpeedSum - _avgSpeedValues[_avgSpeedCounter] + _speedKnot;
         _avgSpeedValues[_avgSpeedCounter] = _speedKnot;
         _avgSpeedCounter = (_avgSpeedCounter + 1) % 10;
 
-        // calculate lap data
-        //
-        _currentLap.MaxSpeed = (_currentLap.MaxSpeed < _speedKnot) ? _speedKnot : _currentLap.MaxSpeed;        
+        _currentLap.MaxSpeed = (_currentLap.MaxSpeed < _speedKnot) ? _speedKnot : _currentLap.MaxSpeed;
 
-        // since speed in m/c and we call it once in a second then distance = speed in meters
-        //
-        _globalLap.Distance += _positionInfo.speed;
-
-        // total amount of seconds
-        //
-        _globalLap.LapTime += 1;
-    }
-
-	function SetPositionInfo(positionInfo)
-	{
-		_positionInfo = positionInfo;
+        var timelapsSecond = timelaps.toDouble()/1000;
+        _globalLap.Distance += positionInfo.speed * timelapsSecond;
+        _globalLap.LapTime += timelapsSecond;
 	}
 
     function GetGpsInfo()
