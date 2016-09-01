@@ -35,7 +35,6 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
         else if (item == :inverseColor)
         {
         	Settings.InverseColors();
-            Settings.SaveSettings();
             return true;
         }  
     }

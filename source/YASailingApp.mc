@@ -1,6 +1,7 @@
 using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
 using Toybox.Position as Position;
+using Toybox.Time as Time;
 
 class YASailingApp extends App.AppBase 
 {
@@ -22,6 +23,7 @@ class YASailingApp extends App.AppBase
     function onStart(state) 
     {
     	Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
+        LogWrapper.WriteAppStart(Time.now());
     }
 
     // onStop() is called when your application is exiting
@@ -29,8 +31,10 @@ class YASailingApp extends App.AppBase
     function onStop(state) 
     {
     	Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
+        Settings.SaveSettings();
         _gpsWrapper.Cleanup();
-        _gpsWrapper.LogAppStatistic();
+        LogWrapper.WriteAppStatistic(_gpsWrapper.GetAppStatistic(), Time.now());
+        
     }
     
     // Return the initial view of your application here
