@@ -14,7 +14,7 @@ class GpsWrapper
     hidden var _accuracy = 0;
     hidden var _heading = 0.0;
 
-    hidden var _lastTimeCall = 0L;
+    hidden var _lastTimeCall = 0l;
 
 	hidden var _currentLap = new LapInfo();
     hidden var _globalLap = new LapInfo();
@@ -38,12 +38,8 @@ class GpsWrapper
         // difference between two method's calls 
         //
         var timeCall = Sys.getTimer();
-        var timelaps = timeCall - _lastTimeCall;
+        var timelaps = (_lastTimeCall > 0) ? timeCall - _lastTimeCall : 0;
         _lastTimeCall = timeCall;
-
-        // log this == debug only !!
-        //
-        Sys.println(" - " + timelaps);
 
         _speedKnot = positionInfo.speed.toDouble() * 1.9438444924574;
         _heading = positionInfo.heading;
@@ -106,6 +102,10 @@ class GpsWrapper
 
     function GetAppStatistic()
     {
+    	// temp solution
+    	//
+    	_globalLap.Distance = _globalLap.Distance / 1852;
+    	_globalLap.AvgSpeed = _globalLap.Distance / (_globalLap.LapTime.toDouble() / Time.Gregorian.SECONDS_PER_HOUR);
         return _globalLap;
     }
 }

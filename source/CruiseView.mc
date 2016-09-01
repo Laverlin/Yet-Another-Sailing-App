@@ -57,8 +57,8 @@ class CruiseView extends Ui.View
         if (_lastKnownAccuracy > 0)
         {
         	DcWrapper.PrintSpeed(dc, gpsInfo.SpeedKnot);
-        	DcWrapper.PrintBearing(dc, gpsInfo.BearingDegree;
-        	DcWrapper.PrintMaxSpeed(dc, gpsInfo.MaxSpeedKnot;	
+        	DcWrapper.PrintBearing(dc, gpsInfo.BearingDegree);
+        	DcWrapper.PrintMaxSpeed(dc, gpsInfo.MaxSpeedKnot);	
         	DcWrapper.PrintAvgSpeed(dc, gpsInfo.AvgSpeedKnot);
         	
         	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.

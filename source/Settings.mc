@@ -20,6 +20,11 @@ class Settings
 	{
 		App.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
 	}
+	
+	static function PrintSome()
+	{
+		System.println("-- test");
+	}
 
 	static function InverseColors()
 	{

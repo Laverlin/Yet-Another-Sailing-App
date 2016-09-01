@@ -8,7 +8,7 @@ class LogWrapper
 {
 	static function WriteLapStatistic(lapInfo)
 	{
-    	Sys.println("====== lap :: " + lapInfo.format("%02d"));
+    	Sys.println(Lang.format("====== lap :: ", [lapInfo.format("%02d")]));
     	Sys.println(Lang.format("max speed : $1$ knot", [lapInfo.MaxSpeed.format("%2.1f")]));
     	Sys.println(Lang.format("avg speed : $1$ knot", [lapInfo.AvgSpeed.format("%2.1f")]));
     	Sys.println(Lang.format("lap time  : $1$ sec, $2$", 
@@ -27,16 +27,17 @@ class LogWrapper
 
 	static function WriteAppStatistic(lapInfo, endTime)
     {
-        var duration = endTime.subtract(_startTime);
+        var duration = endTime.subtract(lapInfo.LapStartTime);
 
+		var endTimeInfo = Time.Gregorian.info(endTime, Time.FORMAT_MEDIUM);
+        Sys.println(
+        	Lang.format("======= end :: $1$:$2$:$3$", 
+        	[endTimeInfo.hour.format("%02d"), endTimeInfo.min.format("%02d"), endTimeInfo.sec.format("%02d")]));
+        	
         Sys.println(Lang.format("max speed : $1$ knot", [lapInfo.MaxSpeed.format("%2.1f")]));
         Sys.println("duration : " + YALib.SecToString(duration.value()));
         //Sys.println("sec taken : " + _duration);
         Sys.println("distance : " + lapInfo.Distance);
         Sys.println("avg speed : " + lapInfo.AvgSpeed);
-
-        Sys.println(
-        	Lang.format("======= end :: $1$:$2$:$3$", 
-        	[endTime.hour.format("%02d"), endTime.min.format("%02d"), endTime.sec.format("%02d")]));
     }
 }
