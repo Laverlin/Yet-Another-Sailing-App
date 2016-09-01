@@ -104,8 +104,11 @@ class GpsWrapper
     {
     	// temp solution
     	//
-    	_globalLap.Distance = _globalLap.Distance / 1852;
-    	_globalLap.AvgSpeed = _globalLap.Distance / (_globalLap.LapTime.toDouble() / Time.Gregorian.SECONDS_PER_HOUR);
+    	if (_globalLap.LapTime > 0)
+    	{
+    		_globalLap.Distance = _globalLap.Distance / 1852;
+    		_globalLap.AvgSpeed = _globalLap.Distance / (_globalLap.LapTime.toDouble() / Time.Gregorian.SECONDS_PER_HOUR);
+    	}
         return _globalLap;
     }
 }
