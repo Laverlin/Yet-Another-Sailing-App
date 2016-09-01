@@ -79,7 +79,9 @@ class GpsWrapper
         //
         _currentLap.Distance = (_globalLap.Distance - _currentLap.Distance) / 1852;
         _currentLap.LapTime = (_globalLap.LapTime - _currentLap.LapTime);
-        _currentLap.AvgSpeed = _currentLap.Distance/(_currentLap.LapTime.toDouble()/Time.Gregorian.SECONDS_PER_HOUR);
+        _currentLap.AvgSpeed = (_currentLap.LapTime > 0)
+        	? _currentLap.Distance/(_currentLap.LapTime.toDouble()/Time.Gregorian.SECONDS_PER_HOUR)
+        	: 0;
 
     	_lapArray[_lapCount] = _currentLap;
 
