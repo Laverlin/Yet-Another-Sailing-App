@@ -6,25 +6,37 @@ using Toybox.Time as Time;
 ///
 class GpsWrapper
 {
+    hidden var _lastTimeCall = 0l;
+
+    // avg for 10 sec. values
+    //
 	hidden var _avgSpeedCounter = 0;
 	hidden var _avgSpeedSum = 0;
 	hidden var _avgSpeedValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+    // actual gps values
+    //
 	hidden var _speedKnot = 0.0;
     hidden var _accuracy = 0;
     hidden var _heading = 0.0;
 
-    hidden var _lastTimeCall = 0l;
+    // global values
+    //
+    hidden var _startTime;
+    hidden var _distance = 0;
+    hidden var _duration = 0;
+    hidden var _maxSpeedKnot = 0;
 
+    // lap values
+    //
 	hidden var _currentLap = new LapInfo();
-    hidden var _globalLap = new LapInfo();
 	hidden var _lapArray = new [100];
 	hidden var _lapCount = 0;
 
     function initialize()
     {
-        _globalLap.LapStartTime = Time.now();
-        _currentLap.LapStartTime = _globalLap.LapStartTime;
+        _startTime = Time.now();
+        _currentLap.LapStartTime = _startTime;
     }
 
 	function SetPositionInfo(positionInfo)
@@ -43,7 +55,7 @@ class GpsWrapper
 
         _speedKnot = positionInfo.speed.toDouble() * 1.9438444924574;
         _heading = positionInfo.heading;
-        _globalLap.MaxSpeed = (_globalLap.MaxSpeed < _speedKnot) ? _speedKnot : _globalLap.MaxSpeed;
+        _maxSpeedKnot = (_maxSpeedKnot < _speedKnot) ? _speedKnot : _maxSpeedKnot;
 
         _avgSpeedSum = _avgSpeedSum - _avgSpeedValues[_avgSpeedCounter] + _speedKnot;
         _avgSpeedValues[_avgSpeedCounter] = _speedKnot;
@@ -52,8 +64,8 @@ class GpsWrapper
         _currentLap.MaxSpeed = (_currentLap.MaxSpeed < _speedKnot) ? _speedKnot : _currentLap.MaxSpeed;
 
         var timelapsSecond = timelaps.toDouble()/1000;
-        _globalLap.Distance += positionInfo.speed * timelapsSecond;
-        _globalLap.LapTime += timelapsSecond;
+        _distance += positionInfo.speed * timelapsSecond;
+        _duration += timelapsSecond;
 	}
 
     function GetGpsInfo()
@@ -65,7 +77,7 @@ class GpsWrapper
         gpsInfo.SpeedKnot = _speedKnot;
         gpsInfo.BearingDegree = ((bearingDegree > 0) ? bearingDegree : 360 + bearingDegree);
         gpsInfo.AvgSpeedKnot = _avgSpeedSum/10;
-        gpsInfo.MaxSpeedKnot = _globalLap.MaxSpeed;
+        gpsInfo.MaxSpeedKnot = _maxSpeedKnot;
         gpsInfo.LapCount = _lapCount;
 
         return gpsInfo;
@@ -77,8 +89,8 @@ class GpsWrapper
     {
         // convert distance to nautical miles
         //
-        _currentLap.Distance = (_globalLap.Distance - _currentLap.Distance) / 1852;
-        _currentLap.LapTime = (_globalLap.LapTime - _currentLap.LapTime);
+        _currentLap.Distance = (_distance - _currentLap.Distance) / 1852;
+        _currentLap.LapTime = (_duration - _currentLap.LapTime);
         _currentLap.AvgSpeed = (_currentLap.LapTime > 0)
         	? _currentLap.Distance/(_currentLap.LapTime.toDouble()/Time.Gregorian.SECONDS_PER_HOUR)
         	: 0;
@@ -92,8 +104,8 @@ class GpsWrapper
         _lapCount = _lapCount + 1;
     	_currentLap = new LapInfo();
         _currentLap.LapStartTime = Time.now();
-        _currentLap.Distance = _globalLap.Distance;        
-        _currentLap.LapTime = _globalLap.LapTime;
+        _currentLap.Distance = _distance;        
+        _currentLap.LapTime = _duration;
         _currentLap.LapNum = _lapCount;
     }
 
@@ -104,13 +116,12 @@ class GpsWrapper
 
     function GetAppStatistic()
     {
-    	// temp solution
-    	//
-    	if (_globalLap.LapTime > 0)
-    	{
-    		_globalLap.Distance = _globalLap.Distance / 1852;
-    		_globalLap.AvgSpeed = _globalLap.Distance / (_globalLap.LapTime.toDouble() / Time.Gregorian.SECONDS_PER_HOUR);
-    	}
-        return _globalLap;
+        var overall = new lapInfo();
+        overall.LapStartTime = _startTime;
+        overall.MaxSpeed = _maxSpeedKnot;
+        overall.Distance = _distance / 1852;
+        overall.LapTime = _duration;
+        overall.AvgSpeed =  (_duration > 0) ? _distance / (_duration.toDouble() / Time.Gregorian.SECONDS_PER_HOUR) : 0;
+        return overall;
     }
 }
