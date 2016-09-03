@@ -116,12 +116,12 @@ class GpsWrapper
 
     function GetAppStatistic()
     {
-        var overall = new lapInfo();
+        var overall = new LapInfo();
         overall.LapStartTime = _startTime;
         overall.MaxSpeed = _maxSpeedKnot;
         overall.Distance = _distance / 1852;
         overall.LapTime = _duration;
-        overall.AvgSpeed =  (_duration > 0) ? _distance / (_duration.toDouble() / Time.Gregorian.SECONDS_PER_HOUR) : 0;
+        overall.AvgSpeed =  (_duration > 0) ? overall.Distance / (_duration / Time.Gregorian.SECONDS_PER_HOUR) : 0;
         return overall;
     }
 }
