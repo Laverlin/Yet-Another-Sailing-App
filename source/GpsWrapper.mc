@@ -36,7 +36,7 @@ class GpsWrapper
     function initialize()
     {
         _startTime = Time.now();
-        _currentLap.LapStartTime = _startTime;
+        _currentLap.StartTime = _startTime;
     }
 
 	function SetPositionInfo(positionInfo)
@@ -61,7 +61,7 @@ class GpsWrapper
         _avgSpeedValues[_avgSpeedCounter] = _speedKnot;
         _avgSpeedCounter = (_avgSpeedCounter + 1) % 10;
 
-        _currentLap.MaxSpeed = (_currentLap.MaxSpeed < _speedKnot) ? _speedKnot : _currentLap.MaxSpeed;
+        _currentLap.MaxSpeedKnot = (_currentLap.MaxSpeedKnot < _speedKnot) ? _speedKnot : _currentLap.MaxSpeedKnot;
 
         var timelapsSecond = timelaps.toDouble()/1000;
         _distance += positionInfo.speed * timelapsSecond;
@@ -90,9 +90,9 @@ class GpsWrapper
         // convert distance to nautical miles
         //
         _currentLap.Distance = (_distance - _currentLap.Distance) / 1852;
-        _currentLap.LapTime = (_duration - _currentLap.LapTime);
-        _currentLap.AvgSpeed = (_currentLap.LapTime > 0)
-        	? _currentLap.Distance/(_currentLap.LapTime.toDouble()/Time.Gregorian.SECONDS_PER_HOUR)
+        _currentLap.Duration = (_duration - _currentLap.Duration);
+        _currentLap.AvgSpeedKnot = (_currentLap.Duration > 0)
+        	? _currentLap.Distance/(_currentLap.Duration.toDouble() / Time.Gregorian.SECONDS_PER_HOUR)
         	: 0;
 
     	_lapArray[_lapCount] = _currentLap;
@@ -103,10 +103,10 @@ class GpsWrapper
     	//
         _lapCount = _lapCount + 1;
     	_currentLap = new LapInfo();
-        _currentLap.LapStartTime = Time.now();
+        _currentLap.StartTime = Time.now();
         _currentLap.Distance = _distance;        
-        _currentLap.LapTime = _duration;
-        _currentLap.LapNum = _lapCount;
+        _currentLap.Duration = _duration;
+        _currentLap.LapNumber = _lapCount;
     }
 
     function GetLapArray()
@@ -117,11 +117,11 @@ class GpsWrapper
     function GetAppStatistic()
     {
         var overall = new LapInfo();
-        overall.LapStartTime = _startTime;
-        overall.MaxSpeed = _maxSpeedKnot;
+        overall.StartTime = _startTime;
+        overall.MaxSpeedKnot = _maxSpeedKnot;
         overall.Distance = _distance / 1852;
-        overall.LapTime = _duration;
-        overall.AvgSpeed =  (_duration > 0) ? overall.Distance / (_duration / Time.Gregorian.SECONDS_PER_HOUR) : 0;
+        overall.Duration = _duration;
+        overall.AvgSpeedKnot =  (_duration > 0) ? overall.Distance / (_duration / Time.Gregorian.SECONDS_PER_HOUR) : 0;
         return overall;
     }
 }

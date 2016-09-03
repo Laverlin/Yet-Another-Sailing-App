@@ -4,15 +4,15 @@ class LapInfo
 {
 	// current lap Lap num
 	//
-	var LapNum = 0;
+	var LapNumber = 0;
 
 	// Max speed in lap
 	//
-	var MaxSpeed = 0;
+	var MaxSpeedKnot = 0;
 
 	// avg speed in lap
 	//
-	var AvgSpeed = 0;
+	var AvgSpeedKnot = 0;
 
 	// distance covered
 	//
@@ -20,9 +20,9 @@ class LapInfo
 
 	// time laps
 	//
-	var LapTime = 0;
+	var Duration = 0;
 
 	// lap start time
 	//
-	var LapStartTime;
+	var StartTime;
 }
