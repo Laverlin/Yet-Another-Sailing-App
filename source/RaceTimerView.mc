@@ -8,6 +8,8 @@ class RaceTimerView extends Ui.View
     hidden var _gpsWrapper;
 	hidden var _timer;
 	hidden var _countdown = 300;
+	hidden var _isCountdown = false;
+	hidden var _countdownTimer = 0l;
 
     function initialize(gpsWrapper) 
     {
@@ -40,7 +42,14 @@ class RaceTimerView extends Ui.View
     // Update the view
     //
     function onUpdate(dc) 
-    {   
+    {
+        if (_isCountdown)
+        {
+        	var actualTimer = Sys.getTimer();
+        	_countdown -= (actualTimer - _countdownTimer) / 1000;
+        	_countdownTimer = actualTimer;
+        }   
+    
     	RaceTimerViewDc.ClearDc(dc);
     
     	// Display current time
@@ -48,7 +57,18 @@ class RaceTimerView extends Ui.View
         var clockTime = Sys.getClockTime();        
         RaceTimerViewDc.PrintTime(dc, clockTime);
         RaceTimerViewDc.PrintCountdown(dc, _countdown);
-        _countdown -=1;
-        
+
+    }
+    
+    function StartStopCountdown()
+    {
+    	_isCountdown = !_isCountdown;
+    	if (_isCountdown)
+    	{
+    		_countdownTimer = Sys.getTimer();
+    		_timer.stop();
+    		_timer.start(method(:onTimerUpdate), 1000, true);
+    		Ui.requestUpdate();
+    	}
     }
 }

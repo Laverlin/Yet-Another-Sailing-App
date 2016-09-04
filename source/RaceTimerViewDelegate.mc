@@ -12,7 +12,7 @@ class RaceTimerViewDelegate extends Ui.BehaviorDelegate
     
     function onSelect()
     {
-    	
+    	_raceTimerView.StartStopCountdown();
     	return true;
     }
 
