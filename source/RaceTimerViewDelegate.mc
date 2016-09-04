@@ -22,5 +22,21 @@ class RaceTimerViewDelegate extends Ui.BehaviorDelegate
         return true;
     }
     
-
+    function onNextPage()
+    {
+    	_raceTimerView.SubOneSec();
+    	return true;
+    }
+    
+    function onPreviousPage()
+    {
+    	_raceTimerView.AddOneSec();
+    	return true;
+    }
+    
+    function onBack()
+    {
+    	_raceTimerView.DownToMinute();
+    	return true;
+    }
 }

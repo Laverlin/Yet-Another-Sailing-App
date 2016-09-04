@@ -7,9 +7,9 @@ class RaceTimerView extends Ui.View
 {
     hidden var _gpsWrapper;
 	hidden var _timer;
-	hidden var _countdown = 300;
+	hidden var _countdown = 60.0;
 	hidden var _isCountdown = false;
-	hidden var _countdownTimer = 0l;
+	hidden var _lastTimer = 0l;
 
     function initialize(gpsWrapper) 
     {
@@ -36,6 +36,28 @@ class RaceTimerView extends Ui.View
     //
     function onTimerUpdate()
     {
+    	if (_isCountdown)
+        {
+        	var actualTimer = Sys.getTimer();
+        	_countdown -= ((actualTimer - _lastTimer).toDouble() / 1000);
+        	_lastTimer = actualTimer;        	
+        	
+        	if (_countdown <= 0)
+        	{
+        		Sys.println(_lastTimer);
+        		Ui.popView(Ui.SLIDE_LEFT);
+        	}
+        	
+        	if (_countdown.toLong() % 30 == 0)
+        	{
+        		Sys.println(_countdown);
+        	}
+        	
+        	if (_countdown < 11)
+        	{
+        		Sys.println(_countdown);
+        	}
+        }
         Ui.requestUpdate();
     }    
 
@@ -43,21 +65,13 @@ class RaceTimerView extends Ui.View
     //
     function onUpdate(dc) 
     {
-        if (_isCountdown)
-        {
-        	var actualTimer = Sys.getTimer();
-        	_countdown -= (actualTimer - _countdownTimer) / 1000;
-        	_countdownTimer = actualTimer;
-        }   
-    
     	RaceTimerViewDc.ClearDc(dc);
     
     	// Display current time
     	//
         var clockTime = Sys.getClockTime();        
         RaceTimerViewDc.PrintTime(dc, clockTime);
-        RaceTimerViewDc.PrintCountdown(dc, _countdown);
-
+        RaceTimerViewDc.PrintCountdown(dc, _countdown.toLong());
     }
     
     function StartStopCountdown()
@@ -65,10 +79,29 @@ class RaceTimerView extends Ui.View
     	_isCountdown = !_isCountdown;
     	if (_isCountdown)
     	{
-    		_countdownTimer = Sys.getTimer();
+    		_lastTimer = Sys.getTimer();
     		_timer.stop();
     		_timer.start(method(:onTimerUpdate), 1000, true);
     		Ui.requestUpdate();
+    		Sys.println(_lastTimer);
     	}
+    }
+    
+    function AddOneSec()
+    {
+    	_countdown +=1;
+    	Ui.requestUpdate();
+    }
+    
+    function SubOneSec()
+    {
+    	_countdown -=1;
+    	Ui.requestUpdate();
+    }
+    
+    function DownToMinute()
+    {
+    	_countdown = _countdown / 60 * 60;
+    	Ui.requestUpdate();
     }
 }
