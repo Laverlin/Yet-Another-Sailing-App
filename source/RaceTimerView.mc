@@ -15,6 +15,7 @@ class RaceTimerView extends Ui.View
     {
         View.initialize();
         _gpsWrapper = gpsWrapper;
+        
     }
 
 	// SetUp timer on show to update every second
@@ -45,17 +46,19 @@ class RaceTimerView extends Ui.View
         	if (_countdown <= 0)
         	{
         		Sys.println(_lastTimer);
+        		
+        		SignalWrapper.Start();
         		Ui.popView(Ui.SLIDE_LEFT);
         	}
         	
         	if (_countdown.toLong() % 30 == 0)
         	{
-        		Sys.println(_countdown);
+        		SignalWrapper.HalfMinute();
         	}
         	
         	if (_countdown < 11)
         	{
-        		Sys.println(_countdown);
+        		SignalWrapper.TenSeconds(_countdown.toLong());
         	}
         }
         
@@ -77,6 +80,7 @@ class RaceTimerView extends Ui.View
     
     function StartStopCountdown()
     {
+    	SignalWrapper.PressButton();
     	_isCountdown = !_isCountdown;
     	if (_isCountdown)
     	{
@@ -102,7 +106,7 @@ class RaceTimerView extends Ui.View
     
     function DownToMinute()
     {
-    	_countdown = _countdown / 60 * 60;
+    	_countdown = _countdown.toLong() / 60 * 60;
     	Ui.requestUpdate();
     }
 }
