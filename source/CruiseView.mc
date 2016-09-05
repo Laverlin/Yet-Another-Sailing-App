@@ -1,6 +1,5 @@
 using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
-using Toybox.Attention as Attention;
 using Toybox.ActivityRecording as Fit;
 
 class CruiseView extends Ui.View 
@@ -85,9 +84,7 @@ class CruiseView extends Ui.View
         	return;	
         }
         
-        var vibe = [new Attention.VibeProfile(30, 300)];
-        Attention.playTone(Attention.TONE_LOUD_BEEP);        
-        Attention.vibrate(vibe);        
+        SignalWrapper.PressButton();      
 
         _gpsWrapper.AddLap();        
     }    
@@ -101,9 +98,7 @@ class CruiseView extends Ui.View
     		return;
     	}
     	
-    	var vibe = [new Attention.VibeProfile(30, 300)];
-    	Attention.playTone(Attention.TONE_LOUD_BEEP);
-    	Attention.vibrate(vibe);
+        SignalWrapper.PressButton();
     	
     	if (!_activeSession.isRecording())
     	{

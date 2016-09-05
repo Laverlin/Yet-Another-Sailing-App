@@ -58,6 +58,7 @@ class RaceTimerView extends Ui.View
         		Sys.println(_countdown);
         	}
         }
+        
         Ui.requestUpdate();
     }    
 
