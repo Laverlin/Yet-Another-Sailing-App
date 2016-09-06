@@ -20,6 +20,11 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
     		var raceTimerView = new RaceTimerView(_gpsWrapper);
     		Ui.switchToView(raceTimerView, new RaceTimerViewDelegate(raceTimerView), Ui.SLIDE_RIGHT);
     	}
+        if (item == :setTimer)
+        {
+            Ui.switchToView(new Rez.Menus.SetTimerMenu(), new SetTimerMenuDelegate(), Ui.SLIDE_LEFT);
+            return true;
+        }
         else if (item == :exitSave) 
         {
             _cruiseView.SaveActivity();

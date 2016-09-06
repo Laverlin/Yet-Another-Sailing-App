@@ -7,15 +7,14 @@ class RaceTimerView extends Ui.View
 {
     hidden var _gpsWrapper;
 	hidden var _timer;
-	hidden var _countdown = 60.0;
-	hidden var _isCountdown = false;
+	hidden var _timerValue = 300.0;
+	hidden var _isTimerRun = false;
 	hidden var _lastTimer = 0l;
 
     function initialize(gpsWrapper) 
     {
         View.initialize();
         _gpsWrapper = gpsWrapper;
-        
     }
 
 	// SetUp timer on show to update every second
@@ -24,6 +23,7 @@ class RaceTimerView extends Ui.View
     {
     	_timer = new Timer.Timer();
     	_timer.start(method(:onTimerUpdate), 1000, true);
+    	_timerValue = Settings.TimerValue;
     }
 
     // Stop timer then hide
@@ -37,13 +37,13 @@ class RaceTimerView extends Ui.View
     //
     function onTimerUpdate()
     {
-    	if (_isCountdown)
+    	if (_isTimerRun)
         {
         	var actualTimer = Sys.getTimer();
-        	_countdown -= ((actualTimer - _lastTimer).toDouble() / 1000);
+        	_timerValue -= ((actualTimer - _lastTimer).toDouble() / 1000);
         	_lastTimer = actualTimer;        	
         	
-        	if (_countdown <= 0)
+        	if (_timerValue <= 0)
         	{
         		Sys.println(_lastTimer);
         		
@@ -51,14 +51,14 @@ class RaceTimerView extends Ui.View
         		Ui.popView(Ui.SLIDE_LEFT);
         	}
         	
-        	if (_countdown.toLong() % 30 == 0)
+        	if (_timerValue.toLong() % 30 == 0)
         	{
         		SignalWrapper.HalfMinute();
         	}
         	
-        	if (_countdown < 11)
+        	if (_timerValue < 11)
         	{
-        		SignalWrapper.TenSeconds(_countdown.toLong());
+        		SignalWrapper.TenSeconds(_timerValue.toLong());
         	}
         }
         
@@ -75,14 +75,14 @@ class RaceTimerView extends Ui.View
     	//
         var clockTime = Sys.getClockTime();        
         RaceTimerViewDc.PrintTime(dc, clockTime);
-        RaceTimerViewDc.PrintCountdown(dc, _countdown.toLong());
+        RaceTimerViewDc.PrintCountdown(dc, _timerValue.toLong());
     }
     
     function StartStopCountdown()
     {
     	SignalWrapper.PressButton();
-    	_isCountdown = !_isCountdown;
-    	if (_isCountdown)
+    	_isTimerRun = !_isTimerRun;
+    	if (_isTimerRun)
     	{
     		_lastTimer = Sys.getTimer();
     		_timer.stop();
@@ -94,19 +94,19 @@ class RaceTimerView extends Ui.View
     
     function AddOneSec()
     {
-    	_countdown +=1;
+    	_timerValue +=1;
     	Ui.requestUpdate();
     }
     
     function SubOneSec()
     {
-    	_countdown -=1;
+    	_timerValue -=1;
     	Ui.requestUpdate();
     }
     
     function DownToMinute()
     {
-    	_countdown = _countdown.toLong() / 60 * 60;
+    	_timerValue = _timerValue.toLong() / 60 * 60;
     	Ui.requestUpdate();
     }
 }

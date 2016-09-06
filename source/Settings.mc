@@ -9,9 +9,11 @@ class Settings
 
 	static var ForegroundColor = Gfx.COLOR_WHITE;
 	static var BackgroundColor = Gfx.COLOR_BLACK;
+	static var TimerValue = 300;
 
 	static function LoadSettings()
 	{
+		TimerValue = App.getApp().getProperty("timerValue");
 		_isWhiteBackground = App.getApp().getProperty("isWhiteBackground");
 		setColors(_isWhiteBackground);
 	}
@@ -19,11 +21,7 @@ class Settings
 	static function SaveSettings()
 	{
 		App.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
-	}
-	
-	static function PrintSome()
-	{
-		System.println("-- test");
+		App.getApp().setProperty("timerValue", TimerValue);
 	}
 
 	static function InverseColors()
@@ -34,15 +32,8 @@ class Settings
 
 	static hidden function setColors(isWhiteBackground)
 	{
-		if (isWhiteBackground)
-        {
-            ForegroundColor = Gfx.COLOR_BLACK;
-            BackgroundColor = Gfx.COLOR_WHITE;
-        }  
-        else 
-        {
-			ForegroundColor = Gfx.COLOR_WHITE;
-			BackgroundColor = Gfx.COLOR_BLACK;
-        }
+        ForegroundColor = isWhiteBackground ? Gfx.COLOR_BLACK : Gfx.COLOR_WHITE;
+        BackgroundColor = isWhiteBackground ? Gfx.COLOR_WHITE : Gfx.COLOR_BLACK;
+
 	}
 }
