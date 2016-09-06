@@ -13,7 +13,8 @@ class Settings
 
 	static function LoadSettings()
 	{
-		TimerValue = App.getApp().getProperty("timerValue");
+		var value = App.getApp().getProperty("timerValue");
+		SetTimerValue(value);
 		_isWhiteBackground = App.getApp().getProperty("isWhiteBackground");
 		setColors(_isWhiteBackground);
 	}
@@ -32,7 +33,7 @@ class Settings
 	
 	static function SetTimerValue(value)
 	{
-		TimerValue = value;
+		TimerValue = (value == null) ? 300 : value;
 	}
 
 	static hidden function setColors(isWhiteBackground)
