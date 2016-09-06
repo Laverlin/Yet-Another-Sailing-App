@@ -29,6 +29,11 @@ class Settings
 		_isWhiteBackground = !_isWhiteBackground;
 		setColors(_isWhiteBackground);
 	}
+	
+	static function SetTimerValue(value)
+	{
+		TimerValue = value;
+	}
 
 	static hidden function setColors(isWhiteBackground)
 	{
