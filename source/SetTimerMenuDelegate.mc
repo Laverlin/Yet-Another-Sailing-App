@@ -5,9 +5,12 @@ using Toybox.System as Sys;
 //
 class SetTimerMenuDelegate extends Ui.MenuInputDelegate
 {
-	function initialize() 
+    hidden var _racetimerView;
+
+	function initialize(raceTimerView) 
     {
         MenuInputDelegate.initialize();
+        _raceTimerView = raceTimerView;
     }
 
     function onMenuItem(item) 
@@ -32,7 +35,31 @@ class SetTimerMenuDelegate extends Ui.MenuInputDelegate
     	{
     		Settings.SetTimerValue(300);
     	}    	
+        else if (item == :id10)
+        {
+            Settings.SetTimerValue(600);
+        }    
+        else if (item == :id20)
+        {
+            Settings.SetTimerValue(1200);
+        }    
+        else if (item == :id30)
+        {
+            Settings.SetTimerValue(1800);
+        }    
+        else if (item == :id40)
+        {
+            Settings.SetTimerValue(2400);
+        }    
+        else if (item == :id50)
+        {
+            Settings.SetTimerValue(3000);
+        } 
+        else if (item == :id60)
+        {
+            Settings.SetTimerValue(3600);
+        } 
 		
-		Ui.popView(Ui.SLIDE_RIGHT);
+		Ui.switchToView(_raceTimerView, new RaceTimerViewDelegate(_raceTimerView), Ui.SLIDE_RIGHT);
     }
 }

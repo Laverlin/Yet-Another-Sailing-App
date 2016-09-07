@@ -6,14 +6,13 @@ class CruiseView extends Ui.View
 {
     hidden var _gpsWrapper;
 	hidden var _timer;
-	hidden var _activeSession;
+
     hidden var _lastKnownAccuracy = 0;
 
     function initialize(gpsWrapper) 
     {
         View.initialize();
         _gpsWrapper = gpsWrapper;
-        _activeSession = Fit.createSession({:name=>"Sailing", :sport=>Fit.SPORT_GENERIC});
     }
 
 	// SetUp timer on show to update every second
@@ -65,64 +64,9 @@ class CruiseView extends Ui.View
         	DcWrapper.DisplaySpeedTrend(dc, gpsInfo.SpeedKnot - gpsInfo.AvgSpeedKnot); 
         }
         
-        DcWrapper.DisplayState(dc, gpsInfo.Accuracy, _activeSession.isRecording(), gpsInfo.LapCount);
+        DcWrapper.DisplayState(dc, gpsInfo.Accuracy, gpsInfo.IsRecording, gpsInfo.LapCount);
         
         DcWrapper.DrawGrid(dc);
     }
 
-    // Add new lap and drop all lap counters 
-    //
-    function AddLap()
-    {
-        if (_activeSession.isRecording())
-        {
-            _activeSession.addLap();
-        }
-        
-        if (_lastKnownAccuracy < 2)	
-        {
-        	return;	
-        }
-        
-        SignalWrapper.PressButton();      
-
-        _gpsWrapper.AddLap();        
-    }    
-    
-    // Start & Pause activity recording
-    //
-    function StartStopActivity()
-    {
-    	if (_lastKnownAccuracy < 2 && !_activeSession.isRecording())
-    	{
-    		return;
-    	}
-    	
-        SignalWrapper.PressButton();
-    	
-    	if (!_activeSession.isRecording())
-    	{
-    		_activeSession.start();
-    	}
-    	else
-    	{
-    		_activeSession.stop();
-    	}
-    }
-
-    function SaveActivity()
-    {
-    	if (_activeSession != null)
-    	{
-    		_activeSession.save();
-    	}
-    }
-    
-    function DiscardActivity()
-    {
-        if (_activeSession != null)
-    	{
-    		_activeSession.discard();
-    	}
-    }
 }

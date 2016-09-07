@@ -7,6 +7,7 @@ using Toybox.Time as Time;
 class GpsWrapper
 {
     hidden var _lastTimeCall = 0l;
+    hidden var _activeSession;
 
     // avg for 10 sec. values
     //
@@ -35,8 +36,7 @@ class GpsWrapper
 
     function initialize()
     {
-        _startTime = Time.now();
-        _currentLap.StartTime = _startTime;
+        _activeSession = Fit.createSession({:name => "Sailing", :sport => Fit.SPORT_GENERIC});
     }
 
 	function SetPositionInfo(positionInfo)
@@ -78,6 +78,7 @@ class GpsWrapper
         gpsInfo.BearingDegree = ((bearingDegree > 0) ? bearingDegree : 360 + bearingDegree);
         gpsInfo.AvgSpeedKnot = _avgSpeedSum/10;
         gpsInfo.MaxSpeedKnot = _maxSpeedKnot;
+        gpsInfo.IsRecording = _activeSession.isRecording();
         gpsInfo.LapCount = _lapCount;
 
         return gpsInfo;
@@ -87,27 +88,62 @@ class GpsWrapper
     //
     function AddLap()
     {
-        // convert distance to nautical miles
+        // count lap only when recording
         //
-        _currentLap.Distance = (_distance - _currentLap.Distance) / 1852;
-        _currentLap.Duration = (_duration - _currentLap.Duration);
-        _currentLap.AvgSpeedKnot = (_currentLap.Duration > 0)
-        	? _currentLap.Distance/(_currentLap.Duration.toDouble() / Time.Gregorian.SECONDS_PER_HOUR)
-        	: 0;
+        if (!_activeSession.isRecording())
+        {
+            return false;
+        }
 
-    	_lapArray[_lapCount] = _currentLap;
+        _activeSession.addLap();
+
+        saveLap();
 
         LogWrapper.WriteLapStatistic(_currentLap);
 
-    	// new lap. Store some current global values to calculate difference later
-    	//
-        _lapCount = _lapCount + 1;
-    	_currentLap = new LapInfo();
-        _currentLap.StartTime = Time.now();
-        _currentLap.Distance = _distance;        
-        _currentLap.Duration = _duration;
-        _currentLap.LapNumber = _lapCount;
+        _currentLap = newLap();
+       
+        return true;       
     }
+
+    // Start & Pause activity recording
+    //
+    function StartStopRecording()
+    {
+        if (_accuracy < 2 && !_activeSession.isRecording())
+        {
+            return false;
+        }
+        
+        if (!_activeSession.isRecording())
+        {
+            _activeSession.start();
+            _startTime = (_startTime == null) ? Time.now() : _startTime;
+            _currentLap = newLap();
+        }
+        else
+        {
+            _activeSession.stop();
+            saveLap();
+        }
+        return true;
+    }
+
+    function SaveRecord()
+    {
+        if (_activeSession != null)
+        {
+            _activeSession.save();
+        }
+    }
+    
+    function DiscardRecord()
+    {
+        if (_activeSession != null)
+        {
+            _activeSession.discard();
+        }
+    }    
 
     function GetLapArray()
     {
@@ -123,5 +159,35 @@ class GpsWrapper
         overall.Duration = _duration;
         overall.AvgSpeedKnot =  (_duration > 0) ? overall.Distance / (_duration / Time.Gregorian.SECONDS_PER_HOUR) : 0;
         return overall;
+    }
+
+    // save lap statistic to local array
+    //
+    hidden function saveLap()
+    {
+        // calculate lap statistics
+        //
+        _currentLap.Distance = (_distance - _currentLap.Distance) / 1852;
+        _currentLap.Duration = (_duration - _currentLap.Duration);
+        _currentLap.AvgSpeedKnot = (_currentLap.Duration > 0)
+            ? _currentLap.Distance/(_currentLap.Duration.toDouble() / Time.Gregorian.SECONDS_PER_HOUR)
+            : 0;
+
+        _lapArray[_lapCount] = _currentLap;
+        _lapCount = _lapCount + 1;
+    }
+
+    // initialize new lap 
+    //
+    hidden function newLap()
+    {
+        // Store some current global values to calculate difference later
+        //
+        lap = new LapInfo();
+        lap.StartTime = Time.now();
+        lap.Distance = _distance;        
+        lap.Duration = _duration;
+        lap.LapNumber = _lapCount;   
+        return lap;     
     }
 }

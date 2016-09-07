@@ -14,7 +14,12 @@ class CruiseDelegate extends Ui.BehaviorDelegate
     
     function onSelect()
     {
-    	_cruiseView.StartStopActivity();
+        // if recording available, make sound
+        //
+    	if (_gpsWrapper.StartStopRecording())
+        {
+            SignalWrapper.PressButton();
+        }
     	return true;
     }
 
@@ -26,7 +31,12 @@ class CruiseDelegate extends Ui.BehaviorDelegate
     
     function onBack()
     {
-        _cruiseView.AddLap();
+        // if lap successfully added, make sound
+        //
+        if (_gpsWrapper.AddLap())
+        {
+            SignalWrapper.PressButton();
+        }
         return true;
     }
 }

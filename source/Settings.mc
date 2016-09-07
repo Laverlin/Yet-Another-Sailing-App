@@ -38,8 +38,8 @@ class Settings
 
 	static hidden function setColors(isWhiteBackground)
 	{
-        ForegroundColor = isWhiteBackground ? Gfx.COLOR_BLACK : Gfx.COLOR_WHITE;
-        BackgroundColor = isWhiteBackground ? Gfx.COLOR_WHITE : Gfx.COLOR_BLACK;
-
+		_isWhiteBackground = (isWhiteBackground == null) ? false : isWhiteBackground;
+        ForegroundColor = _isWhiteBackground ? Gfx.COLOR_BLACK : Gfx.COLOR_WHITE;
+        BackgroundColor = _isWhiteBackground ? Gfx.COLOR_WHITE : Gfx.COLOR_BLACK;
 	}
 }
