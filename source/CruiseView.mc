@@ -1,6 +1,5 @@
 using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
-using Toybox.ActivityRecording as Fit;
 
 class CruiseView extends Ui.View 
 {

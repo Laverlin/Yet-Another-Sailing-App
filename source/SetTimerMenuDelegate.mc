@@ -5,7 +5,7 @@ using Toybox.System as Sys;
 //
 class SetTimerMenuDelegate extends Ui.MenuInputDelegate
 {
-    hidden var _racetimerView;
+    hidden var _raceTimerView;
 
 	function initialize(raceTimerView) 
     {

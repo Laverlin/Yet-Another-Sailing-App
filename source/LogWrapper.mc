@@ -27,7 +27,9 @@ class LogWrapper
 
 	static function WriteAppStatistic(lapInfo, endTime)
     {
-        var duration = endTime.subtract(lapInfo.StartTime);
+    	var duration = (lapInfo.StartTime != null && lapInfo.StartTime > 0) 
+    		? endTime.subtract(lapInfo.StartTime)
+    		: endTime.subtract(endTime);
 
 		var endTimeInfo = Time.Gregorian.info(endTime, Time.FORMAT_MEDIUM);
         Sys.println(

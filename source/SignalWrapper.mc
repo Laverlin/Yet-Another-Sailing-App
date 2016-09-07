@@ -9,9 +9,9 @@ class SignalWrapper
 	hidden static var _vibeStart = [
         new Attention.VibeProfile(  100, 100 ),
         new Attention.VibeProfile(  30, 200 ),
-        new Attention.VibeProfile(  100, 100 ),
+        new Attention.VibeProfile(  100, 400 ),
         new Attention.VibeProfile(  30, 200 ),
-        new Attention.VibeProfile(  100, 100 )];
+        new Attention.VibeProfile(  100, 400 )];
 	
 	static function PressButton()
 	{
@@ -36,7 +36,16 @@ class SignalWrapper
 	{
 	    Attention.playTone(Attention.TONE_CANARY);
     	Attention.vibrate(_vibeStart);
-    	Attention.playTone(Attention.TONE_ALERT_HI);
-    	//Attention.backlight(false);
+    	//var timer = new Toybox.Timer.Timer();
+    	//timer.start(method(:StartEnd), 2000, false);
+    	StartEnd();
 	}
+	
+	static function StartEnd()
+	{
+    	Attention.playTone(Attention.TONE_ALERT_HI);
+    	Attention.vibrate(_vibeBeep);
+    	Attention.backlight(false);		
+	}
+	
 }

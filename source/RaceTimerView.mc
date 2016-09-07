@@ -40,12 +40,12 @@ class RaceTimerView extends Ui.View
     	if (_isTimerRun)
         {
         	var actualTimer = Sys.getTimer();
-        	_timerValue -= ((actualTimer - _lastTimer).toDouble() / 1000);
+        	_timerValue -= 1;//((actualTimer - _lastTimer).toDouble() / 1000);
         	_lastTimer = actualTimer;        	
         	
         	if (_timerValue <= 0)
         	{
-        		Sys.println(_lastTimer);
+        		Sys.println(_lastTimer + "- end");
         		
         		SignalWrapper.Start();
         		Ui.popView(Ui.SLIDE_LEFT);
@@ -75,11 +75,10 @@ class RaceTimerView extends Ui.View
     	//
     	RaceTimerViewDc.DrawProgress(dc, _timerValue.toLong());
 
-    	// Display current time
-    	//
+		RaceTimerViewDc.PrintCountdown(dc, _timerValue.toLong());
+		
         var clockTime = Sys.getClockTime();        
         RaceTimerViewDc.PrintTime(dc, clockTime);
-        RaceTimerViewDc.PrintCountdown(dc, _timerValue.toLong());
 
         var gpsInfo = _gpsWrapper.GetGpsInfo();
         RaceTimerViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
@@ -95,7 +94,7 @@ class RaceTimerView extends Ui.View
     		_timer.stop();
     		_timer.start(method(:onTimerUpdate), 1000, true);
     		Ui.requestUpdate();
-    		Sys.println(_lastTimer);
+    		Sys.println(_lastTimer + "- begin");
     	}
     }
     

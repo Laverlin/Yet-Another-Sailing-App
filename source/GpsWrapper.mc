@@ -1,6 +1,7 @@
 using Toybox.System as Sys;
 using Toybox.Lang as Lang;
 using Toybox.Time as Time;
+using Toybox.ActivityRecording as Fit;
 
 /// Helper class to work with GPS features
 ///
@@ -183,7 +184,7 @@ class GpsWrapper
     {
         // Store some current global values to calculate difference later
         //
-        lap = new LapInfo();
+        var lap = new LapInfo();
         lap.StartTime = Time.now();
         lap.Distance = _distance;        
         lap.Duration = _duration;
