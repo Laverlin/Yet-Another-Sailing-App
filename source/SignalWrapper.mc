@@ -38,7 +38,7 @@ class SignalWrapper
     	Attention.vibrate(_vibeStart);
     	//var timer = new Toybox.Timer.Timer();
     	//timer.start(method(:StartEnd), 2000, false);
-    	StartEnd();
+    	//StartEnd();
 	}
 	
 	static function StartEnd()
