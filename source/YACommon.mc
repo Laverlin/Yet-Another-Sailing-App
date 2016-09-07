@@ -5,7 +5,7 @@ using Toybox.Time as Time;
 
 // set of useful static functions
 //
-class YALib
+class YACommon
 {
 
     // convert time in seconds to string in hh:mm:ss

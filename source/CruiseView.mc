@@ -41,12 +41,12 @@ class CruiseView extends Ui.View
     //
     function onUpdate(dc) 
     {   
-    	DcWrapper.ClearDc(dc);
+    	CruiseViewDc.ClearDc(dc);
     
     	// Display current time
     	//
         var clockTime = Sys.getClockTime();        
-        DcWrapper.PrintTime(dc, clockTime);
+        CruiseViewDc.PrintTime(dc, clockTime);
         
         // Display speed and bearing if GPS available
         //
@@ -54,19 +54,19 @@ class CruiseView extends Ui.View
         _lastKnownAccuracy = gpsInfo.Accuracy;
         if (_lastKnownAccuracy > 0)
         {
-        	DcWrapper.PrintSpeed(dc, gpsInfo.SpeedKnot);
-        	DcWrapper.PrintBearing(dc, gpsInfo.BearingDegree);
-        	DcWrapper.PrintMaxSpeed(dc, gpsInfo.MaxSpeedKnot);	
-        	DcWrapper.PrintAvgSpeed(dc, gpsInfo.AvgSpeedKnot);
+        	CruiseViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
+        	CruiseViewDc.PrintBearing(dc, gpsInfo.BearingDegree);
+        	CruiseViewDc.PrintMaxSpeed(dc, gpsInfo.MaxSpeedKnot);	
+        	CruiseViewDc.PrintAvgSpeed(dc, gpsInfo.AvgSpeedKnot);
         	
         	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
         	//
-        	DcWrapper.DisplaySpeedTrend(dc, gpsInfo.SpeedKnot - gpsInfo.AvgSpeedKnot); 
+        	CruiseViewDc.DisplaySpeedTrend(dc, gpsInfo.SpeedKnot - gpsInfo.AvgSpeedKnot); 
         }
         
-        DcWrapper.DisplayState(dc, gpsInfo.Accuracy, gpsInfo.IsRecording, gpsInfo.LapCount);
+        CruiseViewDc.DisplayState(dc, gpsInfo.Accuracy, gpsInfo.IsRecording, gpsInfo.LapCount);
         
-        DcWrapper.DrawGrid(dc);
+        CruiseViewDc.DrawGrid(dc);
     }
 
 }

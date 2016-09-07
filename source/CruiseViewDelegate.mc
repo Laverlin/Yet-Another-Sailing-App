@@ -1,6 +1,6 @@
 using Toybox.WatchUi as Ui;
 
-class CruiseDelegate extends Ui.BehaviorDelegate 
+class CruiseViewDelegate extends Ui.BehaviorDelegate 
 {
     hidden var _cruiseView;
     hidden var _gpsWrapper;

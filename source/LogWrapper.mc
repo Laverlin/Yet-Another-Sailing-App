@@ -12,7 +12,7 @@ class LogWrapper
     	Sys.println(Lang.format("max speed : $1$ knot", [lapInfo.MaxSpeedKnot.format("%2.1f")]));
     	Sys.println(Lang.format("avg speed : $1$ knot", [lapInfo.AvgSpeedKnot.format("%2.1f")]));
     	Sys.println(Lang.format("lap time  : $1$ sec, $2$", 
-    		[lapInfo.Duration.format("%02d"), YALib.SecToString(lapInfo.Duration)]));
+    		[lapInfo.Duration.format("%02d"), YACommon.SecToString(lapInfo.Duration)]));
     	Sys.println(Lang.format("distance  : $1$ nm", [lapInfo.Distance.format("%3.2f")]));
 	}
 
@@ -35,7 +35,7 @@ class LogWrapper
         	[endTimeInfo.hour.format("%02d"), endTimeInfo.min.format("%02d"), endTimeInfo.sec.format("%02d")]));
         	
         Sys.println(Lang.format("max speed : $1$ knot", [lapInfo.MaxSpeedKnot.format("%2.1f")]));
-        Sys.println("duration : " + YALib.SecToString(duration.value()));
+        Sys.println("duration : " + YACommon.SecToString(duration.value()));
         Sys.println("distance : " + lapInfo.Distance);
         Sys.println("avg speed : " + lapInfo.AvgSpeedKnot);
     }

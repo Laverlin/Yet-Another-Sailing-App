@@ -42,7 +42,7 @@ class YASailingApp extends App.AppBase
     //
     function getInitialView() 
     {
-    	var delegate = new CruiseDelegate(_cruiseView, _gpsWrapper);
+    	var delegate = new CruiseViewDelegate(_cruiseView, _gpsWrapper);
     	
         return [ _cruiseView, delegate ];
     }
