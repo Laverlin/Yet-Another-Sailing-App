@@ -115,16 +115,16 @@ class GpsWrapper
             return false;
         }
         
-        if (!_activeSession.isRecording())
+        if (_activeSession.isRecording())
+        {
+            _activeSession.stop();
+            saveLap();
+        }
+        else
         {
             _activeSession.start();
             _startTime = (_startTime == null) ? Time.now() : _startTime;
             _currentLap = newLap();
-        }
-        else
-        {
-            _activeSession.stop();
-            saveLap();
         }
         return true;
     }

@@ -25,4 +25,9 @@ class GpsInfo
 	// total number of laps
 	//
 	var LapCount = 0;
+
+	// is activity recorded
+	//
+	var IsRecording = false;
+
 }

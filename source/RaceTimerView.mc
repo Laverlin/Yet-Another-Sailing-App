@@ -71,11 +71,18 @@ class RaceTimerView extends Ui.View
     {
     	RaceTimerViewDc.ClearDc(dc);
     
+    	// display progress
+    	//
+    	RaceTimerViewDc.DrawProgress(dc, _timerValue.toLong());
+
     	// Display current time
     	//
         var clockTime = Sys.getClockTime();        
         RaceTimerViewDc.PrintTime(dc, clockTime);
         RaceTimerViewDc.PrintCountdown(dc, _timerValue.toLong());
+
+        var gpsInfo = _gpsWrapper.GetGpsInfo();
+        RaceTimerViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
     }
     
     function StartStopCountdown()
