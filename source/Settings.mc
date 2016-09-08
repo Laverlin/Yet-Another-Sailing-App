@@ -10,11 +10,13 @@ class Settings
 	static var ForegroundColor = Gfx.COLOR_WHITE;
 	static var BackgroundColor = Gfx.COLOR_BLACK;
 	static var TimerValue = 300;
+	static var IsAutoRecording = false;
 
 	static function LoadSettings()
 	{
-		var value = App.getApp().getProperty("timerValue");
-		SetTimerValue(value);
+		SetAutoRecording(App.getApp().getProperty("IsAutoRecording"));
+		SetTimerValue(App.getApp().getProperty("timerValue"));
+		
 		_isWhiteBackground = App.getApp().getProperty("isWhiteBackground");
 		setColors(_isWhiteBackground);
 	}
@@ -34,6 +36,11 @@ class Settings
 	static function SetTimerValue(value)
 	{
 		TimerValue = (value == null) ? 300 : value;
+	}
+
+	static function SetAutoRecording(isAutoRecording)
+	{
+		IsAutoRecording = (isAutoRecording == null) ? false : isAutoRecording;
 	}
 
 	static hidden function setColors(isWhiteBackground)

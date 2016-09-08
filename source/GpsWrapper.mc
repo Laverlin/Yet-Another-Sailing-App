@@ -9,6 +9,7 @@ class GpsWrapper
 {
     hidden var _lastTimeCall = 0l;
     hidden var _activeSession;
+    hidden var _isAutoRecordStart = false;
 
     // avg for 10 sec. values
     //
@@ -46,6 +47,14 @@ class GpsWrapper
         if (_accuracy < 1 )
         {
             return;
+        }
+
+        // perform autostart recording 
+        //
+        if (Setting.IsAutoRecording && !_isAutoRecordStart)
+        {
+        	_isAutoRecordStart = true;
+        	StartStopRecording();
         }
 
         // difference between two method's calls 
