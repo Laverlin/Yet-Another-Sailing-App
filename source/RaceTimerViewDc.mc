@@ -13,7 +13,6 @@ class RaceTimerViewDc
     	dc.clear();
     }
 
- 
 	static function PrintTime(dc, time)
 	{
         var timeString = Lang.format("$1$:$2$:$3$", 
@@ -48,9 +47,9 @@ class RaceTimerViewDc
 		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-2, Gfx.ARC_CLOCKWISE, secPoint, 90);
 		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-3, Gfx.ARC_CLOCKWISE, secPoint, 90);
 		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-4, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-5, Gfx.ARC_CLOCKWISE, secPoint, 90);
 		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-6, Gfx.ARC_CLOCKWISE, secPoint, 90);
 		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-7, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-8, Gfx.ARC_CLOCKWISE, secPoint, 90);		
+		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-8, Gfx.ARC_CLOCKWISE, secPoint, 90);
+		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-9, Gfx.ARC_CLOCKWISE, secPoint, 90);		
 	}
 }

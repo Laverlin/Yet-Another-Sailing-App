@@ -49,8 +49,8 @@ class RaceTimerView extends Ui.View
         		
         		SignalWrapper.Start();
         		_gpsWrapper.AddLap();
-        		Ui.popView(Ui.SLIDE_LEFT);
         		SignalWrapper.StartEnd();
+        		Ui.popView(Ui.SLIDE_LEFT);
         	}
         	
         	if (_timerValue.toLong() % 30 == 0)
