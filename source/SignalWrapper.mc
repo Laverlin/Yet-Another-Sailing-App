@@ -15,37 +15,37 @@ class SignalWrapper
 	
 	static function PressButton()
 	{
+    	Attention.vibrate(_vibeBeep);		
     	Attention.playTone(Attention.TONE_LOUD_BEEP);
-    	Attention.vibrate(_vibeBeep);
 	}
 	
 	static function HalfMinute()
 	{
+		Attention.vibrate(_vibeBeep);
     	Attention.playTone(Attention.TONE_LOUD_BEEP);
-    	Attention.vibrate(_vibeBeep);
 	}
 	
 	static function TenSeconds(secLeft)
 	{
 		Attention.backlight(true);
+		Attention.vibrate(_vibeBeep);
     	Attention.playTone(Attention.TONE_LOUD_BEEP);
-    	Attention.vibrate(_vibeBeep);
+    	
 	}
 	
 	static function Start()
 	{
+		Attention.vibrate(_vibeStart);
+		Attention.backlight(false);
 	    Attention.playTone(Attention.TONE_CANARY);
-    	Attention.vibrate(_vibeStart);
-    	//var timer = new Toybox.Timer.Timer();
-    	//timer.start(method(:StartEnd), 2000, false);
-    	//StartEnd();
 	}
 	
+	// never call
+	//
 	static function StartEnd()
 	{
     	Attention.playTone(Attention.TONE_ALERT_HI);
     	Attention.vibrate(_vibeBeep);
-    	Attention.backlight(false);		
 	}
 	
 }

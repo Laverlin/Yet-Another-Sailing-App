@@ -9,7 +9,6 @@ class RaceTimerView extends Ui.View
 	hidden var _timer;
 	hidden var _timerValue = 300.0;
 	hidden var _isTimerRun = false;
-	hidden var _lastTimer = 0l;
 
     function initialize(gpsWrapper) 
     {
@@ -39,14 +38,10 @@ class RaceTimerView extends Ui.View
     {
     	if (_isTimerRun)
         {
-        	var actualTimer = Sys.getTimer();
-        	_timerValue -= 1;//((actualTimer - _lastTimer).toDouble() / 1000);
-        	_lastTimer = actualTimer;        	
+        	_timerValue -= 1;
         	
         	if (_timerValue <= 0)
         	{
-        		Sys.println(_lastTimer + "- end");
-        		
         		SignalWrapper.Start();
         		_gpsWrapper.AddLap();
         		SignalWrapper.StartEnd();
@@ -92,11 +87,9 @@ class RaceTimerView extends Ui.View
     	_isTimerRun = !_isTimerRun;
     	if (_isTimerRun)
     	{
-    		_lastTimer = Sys.getTimer();
     		_timer.stop();
     		_timer.start(method(:onTimerUpdate), 1000, true);
     		Ui.requestUpdate();
-    		Sys.println(_lastTimer + "- begin");
     	}
     }
     
