@@ -51,7 +51,7 @@ class GpsWrapper
 
         // perform autostart recording 
         //
-        if (Setting.IsAutoRecording && !_isAutoRecordStart)
+        if (Settings.IsAutoRecording && !_isAutoRecordStart)
         {
         	_isAutoRecordStart = true;
         	StartStopRecording();
