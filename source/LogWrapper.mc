@@ -8,7 +8,7 @@ class LogWrapper
 {
 	static function WriteLapStatistic(lapInfo)
 	{
-    	Sys.println(Lang.format("====== lap :: ", [lapInfo.format("%02d")]));
+    	Sys.println(Lang.format("====== lap :: $1$", [lapInfo.LapNumber.format("%02d")]));
     	Sys.println(Lang.format("max speed : $1$ knot", [lapInfo.MaxSpeedKnot.format("%2.1f")]));
     	Sys.println(Lang.format("avg speed : $1$ knot", [lapInfo.AvgSpeedKnot.format("%2.1f")]));
     	Sys.println(Lang.format("lap time  : $1$ sec, $2$", 
@@ -26,8 +26,8 @@ class LogWrapper
 	}
 
 	static function WriteAppStatistic(lapInfo, endTime)
-    {
-    	var duration = (lapInfo.StartTime != null && lapInfo.StartTime > 0) 
+    {	
+    	var duration = (lapInfo.StartTime != null) 
     		? endTime.subtract(lapInfo.StartTime)
     		: endTime.subtract(endTime);
 
