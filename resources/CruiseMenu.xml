@@ -3,6 +3,7 @@
 		<menu-item id="setTimer">Setup Timer</menu-item>
     	<menu-item id="lapView">View Laps</menu-item>
     	<menu-item id="inverseColor">Inverse Color</menu-item>
+    	<menu-item id="isAutoStartRecording">Auto Recording</menu-item>
    		<menu-item id="exitDiscard">Exit Discard</menu-item>
     	<menu-item id="exitSave">Exit Save</menu-item>
 </menu>

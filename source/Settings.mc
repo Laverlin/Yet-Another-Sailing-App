@@ -25,6 +25,7 @@ class Settings
 	{
 		App.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
 		App.getApp().setProperty("timerValue", TimerValue);
+		App.getApp().setProperty("IsAutoRecording", IsAutoRecording);
 	}
 
 	static function InverseColors()

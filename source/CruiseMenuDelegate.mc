@@ -41,13 +41,16 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
             var lapArray = _gpsWrapper.GetLapArray();
         	var view = new LapView(lapArray[0]);
         	Ui.switchToView(view, new LapViewDelegate(lapArray), Ui.SLIDE_RIGHT);
-        	return true;
         }    
         else if (item == :inverseColor)
         {
         	Settings.InverseColors();
-            return true;
         }  
-
+        else if (item == :isAutoStartRecording)
+        {
+        	var autoRecordingMenu = new Rez.Menus.AutoRecordingMenu();
+        	autoRecordingMenu.setTitle("A. R. (" + (Settings.IsAutoRecording ? "On)" : "Off)"));
+        	Ui.pushView(autoRecordingMenu, new AutoRecordingMenuDelegate(), Ui.SLIDE_RIGHT);
+        }
     }
 }
