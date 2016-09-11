@@ -1,9 +1,11 @@
 using Toybox.Attention as Attention;
+using Toybox.System as Sys;
 
 // methods for signals
 //
 class SignalWrapper
 {
+	hidden static var _isBacklightOn = false;
 	hidden static var _vibeBeep = [new Attention.VibeProfile(40, 300)];
 	
 	hidden static var _vibeStart = [
@@ -27,7 +29,7 @@ class SignalWrapper
 	
 	static function TenSeconds(secLeft)
 	{
-		Attention.backlight(true);
+		BacklightOn();
 		Attention.vibrate(_vibeBeep);
     	Attention.playTone(Attention.TONE_LOUD_BEEP);
     	
@@ -36,8 +38,8 @@ class SignalWrapper
 	static function Start()
 	{
 		Attention.vibrate(_vibeStart);
-		Attention.backlight(false);
 	    Attention.playTone(Attention.TONE_CANARY);
+	    BacklightOff();
 	}
 	
 	// never call
@@ -48,4 +50,21 @@ class SignalWrapper
     	Attention.vibrate(_vibeBeep);
 	}
 	
+	static function BacklightOn()
+	{
+		if (!_isBacklightOn)
+		{
+			Attention.backlight(true);
+			_isBacklightOn = true;
+		}
+	}
+	
+	static function BacklightOff()
+	{
+		if (_isBacklightOn)
+		{
+			Attention.backlight(false);
+			_isBacklightOn = false;
+		}
+	}
 }
