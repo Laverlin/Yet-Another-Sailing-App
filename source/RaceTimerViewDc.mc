@@ -41,15 +41,19 @@ class RaceTimerViewDc
 		var sec = seconds % 60;
 		var secPoint = sec * 6 - 270;
 		secPoint = (secPoint < 0) ? secPoint + 360 : secPoint;
+		var radius = dc.getWidth() / 2;
 		dc.setColor(Gfx.COLOR_GREEN, Settings.BackgroundColor);
-		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-1, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-2, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-3, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-4, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-6, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-7, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-8, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(dc.getWidth()/2, dc.getHeight()/2, dc.getWidth()/2-9, Gfx.ARC_CLOCKWISE, secPoint, 90);		
+		
+		dc.drawArc(radius, radius, radius, Gfx.ARC_CLOCKWISE, secPoint, 90);
+		dc.drawArc(radius, radius, radius-1, Gfx.ARC_CLOCKWISE, secPoint, 90);
+		dc.drawArc(radius, radius, radius-2, Gfx.ARC_CLOCKWISE, secPoint, 90);
+		dc.drawArc(radius, radius, radius-3, Gfx.ARC_CLOCKWISE, secPoint, 90);
+		dc.drawArc(radius, radius, radius-4, Gfx.ARC_CLOCKWISE, secPoint, 90);
+		dc.drawArc(radius, radius, radius-6, Gfx.ARC_CLOCKWISE, secPoint, 90);
+		dc.drawArc(radius, radius, radius-5, Gfx.ARC_CLOCKWISE, secPoint, 90);		
+		dc.drawArc(radius, radius, radius-7, Gfx.ARC_CLOCKWISE, secPoint, 90);
+		dc.drawArc(radius, radius, radius-8, Gfx.ARC_CLOCKWISE, secPoint, 90);
+		dc.drawArc(radius, radius, radius-9, Gfx.ARC_CLOCKWISE, secPoint, 90);		
+		dc.drawArc(radius, radius, radius-10, Gfx.ARC_CLOCKWISE, secPoint, 90);
 	}
 }

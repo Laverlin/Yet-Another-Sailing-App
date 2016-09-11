@@ -49,7 +49,7 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
         else if (item == :isAutoStartRecording)
         {
         	var autoRecordingMenu = new Rez.Menus.AutoRecordingMenu();
-        	autoRecordingMenu.setTitle("A. R. (" + (Settings.IsAutoRecording ? "On)" : "Off)"));
+        	autoRecordingMenu.setTitle("Auto Rec. (" + (Settings.IsAutoRecording ? "On)" : "Off)"));
         	Ui.pushView(autoRecordingMenu, new AutoRecordingMenuDelegate(), Ui.SLIDE_RIGHT);
         }
     }
