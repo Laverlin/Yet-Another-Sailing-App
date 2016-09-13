@@ -6,14 +6,16 @@ using Toybox.ActivityRecording as Fit;
 class RaceTimerView extends Ui.View 
 {
     hidden var _gpsWrapper;
+    hidden var _cruiseView;
 	hidden var _timer;
 	hidden var _timerValue = 300.0;
 	hidden var _isTimerRun = false;
 
-    function initialize(gpsWrapper) 
+    function initialize(gpsWrapper, cruiseView) 
     {
         View.initialize();
         _gpsWrapper = gpsWrapper;
+        _cruiseView = cruiseView;
     }
 
 	// SetUp timer on show to update every second
@@ -45,7 +47,8 @@ class RaceTimerView extends Ui.View
         		SignalWrapper.Start();
         		_gpsWrapper.AddLap();
 
-        		Ui.popView(Ui.SLIDE_LEFT);
+        		//Ui.popView(Ui.SLIDE_LEFT);
+        		Ui.switchToView(_cruiseView, new CruiseViewDelegate(_cruiseView, _gpsWrapper), Ui.SLIDE_LEFT);
         		return;
         	}
         	

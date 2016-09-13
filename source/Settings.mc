@@ -5,8 +5,6 @@ using Toybox.Application as App;
 //
 class Settings
 {
-	static hidden var _isWhiteBackground = false;
-
 	static var ForegroundColor = Gfx.COLOR_WHITE;
 	static var BackgroundColor = Gfx.COLOR_BLACK;
 	static var TimerValue = 300;
@@ -16,22 +14,21 @@ class Settings
 	{
 		SetAutoRecording(App.getApp().getProperty("IsAutoRecording"));
 		SetTimerValue(App.getApp().getProperty("timerValue"));
-		
-		_isWhiteBackground = App.getApp().getProperty("isWhiteBackground");
-		setColors(_isWhiteBackground);
+		SetWhiteBackground(App.getApp().getProperty("isWhiteBackground"));
 	}
 
 	static function SaveSettings()
 	{
-		App.getApp().setProperty("isWhiteBackground", _isWhiteBackground);
+		App.getApp().setProperty("isWhiteBackground", (BackgroundColor == Gfx.COLOR_WHITE));
 		App.getApp().setProperty("timerValue", TimerValue);
 		App.getApp().setProperty("IsAutoRecording", IsAutoRecording);
 	}
 
-	static function InverseColors()
+	static function SetWhiteBackground(isWhiteBackground)
 	{
-		_isWhiteBackground = !_isWhiteBackground;
-		setColors(_isWhiteBackground);
+		isWhiteBackground = (isWhiteBackground == null) ? false : isWhiteBackground;
+        ForegroundColor = isWhiteBackground ? Gfx.COLOR_BLACK : Gfx.COLOR_WHITE;
+        BackgroundColor = isWhiteBackground ? Gfx.COLOR_WHITE : Gfx.COLOR_BLACK;
 	}
 	
 	static function SetTimerValue(value)
@@ -44,10 +41,4 @@ class Settings
 		IsAutoRecording = (isAutoRecording == null) ? false : isAutoRecording;
 	}
 
-	static hidden function setColors(isWhiteBackground)
-	{
-		_isWhiteBackground = (isWhiteBackground == null) ? false : isWhiteBackground;
-        ForegroundColor = _isWhiteBackground ? Gfx.COLOR_BLACK : Gfx.COLOR_WHITE;
-        BackgroundColor = _isWhiteBackground ? Gfx.COLOR_WHITE : Gfx.COLOR_BLACK;
-	}
 }

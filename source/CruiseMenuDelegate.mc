@@ -17,12 +17,13 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
     {
     	if (item == :raceTimer)
     	{
-    		var raceTimerView = new RaceTimerView(_gpsWrapper);
-    		Ui.switchToView(raceTimerView, new RaceTimerViewDelegate(raceTimerView), Ui.SLIDE_RIGHT);
+    		var raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView);
+    		Ui.pushView(raceTimerView, new RaceTimerViewDelegate(raceTimerView), Ui.SLIDE_RIGHT);
     	}
         else if (item == :cruiseView)
         {
-            Ui.popView(Ui.SLIDE_RIGHT);
+            //Ui.popView(Ui.SLIDE_RIGHT);
+            return;
         }
         else if (item == :lapView)
         {
@@ -52,13 +53,10 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
 
 class SettingMenuDelegate extends Ui.MenuInputDelegate 
 {
-    hidden var _gpsWrapper;
     
-    function initialize(gpsWrapper) 
+    function initialize() 
     {
         MenuInputDelegate.initialize();
-        _cruiseView = cruiseView;
-        _gpsWrapper = gpsWrapper;
     }
 
     function onMenuItem(item) 
@@ -67,9 +65,10 @@ class SettingMenuDelegate extends Ui.MenuInputDelegate
         {
             Ui.pushView(new Rez.Menus.SetTimerMenu(), new SetTimerMenuDelegate(), Ui.SLIDE_LEFT);
         } 
-        else if (item == :inverseColor)
+        else if (item == :cruiseBackColor)
         {
-            Settings.InverseColors();
+        	Ui.pushView(new Rez.Menus.BackgroundColorMenu(), new BackgroundMenuDelegate(), Ui.SLIDE_LEFT);
+            //Settings.InverseColors();
         }  
         else if (item == :isAutoStartRecording)
         {
@@ -77,5 +76,26 @@ class SettingMenuDelegate extends Ui.MenuInputDelegate
             autoRecordingMenu.setTitle("Auto Rec. (" + (Settings.IsAutoRecording ? "On)" : "Off)"));
             Ui.pushView(autoRecordingMenu, new AutoRecordingMenuDelegate(), Ui.SLIDE_RIGHT);
         }
+    }
+}
+
+class BackgroundMenuDelegate extends Ui.MenuInputDelegate 
+{
+    
+    function initialize() 
+    {
+        MenuInputDelegate.initialize();
+    }
+
+    function onMenuItem(item) 
+    {
+        if (item == :white)
+        {
+            Settings.SetWhiteBackground(true);
+        } 
+        else if (item == :black)
+        {
+            Settings.SetWhiteBackground(false);
+        }  
     }
 }

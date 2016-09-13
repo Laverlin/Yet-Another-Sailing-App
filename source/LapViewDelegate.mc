@@ -11,6 +11,11 @@ class LapViewDelegate extends Ui.BehaviorDelegate
         _lapArray = lapArray;
     }
     
+    function onMenu()
+    {
+    	Ui.popView(Ui.SLIDE_RIGHT);
+    }
+    
     function onNextPage()
     {
         _lamNum += 1;
