@@ -1,9 +1,8 @@
 <menu id="CruiseMenu" title="Menu">
 		<menu-item id="raceTimer">Race Timer</menu-item>
-		<menu-item id="setTimer">Setup Timer</menu-item>
+		<menu-item id="cruiseView">Cruise View</menu-item>
     	<menu-item id="lapView">View Laps</menu-item>
-    	<menu-item id="inverseColor">Inverse Color</menu-item>
-    	<menu-item id="isAutoStartRecording">Auto Recording</menu-item>
+    	<menu-item id="setting">Settings</menu-item>
    		<menu-item id="exitDiscard">Exit Discard</menu-item>
     	<menu-item id="exitSave">Exit Save</menu-item>
 </menu>

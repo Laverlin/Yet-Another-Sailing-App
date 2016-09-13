@@ -20,12 +20,20 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
     		var raceTimerView = new RaceTimerView(_gpsWrapper);
     		Ui.switchToView(raceTimerView, new RaceTimerViewDelegate(raceTimerView), Ui.SLIDE_RIGHT);
     	}
-        else if (item == :setTimer)
+        else if (item == :cruiseView)
         {
-            var raceTimerView = new RaceTimerView(_gpsWrapper);
-            Ui.pushView(new Rez.Menus.SetTimerMenu(), new SetTimerMenuDelegate(raceTimerView), Ui.SLIDE_LEFT);
-
-        } 
+            Ui.popView(Ui.SLIDE_RIGHT);
+        }
+        else if (item == :lapView)
+        {
+            var lapArray = _gpsWrapper.GetLapArray();
+            var view = new LapView(lapArray[0]);
+            Ui.pushView(view, new LapViewDelegate(lapArray), Ui.SLIDE_RIGHT);
+        }         
+        else if (item == :setting)
+        {
+            Ui.pushView(new Rez.Menus.SettingMenu(), new SettingMenuDelegate(), Ui.SLIDE_LEFT);
+        }
         else if (item == :exitSave) 
         {
             _gpsWrapper.SaveRecord();
@@ -36,21 +44,38 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
             _gpsWrapper.DiscardRecord();
             Sys.exit();
         }   
-        else if (item == :lapView)
+   
+
+    }
+}
+
+
+class SettingMenuDelegate extends Ui.MenuInputDelegate 
+{
+    hidden var _gpsWrapper;
+    
+    function initialize(gpsWrapper) 
+    {
+        MenuInputDelegate.initialize();
+        _cruiseView = cruiseView;
+        _gpsWrapper = gpsWrapper;
+    }
+
+    function onMenuItem(item) 
+    {
+        if (item == :setTimer)
         {
-            var lapArray = _gpsWrapper.GetLapArray();
-        	var view = new LapView(lapArray[0]);
-        	Ui.switchToView(view, new LapViewDelegate(lapArray), Ui.SLIDE_RIGHT);
-        }    
+            Ui.pushView(new Rez.Menus.SetTimerMenu(), new SetTimerMenuDelegate(), Ui.SLIDE_LEFT);
+        } 
         else if (item == :inverseColor)
         {
-        	Settings.InverseColors();
+            Settings.InverseColors();
         }  
         else if (item == :isAutoStartRecording)
         {
-        	var autoRecordingMenu = new Rez.Menus.AutoRecordingMenu();
-        	autoRecordingMenu.setTitle("Auto Rec. (" + (Settings.IsAutoRecording ? "On)" : "Off)"));
-        	Ui.pushView(autoRecordingMenu, new AutoRecordingMenuDelegate(), Ui.SLIDE_RIGHT);
+            var autoRecordingMenu = new Rez.Menus.AutoRecordingMenu();
+            autoRecordingMenu.setTitle("Auto Rec. (" + (Settings.IsAutoRecording ? "On)" : "Off)"));
+            Ui.pushView(autoRecordingMenu, new AutoRecordingMenuDelegate(), Ui.SLIDE_RIGHT);
         }
     }
 }

@@ -1,0 +1,6 @@
+<menu id="SettingMenu" title="Settings">
+		<menu-item id="setTimer">Setup Timer</menu-item>
+    	<menu-item id="cruiseBackColor">Cruise Color</menu-item>
+    	<menu-item id="timerBackColor">Timer Color</menu-item>
+    	<menu-item id="isAutoStartRecording">Auto Recording</menu-item>
+</menu>
