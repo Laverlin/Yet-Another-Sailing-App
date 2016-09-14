@@ -22,7 +22,6 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
     	}
         else if (item == :cruiseView)
         {
-            //Ui.popView(Ui.SLIDE_RIGHT);
             return;
         }
         else if (item == :lapView)
@@ -45,7 +44,6 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
             _gpsWrapper.DiscardRecord();
             Sys.exit();
         }   
-   
 
     }
 }
@@ -65,10 +63,11 @@ class SettingMenuDelegate extends Ui.MenuInputDelegate
         {
             Ui.pushView(new Rez.Menus.SetTimerMenu(), new SetTimerMenuDelegate(), Ui.SLIDE_LEFT);
         } 
-        else if (item == :cruiseBackColor)
+        else if (item == :backgroundColor)
         {
-        	Ui.pushView(new Rez.Menus.BackgroundColorMenu(), new BackgroundMenuDelegate(), Ui.SLIDE_LEFT);
-            //Settings.InverseColors();
+        	var backgroundMenu = new Rez.Menus.BackgroundColorMenu();
+        	backgroundMenu.setTitle("Background (" + (Settings.IsWhiteBackground ? "white)" : "black)"));
+        	Ui.pushView(backgroundMenu, new BackgroundMenuDelegate(), Ui.SLIDE_LEFT);
         }  
         else if (item == :isAutoStartRecording)
         {
@@ -81,7 +80,6 @@ class SettingMenuDelegate extends Ui.MenuInputDelegate
 
 class BackgroundMenuDelegate extends Ui.MenuInputDelegate 
 {
-    
     function initialize() 
     {
         MenuInputDelegate.initialize();
@@ -91,11 +89,11 @@ class BackgroundMenuDelegate extends Ui.MenuInputDelegate
     {
         if (item == :white)
         {
-            Settings.SetWhiteBackground(true);
+            Settings.SetBackground(true);
         } 
         else if (item == :black)
         {
-            Settings.SetWhiteBackground(false);
+            Settings.SetBackground(false);
         }  
     }
 }

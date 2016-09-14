@@ -42,18 +42,25 @@ class RaceTimerViewDc
 		var secPoint = sec * 6 - 270;
 		secPoint = (secPoint < 0) ? secPoint + 360 : secPoint;
 		var radius = dc.getWidth() / 2;
-		dc.setColor(Gfx.COLOR_GREEN, Settings.BackgroundColor);
 		
-		dc.drawArc(radius, radius, radius, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(radius, radius, radius-1, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(radius, radius, radius-2, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(radius, radius, radius-3, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(radius, radius, radius-4, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(radius, radius, radius-6, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(radius, radius, radius-5, Gfx.ARC_CLOCKWISE, secPoint, 90);		
-		dc.drawArc(radius, radius, radius-7, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(radius, radius, radius-8, Gfx.ARC_CLOCKWISE, secPoint, 90);
-		dc.drawArc(radius, radius, radius-9, Gfx.ARC_CLOCKWISE, secPoint, 90);		
-		dc.drawArc(radius, radius, radius-10, Gfx.ARC_CLOCKWISE, secPoint, 90);
+		var color;
+		if (min == 2 && sec > 0){ color = Gfx.COLOR_YELLOW;} else
+		if ((min == 1 && sec > 0) || min == 2){ color = Gfx.COLOR_ORANGE;} else
+		if (min == 0 || min == 1){ color = Gfx.COLOR_RED;} else
+		{color = Gfx.COLOR_GREEN;}
+		
+		dc.setColor(color, Settings.BackgroundColor);
+		for (var i=0; i< 14; i++)
+		{
+			dc.drawArc(radius, radius, radius-i, Gfx.ARC_CLOCKWISE, secPoint, 90);
+		}
+	}
+	
+	static function PrintTips(dc)
+	{
+		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
+        dc.drawText(24, 88, Gfx.FONT_LARGE, "-", Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(30, 132, Gfx.FONT_MEDIUM, "+", Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(170, 138, Gfx.FONT_XTINY, "Nxt", Gfx.TEXT_JUSTIFY_LEFT);
 	}
 }

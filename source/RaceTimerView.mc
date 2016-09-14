@@ -46,8 +46,6 @@ class RaceTimerView extends Ui.View
         	{
         		SignalWrapper.Start();
         		_gpsWrapper.AddLap();
-
-        		//Ui.popView(Ui.SLIDE_LEFT);
         		Ui.switchToView(_cruiseView, new CruiseViewDelegate(_cruiseView, _gpsWrapper), Ui.SLIDE_LEFT);
         		return;
         	}
@@ -83,6 +81,8 @@ class RaceTimerView extends Ui.View
 
         var gpsInfo = _gpsWrapper.GetGpsInfo();
         RaceTimerViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
+        
+        RaceTimerViewDc.PrintTips(dc);
     }
     
     function StartStopCountdown()
