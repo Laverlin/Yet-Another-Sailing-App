@@ -1,11 +1,5 @@
-<resources>
 <menu id="AutoRecordingMenu" >
 		<menu-item id="isAutoOn">On</menu-item>
 		<menu-item id="isAutoOff">Off</menu-item>
 </menu>
 
-<menu id="BackgroundColorMenu" >
-		<menu-item id="white">White</menu-item>
-		<menu-item id="black">Black</menu-item>
-</menu>
-</resources>

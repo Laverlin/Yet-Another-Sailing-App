@@ -1,0 +1,4 @@
+<menu id="BackgroundColorMenu" >
+		<menu-item id="white">White</menu-item>
+		<menu-item id="black">Black</menu-item>
+</menu>

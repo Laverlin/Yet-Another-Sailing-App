@@ -1,6 +1,8 @@
 using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
 
+// main menu handler
+//
 class CruiseMenuDelegate extends Ui.MenuInputDelegate 
 {
     hidden var _cruiseView;
@@ -22,6 +24,8 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
     	}
         else if (item == :cruiseView)
         {
+            // Cruise is a main view, so if pop out here - application terminated, hence just return
+            //
             return;
         }
         else if (item == :lapView)
@@ -45,55 +49,5 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
             Sys.exit();
         }   
 
-    }
-}
-
-
-class SettingMenuDelegate extends Ui.MenuInputDelegate 
-{
-    
-    function initialize() 
-    {
-        MenuInputDelegate.initialize();
-    }
-
-    function onMenuItem(item) 
-    {
-        if (item == :setTimer)
-        {
-            Ui.pushView(new Rez.Menus.SetTimerMenu(), new SetTimerMenuDelegate(), Ui.SLIDE_LEFT);
-        } 
-        else if (item == :backgroundColor)
-        {
-        	var backgroundMenu = new Rez.Menus.BackgroundColorMenu();
-        	backgroundMenu.setTitle("Background (" + (Settings.IsWhiteBackground ? "white)" : "black)"));
-        	Ui.pushView(backgroundMenu, new BackgroundMenuDelegate(), Ui.SLIDE_LEFT);
-        }  
-        else if (item == :isAutoStartRecording)
-        {
-            var autoRecordingMenu = new Rez.Menus.AutoRecordingMenu();
-            autoRecordingMenu.setTitle("Auto Rec. (" + (Settings.IsAutoRecording ? "On)" : "Off)"));
-            Ui.pushView(autoRecordingMenu, new AutoRecordingMenuDelegate(), Ui.SLIDE_RIGHT);
-        }
-    }
-}
-
-class BackgroundMenuDelegate extends Ui.MenuInputDelegate 
-{
-    function initialize() 
-    {
-        MenuInputDelegate.initialize();
-    }
-
-    function onMenuItem(item) 
-    {
-        if (item == :white)
-        {
-            Settings.SetBackground(true);
-        } 
-        else if (item == :black)
-        {
-            Settings.SetBackground(false);
-        }  
     }
 }
