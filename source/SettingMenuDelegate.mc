@@ -1,7 +1,7 @@
 using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
 
-// settin gmenu handler
+// setting menu handler
 //
 class SettingMenuDelegate extends Ui.MenuInputDelegate 
 {

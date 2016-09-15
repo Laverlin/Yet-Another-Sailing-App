@@ -11,17 +11,23 @@ class GpsWrapper
     hidden var _activeSession;
     hidden var _isAutoRecordStart = false;
 
-    // avg for 10 sec. values
+    // avg for 10 sec. values (speed)
     //
 	hidden var _avgSpeedCounter = 0;
 	hidden var _avgSpeedSum = 0;
 	hidden var _avgSpeedValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+    // avg for 20 sec. values (bearing)
+    //
+    hidden var _avgBearingValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    hidden var _avgBearingSum = 0;
+    hidden var _avgBearingIterator = 0;
+
     // actual gps values
     //
 	hidden var _speedKnot = 0.0;
     hidden var _accuracy = 0;
-    hidden var _heading = 0.0;
+    hidden var _bearingDegree = 0;
 
     // global values
     //
@@ -64,12 +70,21 @@ class GpsWrapper
         _lastTimeCall = timeCall;
 
         _speedKnot = positionInfo.speed.toDouble() * 1.9438444924574;
-        _heading = positionInfo.heading;
+        _bearingDegree = Math.toDegrees(positionInfo.heading);
+        _bearingDegree = ((_bearingDegree > 0) ? _bearingDegree : 360 + _bearingDegree);
         _maxSpeedKnot = (_maxSpeedKnot < _speedKnot) ? _speedKnot : _maxSpeedKnot;
 
+        // sliding avg speed 
+        //
         _avgSpeedSum = _avgSpeedSum - _avgSpeedValues[_avgSpeedCounter] + _speedKnot;
         _avgSpeedValues[_avgSpeedCounter] = _speedKnot;
         _avgSpeedCounter = (_avgSpeedCounter + 1) % 10;
+
+        // sliding avg bearing
+        //
+        _avgBearingSum = _avgBearingSum - _avgBearingValues[_avgBearingIterator] + _bearingDegree;
+        _avgBearingValues[_avgBearingIterator] = _bearingDegree;
+        _avgBearingIterator = (_avgBearingIterator + 1) % 20;
 
         _currentLap.MaxSpeedKnot = (_currentLap.MaxSpeedKnot < _speedKnot) ? _speedKnot : _currentLap.MaxSpeedKnot;
 
@@ -80,16 +95,15 @@ class GpsWrapper
 
     function GetGpsInfo()
     {
-        var bearingDegree = Math.toDegrees(_heading);
-
         var gpsInfo = new GpsInfo();
         gpsInfo.Accuracy = _accuracy;
         gpsInfo.SpeedKnot = _speedKnot;
-        gpsInfo.BearingDegree = ((bearingDegree > 0) ? bearingDegree : 360 + bearingDegree);
-        gpsInfo.AvgSpeedKnot = _avgSpeedSum/10;
+        gpsInfo.BearingDegree = _bearingDegree;
+        gpsInfo.AvgSpeedKnot = _avgSpeedSum / 10;
         gpsInfo.MaxSpeedKnot = _maxSpeedKnot;
         gpsInfo.IsRecording = _activeSession.isRecording();
         gpsInfo.LapCount = _lapCount;
+        gpsInfo.avgBearingDegree = _avgBearingSum / 20;
 
         return gpsInfo;
     }
