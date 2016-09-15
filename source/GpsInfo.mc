@@ -14,7 +14,7 @@ class GpsInfo
 	//
 	var MaxSpeedKnot = 0.0;
 
-	// avg speed in knots
+	// avg speed in knots for 10 sec.
 	//
 	var AvgSpeedKnot = 0.0;
 
@@ -29,5 +29,9 @@ class GpsInfo
 	// is activity recorded
 	//
 	var IsRecording = false;
+
+	// sliding avg bearing for 20 sec.
+	//
+	var AvgBearingDegree = 0;
 
 }
