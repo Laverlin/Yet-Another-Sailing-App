@@ -1,5 +1,0 @@
-<menu id="AutoRecordingMenu" >
-		<menu-item id="isAutoOn">On</menu-item>
-		<menu-item id="isAutoOff">Off</menu-item>
-</menu>
-

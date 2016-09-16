@@ -19,7 +19,7 @@ class GpsWrapper
 
     // avg for 20 sec. values (bearing)
     //
-    hidden var _avgBearingValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    hidden var _avgBearingValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     hidden var _avgBearingSum = 0;
     hidden var _avgBearingIterator = 0;
 
@@ -103,7 +103,7 @@ class GpsWrapper
         gpsInfo.MaxSpeedKnot = _maxSpeedKnot;
         gpsInfo.IsRecording = _activeSession.isRecording();
         gpsInfo.LapCount = _lapCount;
-        gpsInfo.avgBearingDegree = _avgBearingSum / 20;
+        gpsInfo.AvgBearingDegree = _avgBearingSum / 20;
 
         return gpsInfo;
     }
