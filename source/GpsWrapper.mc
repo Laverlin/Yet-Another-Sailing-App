@@ -39,8 +39,9 @@ class GpsWrapper
     // lap values
     //
 	hidden var _currentLap = new LapInfo();
-	hidden var _lapArray = new [100];
+	hidden var _lapArray = new [];
 	hidden var _lapCount = 0;
+    hidden var _lapArrayMax = 20;
 
     function initialize()
     {
@@ -197,8 +198,15 @@ class GpsWrapper
             ? _currentLap.Distance/(_currentLap.Duration.toDouble() / Time.Gregorian.SECONDS_PER_HOUR)
             : 0;
 
-        _lapArray[_lapCount] = _currentLap;
-        _lapCount = _lapCount + 1;
+        _lapArray.add(_currentLap);
+        _lapCount = _lapArray.size();
+
+        // if array oversized - remove oldest element
+        //
+        if (_lapCount > _lapArrayMax)
+        {
+            _lapArray = _lapArray.slice(1, -1);
+        }
     }
 
     // initialize new lap 
