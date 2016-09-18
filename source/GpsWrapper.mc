@@ -178,10 +178,10 @@ class GpsWrapper
     function SetLapArray(lapArray)
     {
     	_lapArray = lapArray;
-    	if (lapArray.size() > 0)
-    	{
-    		_lapCount = lapArray[lapArray.size() - 1].LapNumber + 1;
-    	}
+    	_lapCount = (lapArray.size() > 0)
+    		? lapArray[lapArray.size() - 1].LapNumber + 1
+    		: 0;
+    	_currentLap.LapNumber = _lapCount;
     }
 
     function GetAppStatistic()

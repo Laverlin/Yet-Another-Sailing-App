@@ -24,15 +24,15 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
     	}
         else if (item == :cruiseView)
         {
-            // Cruise is a main view, so if pop out here - application terminated, hence just return
-            //
-            return;
+            var cruiseView = new CruiseView(_gpsWrapper);
+            var delegate = new CruiseViewDelegate(cruiseView, _gpsWrapper);
+            Ui.pushView(cruiseView, delegate, Ui.SLIDE_RIGHT);
         }
         else if (item == :lapView)
         {
             var lapArray = _gpsWrapper.GetLapArray();
             var view = new LapView((lapArray.size() == 0) ? null : lapArray[0]);
-            Ui.pushView(view, new LapViewDelegate(lapArray), Ui.SLIDE_RIGHT);
+            Ui.pushView(view, new LapViewDelegate(_gpsWrapper), Ui.SLIDE_RIGHT);
         }         
         else if (item == :setting)
         {
@@ -48,6 +48,5 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
             _gpsWrapper.DiscardRecord();
             Sys.exit();
         }   
-
     }
 }

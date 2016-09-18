@@ -74,8 +74,6 @@ class YASailingApp extends App.AppBase
     				lapArray[i].Distance = lap[3].toFloat();
     				lapArray[i].Duration = lap[4].toNumber();
     				lapArray[i].StartTime = new Time.Moment(lap[5].toNumber());
-    			
-    				LogWrapper.WriteLapStatistic(lapArray[i]);
     				i += 1;
     			}
     		}
@@ -105,6 +103,14 @@ class YASailingApp extends App.AppBase
     		lapId = "lapId" + i;
     		
     		setProperty(lapId, lap);
+    	}
+    	
+    	// delete unused keys
+    	//
+    	for (var i = lapArray.size(); i < _gpsWrapper.LAP_ARRAY_MAX; i++)
+    	{
+    		var lapId = "lapId" + i;
+    		deleteProperty(lapId);
     	}
     }
 }
