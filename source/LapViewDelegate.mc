@@ -64,6 +64,7 @@ class ConfirmDeleteDelegate extends Ui.ConfirmationDelegate
 	function initialize(gpsWrapper)
     {	
         _gpsWrapper = gpsWrapper;
+        ConfirmationDelegate.initialize();
     }
     
     function onResponse(value)
