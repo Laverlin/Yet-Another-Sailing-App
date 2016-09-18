@@ -73,7 +73,5 @@ class AutoRecordingMenuDelegate extends Ui.MenuInputDelegate
         {
             Settings.SetAutoRecording(false);
         }
-        
-        Ui.popView(Ui.SLIDE_LEFT);
     }
 }

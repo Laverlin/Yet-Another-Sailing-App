@@ -57,7 +57,5 @@ class SetTimerMenuDelegate extends Ui.MenuInputDelegate
         {
             Settings.SetTimerValue(3600);
         } 
-
-		Ui.popView(Ui.SLIDE_RIGHT);
     }
 }
