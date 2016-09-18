@@ -39,9 +39,9 @@ class GpsWrapper
     // lap values
     //
 	hidden var _currentLap = new LapInfo();
-	hidden var _lapArray = new [];
+	hidden var _lapArray = new [0];
 	hidden var _lapCount = 0;
-    hidden var _lapArrayMax = 20;
+    const LAP_ARRAY_MAX = 20;
 
     function initialize()
     {
@@ -75,13 +75,13 @@ class GpsWrapper
         _bearingDegree = ((_bearingDegree > 0) ? _bearingDegree : 360 + _bearingDegree);
         _maxSpeedKnot = (_maxSpeedKnot < _speedKnot) ? _speedKnot : _maxSpeedKnot;
 
-        // sliding avg speed 
+        // moving avg speed 
         //
         _avgSpeedSum = _avgSpeedSum - _avgSpeedValues[_avgSpeedCounter] + _speedKnot;
         _avgSpeedValues[_avgSpeedCounter] = _speedKnot;
         _avgSpeedCounter = (_avgSpeedCounter + 1) % 10;
 
-        // sliding avg bearing
+        // moving avg bearing
         //
         _avgBearingSum = _avgBearingSum - _avgBearingValues[_avgBearingIterator] + _bearingDegree;
         _avgBearingValues[_avgBearingIterator] = _bearingDegree;
@@ -174,6 +174,15 @@ class GpsWrapper
     {
     	return _lapArray;
     }
+    
+    function SetLapArray(lapArray)
+    {
+    	_lapArray = lapArray;
+    	if (lapArray.size() > 0)
+    	{
+    		_lapCount = lapArray[lapArray.size() - 1].LapNumber + 1;
+    	}
+    }
 
     function GetAppStatistic()
     {
@@ -199,13 +208,16 @@ class GpsWrapper
             : 0;
 
         _lapArray.add(_currentLap);
-        _lapCount = _lapArray.size();
+        
+        // no more than 999 laps 
+        //
+        _lapCount = (_lapCount + 1) % 999;
 
         // if array oversized - remove oldest element
         //
-        if (_lapCount > _lapArrayMax)
+        if (_lapArray.size() > LAP_ARRAY_MAX)
         {
-            _lapArray = _lapArray.slice(1, -1);
+            _lapArray = _lapArray.slice(1, null);
         }
     }
 
@@ -215,11 +227,11 @@ class GpsWrapper
     {
         // Store some current global values to calculate difference later
         //
-        var lap = new LapInfo();
-        lap.StartTime = Time.now();
-        lap.Distance = _distance;        
-        lap.Duration = _duration;
-        lap.LapNumber = _lapCount;   
-        return lap;     
+        var lapInfo = new LapInfo();
+        lapInfo.StartTime = Time.now();
+        lapInfo.Distance = _distance;        
+        lapInfo.Duration = _duration;
+        lapInfo.LapNumber = _lapCount;   
+        return lapInfo;     
     }
 }

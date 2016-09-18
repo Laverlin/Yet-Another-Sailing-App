@@ -19,7 +19,7 @@ class LapViewDelegate extends Ui.BehaviorDelegate
     function onNextPage()
     {
         _lamNum += 1;
-        if (_lamNum > 99 || _lapArray[_lamNum] == null)
+        if (_lamNum >= _lapArray.size())
         {
             _lamNum -= 1;
             return true;
@@ -33,7 +33,7 @@ class LapViewDelegate extends Ui.BehaviorDelegate
     function onPreviousPage()
     {
         _lamNum -= 1;
-        if (_lamNum < 0 || _lapArray[_lamNum] == null)
+        if (_lamNum < 0)
         {
             _lamNum += 1;
             return true;

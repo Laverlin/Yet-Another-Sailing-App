@@ -31,7 +31,7 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
         else if (item == :lapView)
         {
             var lapArray = _gpsWrapper.GetLapArray();
-            var view = new LapView(lapArray[0]);
+            var view = new LapView((lapArray.size() == 0) ? null : lapArray[0]);
             Ui.pushView(view, new LapViewDelegate(lapArray), Ui.SLIDE_RIGHT);
         }         
         else if (item == :setting)
