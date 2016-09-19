@@ -82,7 +82,7 @@ class RaceTimerView extends Ui.View
         var gpsInfo = _gpsWrapper.GetGpsInfo();
         RaceTimerViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
         
-        RaceTimerViewDc.PrintTips(dc);
+        //RaceTimerViewDc.PrintTips(dc);
     }
     
     function StartStopCountdown()
@@ -99,13 +99,13 @@ class RaceTimerView extends Ui.View
     
     function AddOneSec()
     {
-    	_timerValue +=1;
+    	_timerValue += 1;
     	Ui.requestUpdate();
     }
     
     function SubOneSec()
     {
-    	_timerValue -=1;
+    	_timerValue -= 1;
     	Ui.requestUpdate();
     }
     

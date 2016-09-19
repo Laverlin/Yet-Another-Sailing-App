@@ -59,8 +59,8 @@ class RaceTimerViewDc
 	static function PrintTips(dc)
 	{
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(24, 88, Gfx.FONT_LARGE, "-", Gfx.TEXT_JUSTIFY_LEFT);
-        dc.drawText(30, 132, Gfx.FONT_MEDIUM, "+", Gfx.TEXT_JUSTIFY_LEFT);
-        dc.drawText(170, 138, Gfx.FONT_XTINY, "Nxt", Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(24, 88, Gfx.FONT_LARGE, "+", Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(30, 132, Gfx.FONT_MEDIUM, "-", Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(170, 138, Gfx.FONT_XTINY, "=", Gfx.TEXT_JUSTIFY_LEFT);
 	}
 }
