@@ -41,7 +41,12 @@ class GpsWrapper
 	hidden var _currentLap = new LapInfo();
 	hidden var _lapArray = new [0];
 	hidden var _lapCount = 0;
+
     const LAP_ARRAY_MAX = 20;
+    const AVG_SPEED_INTERVAL = 10;
+    const AVG_BEARING_INTERVAL = 20;
+    const METERS_PER_NAUTICAL_MILE = 1852;
+    const MS_TO_KNOT = 1.9438444924574;
 
     function initialize()
     {
@@ -56,12 +61,11 @@ class GpsWrapper
             return;
         }
 
-        // perform autostart recording 
+        // autostart recording 
         //
-        if (Settings.IsAutoRecording && !_isAutoRecordStart)
+        if (!_isAutoRecordStart && Settings.IsAutoRecording)
         {
-        	_isAutoRecordStart = true;
-        	StartStopRecording();
+        	_isAutoRecordStart = StartStopRecording();
         }
 
         // difference between two method's calls 
@@ -70,7 +74,7 @@ class GpsWrapper
         var timelaps = (_lastTimeCall > 0) ? timeCall - _lastTimeCall : 0;
         _lastTimeCall = timeCall;
 
-        _speedKnot = positionInfo.speed.toDouble() * 1.9438444924574;
+        _speedKnot = positionInfo.speed.toDouble() * MS_TO_KNOT;
         _bearingDegree = Math.toDegrees(positionInfo.heading);
         _bearingDegree = ((_bearingDegree > 0) ? _bearingDegree : 360 + _bearingDegree);
         _maxSpeedKnot = (_maxSpeedKnot < _speedKnot) ? _speedKnot : _maxSpeedKnot;
@@ -79,17 +83,17 @@ class GpsWrapper
         //
         _avgSpeedSum = _avgSpeedSum - _avgSpeedValues[_avgSpeedCounter] + _speedKnot;
         _avgSpeedValues[_avgSpeedCounter] = _speedKnot;
-        _avgSpeedCounter = (_avgSpeedCounter + 1) % 10;
+        _avgSpeedCounter = (_avgSpeedCounter + 1) % AVG_SPEED_INTERVAL;
 
         // moving avg bearing
         //
         _avgBearingSum = _avgBearingSum - _avgBearingValues[_avgBearingIterator] + _bearingDegree;
         _avgBearingValues[_avgBearingIterator] = _bearingDegree;
-        _avgBearingIterator = (_avgBearingIterator + 1) % 20;
+        _avgBearingIterator = (_avgBearingIterator + 1) % AVG_BEARING_INTERVAL;
 
         _currentLap.MaxSpeedKnot = (_currentLap.MaxSpeedKnot < _speedKnot) ? _speedKnot : _currentLap.MaxSpeedKnot;
 
-        var timelapsSecond = timelaps.toDouble()/1000;
+        var timelapsSecond = timelaps.toDouble() / 1000;
         _distance += positionInfo.speed * timelapsSecond;
         _duration += timelapsSecond;
 	}
@@ -100,11 +104,11 @@ class GpsWrapper
         gpsInfo.Accuracy = _accuracy;
         gpsInfo.SpeedKnot = _speedKnot;
         gpsInfo.BearingDegree = _bearingDegree;
-        gpsInfo.AvgSpeedKnot = _avgSpeedSum / 10;
+        gpsInfo.AvgSpeedKnot = _avgSpeedSum / AVG_SPEED_INTERVAL;
         gpsInfo.MaxSpeedKnot = _maxSpeedKnot;
         gpsInfo.IsRecording = _activeSession.isRecording();
         gpsInfo.LapCount = _lapCount;
-        gpsInfo.AvgBearingDegree = _avgBearingSum / 20;
+        gpsInfo.AvgBearingDegree = _avgBearingSum / AVG_BEARING_INTERVAL;
 
         return gpsInfo;
     }
@@ -189,7 +193,7 @@ class GpsWrapper
         var overall = new LapInfo();
         overall.StartTime = _startTime;
         overall.MaxSpeedKnot = _maxSpeedKnot;
-        overall.Distance = _distance / 1852;
+        overall.Distance = _distance / METERS_PER_NAUTICAL_MILE;
         overall.Duration = _duration;
         overall.AvgSpeedKnot =  (_duration > 0) ? overall.Distance / (_duration / Time.Gregorian.SECONDS_PER_HOUR) : 0;
         return overall;
@@ -201,7 +205,7 @@ class GpsWrapper
     {
         // calculate lap statistics
         //
-        _currentLap.Distance = (_distance - _currentLap.Distance) / 1852;
+        _currentLap.Distance = (_distance - _currentLap.Distance) / METERS_PER_NAUTICAL_MILE;
         _currentLap.Duration = (_duration - _currentLap.Duration);
         _currentLap.AvgSpeedKnot = (_currentLap.Duration > 0)
             ? _currentLap.Distance/(_currentLap.Duration.toDouble() / Time.Gregorian.SECONDS_PER_HOUR)

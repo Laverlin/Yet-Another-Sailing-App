@@ -3,6 +3,6 @@
 		<menu-item id="cruiseView">Cruise</menu-item>
     	<menu-item id="lapView">Laps</menu-item>
     	<menu-item id="setting">Settings</menu-item>
-   		<menu-item id="exitDiscard">Exit Discard</menu-item>
-    	<menu-item id="exitSave">Exit Save</menu-item>
+   		<menu-item id="exitDiscard">Exit Discard Track</menu-item>
+    	<menu-item id="exitSave">Exit Save Track</menu-item>
 </menu>
