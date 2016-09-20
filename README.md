@@ -14,7 +14,8 @@ https://forums.garmin.com/showthread.php?360221-App-Yet-Another-Sailing-App
 
 ### description
 
-There is already a few nice sailing apps but this yet another one... =)
+There is already a few nice sailing apps but this yet another one... =)   
+
 This app has 
 - Race Timer with ISAF starting sequence support 
 - Cruise view (main)
@@ -33,7 +34,7 @@ Waypoint mode is under development.
 - press and hold UP button (over 2 sec.) to get access to main menu.    
 	In main menu you can   
    -- switch to Race Timer mode  
-   -- switch to Cruise mode
+   -- switch to Cruise mode   
    -- switch to Laps view  
    -- change settings, like countdown value for Race Timer, Background Color, Auto recording  
 
@@ -52,5 +53,16 @@ To manually exit back to *Cruise* mode, press and hold UP button (over 2 sec.)
 In **Laps View** you can see data from last 20 laps. This data stores permanently, even if you close the app and start it again, laps data will be on place  
 - UP button shows previous lap
 - DOWN button scroll to next lap
-- BACK button offer you to clear all laps from permanent storage and drop lap counter to zero.
-
+- BACK button offer you to clear all laps from permanent storage and drop lap counter to zero.   
+   
+======== 0.6 changes   
+- color countdown progress bar   
+- new main menu   
+- permanently stored laps   
+   
+======== 0.5 changes   
+- add Race Timer   
+- fix view issues   
+   
+======== 0.21   
+- minor change in UI   
