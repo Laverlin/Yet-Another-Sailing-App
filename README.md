@@ -1,32 +1,44 @@
 # Yet-Another-Sailing-App
-Simple app for garmin quatix 3 to track speed and bearing during cruise. 
+
+### supported devices
+
+Fenix 3 [HR] / Quatix 3/ Tactix Bravo 
+
+### install
+
+https://apps.garmin.com/en-US/apps/159028ac-590b-4836-a1e2-474d248469c5
+
+### feedback 
+
+https://forums.garmin.com/showthread.php?360221-App-Yet-Another-Sailing-App 
 
 ### description
 
 There is already a few nice sailing apps but this yet another one... =)
-App has two modes 
-- Race Timer mode with ISAF starting sequence support 
-- Cruise mode (main)
+This app has 
+- Race Timer with ISAF starting sequence support 
+- Cruise view (main)
+- Lap view 
 
 In **Cruise** mode you can see at one glance actual speed, bearing, max speed and avg speed for last 10 seconds. Also there is a set of helpful indicators, like GPS status, recording status and actual speed vs avg speed, which is very useful for sail trimming.
 
-In **Race Timer** mode you can see remaining seconds till start, actual time and speed. You can also adjust countdown timer by one sec up and down and down to next minute. 
+In **Race Timer** mode you can see remaining seconds till start, actual time and speed. You can also adjust countdown timer by one sec up and down and down to next minute.
+
+In **Laps view** you can see data - max speed, average speed, distance and time of last 20 laps  
 
 Waypoint mode is under development.
 
 ### usage
 
-In **Cruise** mode
 - press and hold UP button (over 2 sec.) to get access to main menu.    
-In main menu you can   
+	In main menu you can   
    -- switch to Race Timer mode  
-   -- setup timer for Race Timer mode  
-   -- view laps statistic from current session (max speed, avg speed, distance and duration)   
-   -- change color scheme   
-   -- set auto recording option (recording activity can start automaticaly as soon as GPS signal available)    
+   -- switch to Cruise mode
+   -- switch to Laps view  
+   -- change settings, like countdown value for Race Timer, Background Color, Auto recording  
 
+In **Cruise** mode     
 - press start/stop button to start/stop recording. This option available only if GPS signal strong enough (gps indicator yellow or green)
-
 - press back button to add new lap, you can view laps statistic later.  
  
 In **Race Timer** mode   
@@ -37,4 +49,8 @@ In **Race Timer** mode
 After countdown ends, app will automatically add one lap (if activity is recording) and will switch back to *Cruise* mode.
 To manually exit back to *Cruise* mode, press and hold UP button (over 2 sec.) 
 
-if you create .txt file named after the app in APPS\LOG directory of your garmin, you'll see lap statistic there after app usage: lap time, max speed, avg speed and distance covered
+In **Laps View** you can see data from last 20 laps. This data stores permanently, even if you close the app and start it again, laps data will be on place  
+- UP button shows previous lap
+- DOWN button scroll to next lap
+- BACK button offer you to clear all laps from permanent storage and drop lap counter to zero.
+

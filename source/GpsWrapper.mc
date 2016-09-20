@@ -98,6 +98,8 @@ class GpsWrapper
         _duration += timelapsSecond;
 	}
 
+	// return all calculated data from GPS 
+	//
     function GetGpsInfo()
     {
         var gpsInfo = new GpsInfo();
@@ -128,7 +130,7 @@ class GpsWrapper
 
         saveLap();
 
-        LogWrapper.WriteLapStatistic(_currentLap);
+        //LogWrapper.WriteLapStatistic(_currentLap);
 
         _currentLap = newLap();
        
@@ -174,11 +176,15 @@ class GpsWrapper
         }
     }    
 
+	// returns lap data
+	//
     function GetLapArray()
     {
     	return _lapArray;
     }
     
+    // initialize lap data from external source
+    //
     function SetLapArray(lapArray)
     {
     	_lapArray = lapArray;
@@ -188,6 +194,8 @@ class GpsWrapper
     	_currentLap.LapNumber = _lapCount;
     }
 
+	// return data collected from the whole application run
+	//
     function GetAppStatistic()
     {
         var overall = new LapInfo();
