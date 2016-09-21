@@ -1,5 +1,5 @@
 <properties>
-    <property id="appVersion" type="string">0.51</property>
+    <property id="appVersion" type="string">0.6</property>
     <property id="isWhiteBackground" type="boolean">false</property>
     <property id="timerValue" type="number">300</property>
     <property id="IsAutoRecording" type="boolean">false</property>

@@ -55,7 +55,7 @@ In **Laps View** you can see data from last 20 laps. This data stores permanentl
 - DOWN button scroll to next lap
 - BACK button offer you to clear all laps from permanent storage and drop lap counter to zero.   
    
-======== 0.6 changes   
+======== 0.6 changes (in development) 
 - color countdown progress bar   
 - new main menu   
 - permanently stored laps   
