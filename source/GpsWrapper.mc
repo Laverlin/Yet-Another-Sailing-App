@@ -13,14 +13,17 @@ class GpsWrapper
 
     // avg for 10 sec. values (speed)
     //
-	hidden var _avgSpeedCounter = 0;
+	hidden var _avgSpeedIterator = 0;
 	hidden var _avgSpeedSum = 0;
 	hidden var _avgSpeedValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-    // avg for 20 sec. values (bearing)
+    // avg for 10 sec. values (bearing)
     //
-    hidden var _avgBearingValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    hidden var _avgBearingSum = 0;
+    hidden var _avgSinValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    hidden var _avgCosValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    hidden var _sinBearingSum = 0;
+    hidden var _cosBearingSum = 0;
+    hidden var _avgBearingDegree = 0;
     hidden var _avgBearingIterator = 0;
 
     // actual gps values
@@ -44,7 +47,7 @@ class GpsWrapper
 
     const LAP_ARRAY_MAX = 20;
     const AVG_SPEED_INTERVAL = 10;
-    const AVG_BEARING_INTERVAL = 20;
+    const AVG_BEARING_INTERVAL = 10;
     const METERS_PER_NAUTICAL_MILE = 1852;
     const MS_TO_KNOT = 1.9438444924574;
 
@@ -81,14 +84,20 @@ class GpsWrapper
 
         // moving avg speed 
         //
-        _avgSpeedSum = _avgSpeedSum - _avgSpeedValues[_avgSpeedCounter] + _speedKnot;
-        _avgSpeedValues[_avgSpeedCounter] = _speedKnot;
-        _avgSpeedCounter = (_avgSpeedCounter + 1) % AVG_SPEED_INTERVAL;
+        _avgSpeedSum = _avgSpeedSum - _avgSpeedValues[_avgSpeedIterator] + _speedKnot;
+        _avgSpeedValues[_avgSpeedIterator] = _speedKnot;
+        _avgSpeedIterator = (_avgSpeedIterator + 1) % AVG_SPEED_INTERVAL;
 
         // moving avg bearing
         //
-        _avgBearingSum = _avgBearingSum - _avgBearingValues[_avgBearingIterator] + _bearingDegree;
-        _avgBearingValues[_avgBearingIterator] = _bearingDegree;
+        var sinBearing = Math.sin(positionInfo.heading);
+        var cosBearing = Math.cos(positionInfo.heading);
+        _sinBearingSum = _sinBearingSum - _avgSinValues[_avgBearingIterator] + sinBearing;
+        _avgSinValues[_avgBearingIterator] = sinBearing;
+        _cosBearingSum = _cosBearingSum - _avgCosValues[_avgBearingIterator] + cosBearing;
+        _avgCosValues[_avgBearingIterator] = cosBearing;
+        _avgBearingDegree = Math.toDegrees(Math.atan2(_sinBearingSum, _cosBearingSum));
+        _avgBearingDegree = ((_avgBearingDegree > 0) ? _avgBearingDegree : 360 + _avgBearingDegree);
         _avgBearingIterator = (_avgBearingIterator + 1) % AVG_BEARING_INTERVAL;
 
         _currentLap.MaxSpeedKnot = (_currentLap.MaxSpeedKnot < _speedKnot) ? _speedKnot : _currentLap.MaxSpeedKnot;
@@ -110,7 +119,7 @@ class GpsWrapper
         gpsInfo.MaxSpeedKnot = _maxSpeedKnot;
         gpsInfo.IsRecording = _activeSession.isRecording();
         gpsInfo.LapCount = _lapCount;
-        gpsInfo.AvgBearingDegree = _avgBearingSum / AVG_BEARING_INTERVAL;
+        gpsInfo.AvgBearingDegree = _avgBearingDegree;
 
         return gpsInfo;
     }

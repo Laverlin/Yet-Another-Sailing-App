@@ -5,8 +5,7 @@ class CruiseView extends Ui.View
 {
     hidden var _gpsWrapper;
 	hidden var _timer;
-
-    hidden var _lastKnownAccuracy = 0;
+	hidden var _isAvgSpeedDisplay = true;
 
     function initialize(gpsWrapper) 
     {
@@ -50,13 +49,20 @@ class CruiseView extends Ui.View
         // Display speed and bearing if GPS available
         //
         var gpsInfo = _gpsWrapper.GetGpsInfo();
-        _lastKnownAccuracy = gpsInfo.Accuracy;
-        if (_lastKnownAccuracy > 0)
+        if (gpsInfo.Accuracy > 0)
         {
         	CruiseViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
         	CruiseViewDc.PrintBearing(dc, gpsInfo.BearingDegree);
         	CruiseViewDc.PrintMaxSpeed(dc, gpsInfo.MaxSpeedKnot);	
-        	CruiseViewDc.PrintAvgSpeed(dc, gpsInfo.AvgSpeedKnot);
+        	
+        	if (_isAvgSpeedDisplay)
+        	{
+        		CruiseViewDc.PrintAvgSpeed(dc, gpsInfo.AvgSpeedKnot);
+        	}
+        	else
+        	{
+        		CruiseViewDc.PrintAvgBearing(dc, gpsInfo.AvgBearingDegree);
+        	}
         	
         	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
         	//
@@ -67,5 +73,9 @@ class CruiseView extends Ui.View
         
         CruiseViewDc.DrawGrid(dc);
     }
-
+    
+    function SwitchAvgDisplay()
+    {
+    	_isAvgSpeedDisplay = !_isAvgSpeedDisplay;
+    }
 }

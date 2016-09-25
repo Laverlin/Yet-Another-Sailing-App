@@ -58,6 +58,14 @@ class CruiseViewDc
         dc.drawText(154, 192, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
+    static function PrintAvgBearing(dc, avgBearing)
+    {
+        var avgBearingString = avgBearing.format("%003d");
+    	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
+        dc.drawText(168, 162, Gfx.FONT_LARGE, avgBearingString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(154, 192, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_RIGHT);
+    }    
+    
     static function DrawGrid(dc)
     {
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);

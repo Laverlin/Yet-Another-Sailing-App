@@ -39,4 +39,9 @@ class CruiseViewDelegate extends Ui.BehaviorDelegate
         }
         return true;
     }
+    
+    function onNextPage()
+    {
+    	_cruiseView.SwitchAvgDisplay();
+    }
 }
