@@ -19,7 +19,7 @@ There is already a few nice sailing apps but this yet another one... =)
 This app has 
 - Race Timer with ISAF starting sequence support 
 - Cruise view (main)
-- Lap view 
+- Laps view 
 
 In **Cruise** mode you can see at one glance actual speed, bearing, max speed and avg speed for last 10 seconds. Also there is a set of helpful indicators, like GPS status, recording status and actual speed vs avg speed, which is very useful for sail trimming.
 
@@ -31,7 +31,7 @@ Waypoint mode is under development.
 
 ### usage
 
-- press and hold UP button (over 2 sec.) to get access to main menu.    
+- In any view press and hold UP button (over 2 sec.) to get access to main menu.    
 	In main menu you can   
    -- switch to Race Timer mode  
    -- switch to Cruise mode   
@@ -55,7 +55,7 @@ In **Laps View** you can see data from last 20 laps. This data stores permanentl
 - DOWN button scroll to next lap
 - BACK button offer you to clear all laps from permanent storage and drop lap counter to zero.   
    
-======== 0.6 changes (in development) 
+======== 0.6 changes 
 - color countdown progress bar   
 - new main menu   
 - permanently stored laps   
