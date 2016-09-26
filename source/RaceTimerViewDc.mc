@@ -39,7 +39,7 @@ class RaceTimerViewDc
 	{
 		var min = seconds / 60;
 		var sec = seconds % 60;
-		var secPoint = (sec * 6 + 90) % 360;
+		var secPoint = (90 - sec * 6) % 360;
 		var radius = dc.getWidth() / 2;
 		
 		var color;
