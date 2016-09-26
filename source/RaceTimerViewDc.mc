@@ -23,7 +23,7 @@ class RaceTimerViewDc
 	
 	static function PrintCountdown(dc, seconds)
 	{
-		var countdownString = Lang.format("$1$:$2$", [(seconds/60).format("%2d"), (seconds%60).format("%02d")]);
+		var countdownString = Lang.format("$1$:$2$", [(seconds / 60).format("%2d"), (seconds % 60).format("%02d")]);
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
         dc.drawText(46, 50, Gfx.FONT_SYSTEM_NUMBER_THAI_HOT, countdownString, Gfx.TEXT_JUSTIFY_LEFT);
 	}
@@ -39,20 +39,19 @@ class RaceTimerViewDc
 	{
 		var min = seconds / 60;
 		var sec = seconds % 60;
-		var secPoint = sec * 6 - 270;
-		secPoint = (secPoint < 0) ? secPoint + 360 : secPoint;
+		var secPoint = (sec * 6 + 90) % 360;
 		var radius = dc.getWidth() / 2;
 		
 		var color;
-		if (min == 2 && sec > 0){ color = Gfx.COLOR_YELLOW;} else
-		if ((min == 1 && sec > 0) || min == 2){ color = Gfx.COLOR_ORANGE;} else
-		if (min == 0 || min == 1){ color = Gfx.COLOR_RED;} else
-		{color = Gfx.COLOR_GREEN;}
+		if (min == 2 && sec > 0){ color = Gfx.COLOR_YELLOW; } else
+		if ((min == 1 && sec > 0) || min == 2){ color = Gfx.COLOR_ORANGE; } else
+		if (min == 0 || min == 1){ color = Gfx.COLOR_RED; } else
+		{ color = Gfx.COLOR_GREEN; }
 		
 		dc.setColor(color, Settings.BackgroundColor);
-		for (var i=0; i< 14; i++)
+		for (var i = 0; i < 14; i++)
 		{
-			dc.drawArc(radius, radius, radius-i, Gfx.ARC_CLOCKWISE, secPoint, 90);
+			dc.drawArc(radius, radius, radius - i, Gfx.ARC_COUNTER_CLOCKWISE, secPoint, 90);
 		}
 	}
 	

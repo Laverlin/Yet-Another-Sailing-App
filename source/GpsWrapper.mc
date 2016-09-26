@@ -78,8 +78,7 @@ class GpsWrapper
         _lastTimeCall = timeCall;
 
         _speedKnot = positionInfo.speed.toDouble() * MS_TO_KNOT;
-        _bearingDegree = Math.toDegrees(positionInfo.heading);
-        _bearingDegree = ((_bearingDegree > 0) ? _bearingDegree : 360 + _bearingDegree);
+        _bearingDegree = (Math.toDegrees(positionInfo.heading) + 360) % 360;
         _maxSpeedKnot = (_maxSpeedKnot < _speedKnot) ? _speedKnot : _maxSpeedKnot;
 
         // moving avg speed 
