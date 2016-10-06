@@ -95,8 +95,7 @@ class GpsWrapper
         _avgSinValues[_avgBearingIterator] = sinBearing;
         _cosBearingSum = _cosBearingSum - _avgCosValues[_avgBearingIterator] + cosBearing;
         _avgCosValues[_avgBearingIterator] = cosBearing;
-        _avgBearingDegree = Math.toDegrees(Math.atan2(_sinBearingSum, _cosBearingSum));
-        _avgBearingDegree = ((_avgBearingDegree > 0) ? _avgBearingDegree : 360 + _avgBearingDegree);
+        _avgBearingDegree = (Math.toDegrees(Math.atan2(_sinBearingSum, _cosBearingSum)) + 360).toNumber() % 360;
         _avgBearingIterator = (_avgBearingIterator + 1) % AVG_BEARING_INTERVAL;
 
         _currentLap.MaxSpeedKnot = (_currentLap.MaxSpeedKnot < _speedKnot) ? _speedKnot : _currentLap.MaxSpeedKnot;
@@ -119,6 +118,7 @@ class GpsWrapper
         gpsInfo.IsRecording = _activeSession.isRecording();
         gpsInfo.LapCount = _lapCount;
         gpsInfo.AvgBearingDegree = _avgBearingDegree;
+        gpsInfo.TotalDistance = _distance / METERS_PER_NAUTICAL_MILE;
 
         return gpsInfo;
     }

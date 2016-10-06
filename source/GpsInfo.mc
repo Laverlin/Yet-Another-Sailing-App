@@ -33,5 +33,9 @@ class GpsInfo
 	// sliding avg bearing for 20 sec.
 	//
 	var AvgBearingDegree = 0;
+	
+	// Total distance covered
+	//
+	var TotalDistance = 0.0;
 
 }

@@ -66,6 +66,14 @@ class CruiseViewDc
         dc.drawText(154, 192, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_RIGHT);
     }    
     
+    static function PrintTotalDistance(dc, totalDistance)
+    {
+        var distanceString = totalDistance.format("%003.1f");
+    	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
+        dc.drawText(168, 162, Gfx.FONT_LARGE, distanceString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(154, 192, Gfx.FONT_XTINY, "nm", Gfx.TEXT_JUSTIFY_RIGHT);
+    }
+    
     static function DrawGrid(dc)
     {
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
