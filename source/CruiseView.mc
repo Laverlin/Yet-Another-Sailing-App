@@ -55,20 +55,17 @@ class CruiseView extends Ui.View
         	CruiseViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
         	CruiseViewDc.PrintBearing(dc, gpsInfo.BearingDegree);
         	CruiseViewDc.PrintMaxSpeed(dc, gpsInfo.MaxSpeedKnot);	
+        	CruiseViewDc.PrintTotalDistance(dc, gpsInfo.TotalDistance);
         	
         	if (_displayMode == 0)
         	{
-        		CruiseViewDc.PrintAvgSpeed(dc, gpsInfo.AvgSpeedKnot);
+        		CruiseViewDc.PrintAvgBearing(dc, gpsInfo.AvgBearingDegree);
         	} 
         	else if (_displayMode == 1)
         	{
-        		CruiseViewDc.PrintAvgBearing(dc, gpsInfo.AvgBearingDegree);
+        		CruiseViewDc.PrintAvgSpeed(dc, gpsInfo.AvgSpeedKnot);
         	} 
-        	else 
-        	{
-        		CruiseViewDc.PrintTotalDistance(dc, gpsInfo.TotalDistance);
-        	}
-        	
+
         	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
         	//
         	CruiseViewDc.DisplaySpeedTrend(dc, gpsInfo.SpeedKnot - gpsInfo.AvgSpeedKnot); 
@@ -82,6 +79,6 @@ class CruiseView extends Ui.View
     function SwitchNextMode()
     {
     	_displayMode += 1;
-    	_displayMode = _displayMode % 3;
+    	_displayMode = _displayMode % 2;
     }
 }

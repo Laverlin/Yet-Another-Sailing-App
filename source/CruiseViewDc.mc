@@ -17,7 +17,6 @@ class CruiseViewDc
     	dc.clear();
     }
 
- 
 	static function PrintTime(dc, time)
 	{
         var timeString = Lang.format("$1$:$2$:$3$", 
@@ -46,8 +45,8 @@ class CruiseViewDc
     {
         var maxSpeedString = maxSpeed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(94, 162, Gfx.FONT_LARGE, maxSpeedString, Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(102, 192, Gfx.FONT_XTINY, "max", Gfx.TEXT_JUSTIFY_RIGHT);       
+        dc.drawText(20, 134, Gfx.FONT_TINY, maxSpeedString, Gfx.TEXT_JUSTIFY_LEFT);
+     //   dc.drawText(102, 192, Gfx.FONT_XTINY, "max", Gfx.TEXT_JUSTIFY_RIGHT);       
     }
     
     static function PrintAvgSpeed(dc, avgSpeed)
@@ -70,8 +69,8 @@ class CruiseViewDc
     {
         var distanceString = totalDistance.format("%003.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(168, 162, Gfx.FONT_LARGE, distanceString, Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(154, 192, Gfx.FONT_XTINY, "nm", Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(104, 162, Gfx.FONT_LARGE, distanceString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(102, 192, Gfx.FONT_XTINY, "nm", Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
     static function DrawGrid(dc)
