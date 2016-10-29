@@ -22,6 +22,7 @@ This app has
 - Laps view 
 
 In **Cruise** mode you can see at one glance actual speed, bearing, max speed and avg speed for last 10 seconds. Also there is a set of helpful indicators, like GPS status, recording status and actual speed vs avg speed, which is very useful for sail trimming.
+Moving average of bearing for last 10 sec. could be helpful in long distance cruise.   
 
 In **Race Timer** mode you can see remaining seconds till start, actual time and speed. You can also adjust countdown timer by one sec up and down and down to next minute.
 
@@ -54,7 +55,12 @@ In **Laps View** you can see data from last 20 laps. This data stores permanentl
 - UP button shows previous lap
 - DOWN button scroll to next lap
 - BACK button offer you to clear all laps from permanent storage and drop lap counter to zero.   
-   
+ 
+======== 0.65 changes 
+- display distance covered in cruise mode 
+- change layout in cruise mode
+- max speed calculated as moving average for 3 sec, to avoid fluctuation 
+  
 ======== 0.6 changes 
 - color countdown progress bar   
 - new main menu   
