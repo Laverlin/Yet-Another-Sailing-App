@@ -29,7 +29,7 @@ class CruiseViewDc
     {
         var speedString = speed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(90, 60, Gfx.FONT_NUMBER_HOT, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(90, 58, Gfx.FONT_NUMBER_HOT, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
         dc.drawText(102, 134, Gfx.FONT_XTINY, "SOG", Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
@@ -37,7 +37,7 @@ class CruiseViewDc
     {
         var bearingString = bearing.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(200, 60, Gfx.FONT_NUMBER_HOT, bearingString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(196, 58, Gfx.FONT_NUMBER_HOT, bearingString, Gfx.TEXT_JUSTIFY_RIGHT);
         dc.drawText(208, 134, Gfx.FONT_XTINY, "COG", Gfx.TEXT_JUSTIFY_RIGHT);    
     }
     
@@ -45,7 +45,7 @@ class CruiseViewDc
     {
         var maxSpeedString = maxSpeed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(20, 134, Gfx.FONT_TINY, maxSpeedString, Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(20, 130, Gfx.FONT_MEDIUM, maxSpeedString, Gfx.TEXT_JUSTIFY_LEFT);
      //   dc.drawText(102, 192, Gfx.FONT_XTINY, "max", Gfx.TEXT_JUSTIFY_RIGHT);       
     }
     

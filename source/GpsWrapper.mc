@@ -16,6 +16,12 @@ class GpsWrapper
 	hidden var _avgSpeedIterator = 0;
 	hidden var _avgSpeedSum = 0;
 	hidden var _avgSpeedValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	
+	// max for3 sec. values (speed)
+    //
+	hidden var _maxSpeedIterator = 0;
+	hidden var _maxSpeedSum = 0;
+	hidden var _maxSpeedValues = [0, 0, 0];
 
     // avg for 10 sec. values (bearing)
     //
@@ -46,6 +52,7 @@ class GpsWrapper
 	hidden var _lapCount = 0;
 
     const LAP_ARRAY_MAX = 20;
+    const MAX_SPEED_INTERVAL = 3;
     const AVG_SPEED_INTERVAL = 10;
     const AVG_BEARING_INTERVAL = 10;
     const METERS_PER_NAUTICAL_MILE = 1852;
@@ -79,8 +86,16 @@ class GpsWrapper
 
         _speedKnot = positionInfo.speed.toDouble() * MS_TO_KNOT;
         _bearingDegree = (Math.toDegrees(positionInfo.heading) + 360).toNumber() % 360;
-        _maxSpeedKnot = (_maxSpeedKnot < _speedKnot) ? _speedKnot : _maxSpeedKnot;
 
+		// moving max speed : in order to avoid fluctuation, max speed take as avg from 3 values
+		//
+		_maxSpeedSum = _maxSpeedSum - _maxSpeedValues[_maxSpeedIterator] + _speedKnot;
+        _maxSpeedValues[_maxSpeedIterator] = _speedKnot;
+        _maxSpeedIterator = (_maxSpeedIterator + 1) % MAX_SPEED_INTERVAL;
+        var maxSpeed = _maxSpeedSum / MAX_SPEED_INTERVAL;
+        _maxSpeedKnot = (_maxSpeedKnot < maxSpeed) ? maxSpeed : _maxSpeedKnot;
+		_currentLap.MaxSpeedKnot = (_currentLap.MaxSpeedKnot < maxSpeed) ? maxSpeed : _currentLap.MaxSpeedKnot;
+        
         // moving avg speed 
         //
         _avgSpeedSum = _avgSpeedSum - _avgSpeedValues[_avgSpeedIterator] + _speedKnot;
@@ -97,8 +112,6 @@ class GpsWrapper
         _avgCosValues[_avgBearingIterator] = cosBearing;
         _avgBearingDegree = (Math.toDegrees(Math.atan2(_sinBearingSum, _cosBearingSum)) + 360).toNumber() % 360;
         _avgBearingIterator = (_avgBearingIterator + 1) % AVG_BEARING_INTERVAL;
-
-        _currentLap.MaxSpeedKnot = (_currentLap.MaxSpeedKnot < _speedKnot) ? _speedKnot : _currentLap.MaxSpeedKnot;
 
         var timelapsSecond = timelaps.toDouble() / 1000;
         _distance += positionInfo.speed * timelapsSecond;
