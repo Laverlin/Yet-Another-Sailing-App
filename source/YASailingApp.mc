@@ -8,6 +8,7 @@ class YASailingApp extends App.AppBase
     hidden var _gpsWrapper;
 	hidden var _cruiseView;
 	hidden var _raceTimerView;
+	hidden var _lapView;
 
     function initialize() 
     {
@@ -18,6 +19,8 @@ class YASailingApp extends App.AppBase
         _gpsWrapper = new GpsWrapper();
         _cruiseView = new CruiseView(_gpsWrapper, new CruiseViewDc());
         _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerViewDc());
+        _lapView = new LapView(_gpsWrapper);
+        _cruiseMenuDelegate = new CruiseMenuDelegate(_cruiseView, _raceTimerView, _lapView, _gpsWrapper);
     }
 
     // onStart() is called on application start up
@@ -44,7 +47,7 @@ class YASailingApp extends App.AppBase
     //
     function getInitialView() 
     {
-    	var delegate = new CruiseViewDelegate(_cruiseView, _raceTimerView, _gpsWrapper);
+    	var delegate = new CruiseViewDelegate(_cruiseView, _cruiseMenuDelegate, _gpsWrapper);
     	
         return [ _cruiseView, delegate ];
     }

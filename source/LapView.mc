@@ -5,40 +5,86 @@ using Toybox.Lang as Lang;
 
 class LapView extends Ui.View 
 {
-    hidden var _lapInfo;
+    hidden var _lapArray;
+    hidden var _lapViewDc;
+    hidden var _lapNum = 0;
+    hidden var _gpsWrapper;
 
-	function initialize(lapInfo) 
+	function initialize(lapViewDc, gpsWrapper) 
     {
         View.initialize();
-        
-        _lapInfo = lapInfo;
+
+        _lapViewDc = lapViewDc;
+        _gpsWrapper = gpsWrapper;
+	}
+	
+	function SetLapArray(lapArray)
+	{
+		_lapArray = lapArray;
 	}
 
     function onUpdate(dc) 
     {   
-    	PrintLapInfo(dc, _lapInfo);
-	}
-
-    function PrintLapInfo(dc, lapInfo)
-    {
-        dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.clear();
+    	var lapInfo = _lapArray[_lamNum];
+        _lapViewDc.ClearDc(dc);
         
-        if (lapInfo == null)
+        if (_lapArray == null || lapInfo == null)
         {
-            dc.drawText(109, 80, Gfx.FONT_MEDIUM, "There is no laps\n to display", Gfx.TEXT_JUSTIFY_CENTER);
+            _lapViewDc.PrintLapsEmpty(dc);
             return;
         }
         
-        var timeInfo = Time.Gregorian.info(lapInfo.StartTime, Time.FORMAT_MEDIUM);
+		_lapViewDc.PrintLapInfo(dc, lapInfo);
+	}
+	
+	function NextLap()
+	{
+		_lamNum += 1;
+        if (_lamNum >= _lapArray.size())
+        {
+            _lamNum -= 1;
+        }
+        Ui.requestUpdate();
+	}
+	
+	function PreviousLap()
+	{
+		_lamNum -= 1;
+        if (_lamNum < 0)
+        {
+            _lamNum += 1;
+        }
+        Ui.requestUpdate();
+	}
+	
+	function DeleteLaps()
+	{
+		if (_lapArray!= null && _lapArray.size() > 0)
+    	{
+    		Ui.pushView(new Confirmation("Delete Laps?"), new ConfirmDeleteDelegate(_gpsWrapper), Ui.SLIDE_DOWN);
+    	}
+	}
+}
 
-        dc.drawText(109, 10, Gfx.FONT_TINY, Lang.format("lap $1$", [lapInfo.LapNumber.format("%2d")]), Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(109, 30, Gfx.FONT_TINY, Lang.format("[ $1$ $2$ $3$:$4$ ]",
-             [timeInfo.day.format("%02d"), timeInfo.month, timeInfo.hour.format("%02d"), timeInfo.min.format("%02d")]), Gfx.TEXT_JUSTIFY_CENTER);
+class ConfirmDeleteDelegate extends Ui.ConfirmationDelegate
+{
+	var _gpsWrapper;
+	
+	function initialize(gpsWrapper)
+    {	
+        _gpsWrapper = gpsWrapper;
+        ConfirmationDelegate.initialize();
+    }
+    
+    function onResponse(value)
+    {
+        if( value == CONFIRM_YES )
+        {	
+    		_gpsWrapper.SetLapArray(new[0]);      	
+        }
 
-        dc.drawText(34, 64, Gfx.FONT_MEDIUM, "max speed :  " + lapInfo.MaxSpeedKnot.format("%2.1f"), Gfx.TEXT_JUSTIFY_LEFT);
-        dc.drawText(34, 94, Gfx.FONT_MEDIUM, "avg speed  :  " + lapInfo.AvgSpeedKnot.format("%2.1f"), Gfx.TEXT_JUSTIFY_LEFT);
-        dc.drawText(34, 124, Gfx.FONT_MEDIUM, "distance    : " + lapInfo.Distance.format("%3.2f"), Gfx.TEXT_JUSTIFY_LEFT);
-        dc.drawText(36, 154, Gfx.FONT_MEDIUM, "time  : " + YACommon.SecToString(lapInfo.Duration), Gfx.TEXT_JUSTIFY_LEFT);
-    }      
+        var lapArray = _gpsWrapper.GetLapArray();
+        var view = new LapView((lapArray.size() == 0) ? null : lapArray[0]);
+        Ui.switchToView(view, new LapViewDelegate(_gpsWrapper), Ui.SLIDE_UP); 
+    }
 }
