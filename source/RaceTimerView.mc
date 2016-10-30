@@ -7,30 +7,35 @@ class RaceTimerView extends Ui.View
 {
     hidden var _gpsWrapper;
     hidden var _cruiseView;
-	hidden var _timer;
-	hidden var _timerValue = 300.0;
+    hidden var _raceTimerViewDc;
+	hidden var _timer = new Timer.Timer();
+	hidden var _timerValue = 0;
 	hidden var _isTimerRun = false;
 
-    function initialize(gpsWrapper, cruiseView) 
+    function initialize(gpsWrapper, cruiseView, raceTimerViewDc) 
     {
         View.initialize();
         _gpsWrapper = gpsWrapper;
         _cruiseView = cruiseView;
+        _raceTimerViewDc = raceTimerViewDc;
     }
 
 	// SetUp timer on show to update every second
     //
     function onShow() 
     {
-    	_timer = new Timer.Timer();
     	_timer.start(method(:onTimerUpdate), 1000, true);
-    	_timerValue = Settings.TimerValue;
+    	if (_timerValue <= 0)
+    	{
+    		_timerValue = Settings.TimerValue;
+    	}
     }
 
     // Stop timer then hide
     //
     function onHide() 
     {
+    	_isTimerRun =false;
         _timer.stop();
     }
     
@@ -46,7 +51,7 @@ class RaceTimerView extends Ui.View
         	{
         		SignalWrapper.Start();
         		_gpsWrapper.AddLap();
-        		Ui.switchToView(_cruiseView, new CruiseViewDelegate(_cruiseView, _gpsWrapper), Ui.SLIDE_LEFT);
+        		Ui.switchToView(_cruiseView, new CruiseViewDelegate(_cruiseView, self, _gpsWrapper), Ui.SLIDE_LEFT);
         		return;
         	}
         	
@@ -68,19 +73,19 @@ class RaceTimerView extends Ui.View
     //
     function onUpdate(dc) 
     {
-    	RaceTimerViewDc.ClearDc(dc);
+    	_raceTimerViewDc.ClearDc(dc);
     
     	// display progress
     	//
-    	RaceTimerViewDc.DrawProgress(dc, _timerValue.toLong());
+    	_raceTimerViewDc.DrawProgress(dc, _timerValue.toLong());
 
-		RaceTimerViewDc.PrintCountdown(dc, _timerValue.toLong());
+		_raceTimerViewDc.PrintCountdown(dc, _timerValue.toLong());
 		
         var clockTime = Sys.getClockTime();        
-        RaceTimerViewDc.PrintTime(dc, clockTime);
+        _raceTimerViewDc.PrintTime(dc, clockTime);
 
         var gpsInfo = _gpsWrapper.GetGpsInfo();
-        RaceTimerViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
+        _raceTimerViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
         
         //RaceTimerViewDc.PrintTips(dc);
     }

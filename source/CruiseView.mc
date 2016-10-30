@@ -7,11 +7,13 @@ class CruiseView extends Ui.View
 	hidden var _timer;
 	hidden var _isAvgSpeedDisplay = true;
 	hidden var _displayMode = 0;
+	hidden var _cruiseViewDc;
 
-    function initialize(gpsWrapper) 
+    function initialize(gpsWrapper, cruiseViewDc) 
     {
         View.initialize();
         _gpsWrapper = gpsWrapper;
+        _cruiseViewDc = cruiseViewDc;
     }
 
 	// SetUp timer on show to update every second
@@ -40,40 +42,40 @@ class CruiseView extends Ui.View
     //
     function onUpdate(dc) 
     {   
-    	CruiseViewDc.ClearDc(dc);
+    	_cruiseViewDc.ClearDc(dc);
     
     	// Display current time
     	//
         var clockTime = Sys.getClockTime();        
-        CruiseViewDc.PrintTime(dc, clockTime);
+        _cruiseViewDc.PrintTime(dc, clockTime);
         
         // Display speed and bearing if GPS available
         //
         var gpsInfo = _gpsWrapper.GetGpsInfo();
         if (gpsInfo.Accuracy > 0)
         {
-        	CruiseViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
-        	CruiseViewDc.PrintBearing(dc, gpsInfo.BearingDegree);
-        	CruiseViewDc.PrintMaxSpeed(dc, gpsInfo.MaxSpeedKnot);	
-        	CruiseViewDc.PrintTotalDistance(dc, gpsInfo.TotalDistance);
+        	_cruiseViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
+        	_cruiseViewDc.PrintBearing(dc, gpsInfo.BearingDegree);
+        	_cruiseViewDc.PrintMaxSpeed(dc, gpsInfo.MaxSpeedKnot);	
+        	_cruiseViewDc.PrintTotalDistance(dc, gpsInfo.TotalDistance);
         	
         	if (_displayMode == 0)
         	{
-        		CruiseViewDc.PrintAvgBearing(dc, gpsInfo.AvgBearingDegree);
+        		_cruiseViewDc.PrintAvgBearing(dc, gpsInfo.AvgBearingDegree);
         	} 
         	else if (_displayMode == 1)
         	{
-        		CruiseViewDc.PrintAvgSpeed(dc, gpsInfo.AvgSpeedKnot);
+        		_cruiseViewDc.PrintAvgSpeed(dc, gpsInfo.AvgSpeedKnot);
         	} 
 
         	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
         	//
-        	CruiseViewDc.DisplaySpeedTrend(dc, gpsInfo.SpeedKnot - gpsInfo.AvgSpeedKnot); 
+        	_cruiseViewDc.DisplaySpeedTrend(dc, gpsInfo.SpeedKnot - gpsInfo.AvgSpeedKnot); 
         }
         
-        CruiseViewDc.DisplayState(dc, gpsInfo.Accuracy, gpsInfo.IsRecording, gpsInfo.LapCount);
+        _cruiseViewDc.DisplayState(dc, gpsInfo.Accuracy, gpsInfo.IsRecording, gpsInfo.LapCount);
         
-        CruiseViewDc.DrawGrid(dc);
+        _cruiseViewDc.DrawGrid(dc);
     }
     
     function SwitchNextMode()

@@ -7,13 +7,13 @@ using Toybox.Lang as Lang;
 //
 class RaceTimerViewDc
 {
-	static function ClearDc(dc)
+	function ClearDc(dc)
 	{
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
     	dc.clear();
     }
 
-	static function PrintTime(dc, time)
+	function PrintTime(dc, time)
 	{
         var timeString = Lang.format("$1$:$2$:$3$", 
             [time.hour.format("%02d"), time.min.format("%02d"), time.sec.format("%02d")]);
@@ -21,21 +21,21 @@ class RaceTimerViewDc
         dc.drawText(109, 28, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 	
-	static function PrintCountdown(dc, seconds)
+	function PrintCountdown(dc, seconds)
 	{
 		var countdownString = Lang.format("$1$:$2$", [(seconds / 60).format("%2d"), (seconds % 60).format("%02d")]);
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
         dc.drawText(46, 50, Gfx.FONT_SYSTEM_NUMBER_THAI_HOT, countdownString, Gfx.TEXT_JUSTIFY_LEFT);
 	}
 
-	static function PrintSpeed(dc, speedKnot)
+	function PrintSpeed(dc, speedKnot)
 	{
         var speedString = speedKnot.format("%02.1f");
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
         dc.drawText(109, 164, Gfx.FONT_MEDIUM, speedString, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 
-	static function DrawProgress(dc, seconds)
+	function DrawProgress(dc, seconds)
 	{
 		var min = seconds / 60;
 		var sec = seconds % 60;
@@ -55,7 +55,7 @@ class RaceTimerViewDc
 		}
 	}
 	
-	static function PrintTips(dc)
+	function PrintTips(dc)
 	{
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
         dc.drawText(24, 88, Gfx.FONT_LARGE, "+", Gfx.TEXT_JUSTIFY_LEFT);

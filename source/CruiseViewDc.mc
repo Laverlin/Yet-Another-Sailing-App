@@ -3,21 +3,21 @@ using Toybox.Graphics as Gfx;
 using Toybox.Lang as Lang;
 using Toybox.Time as Time;
 
-/// Since there is no way o setup a background color in layout.xml
+/// Since there is no way to setup a background color in layout.xml
 /// all boiler-plate code for drawing objects need to be done manually.
 /// This class dedicated to hide all dirty work around dc
 /// 
 class CruiseViewDc
 {
-	hidden static var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, Gfx.COLOR_GREEN];	
+	hidden var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, Gfx.COLOR_GREEN];	
 
-	static function ClearDc(dc)
+	function ClearDc(dc)
 	{
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
     	dc.clear();
     }
 
-	static function PrintTime(dc, time)
+	function PrintTime(dc, time)
 	{
         var timeString = Lang.format("$1$:$2$:$3$", 
             [time.hour.format("%02d"), time.min.format("%02d"), time.sec.format("%02d")]);
@@ -25,7 +25,7 @@ class CruiseViewDc
         dc.drawText(109, 12, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 	
-    static function PrintSpeed(dc, speed)
+    function PrintSpeed(dc, speed)
     {
         var speedString = speed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
@@ -33,7 +33,7 @@ class CruiseViewDc
         dc.drawText(102, 134, Gfx.FONT_XTINY, "SOG", Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
-    static function PrintBearing(dc, bearing)
+    function PrintBearing(dc, bearing)
     {
         var bearingString = bearing.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
@@ -41,7 +41,7 @@ class CruiseViewDc
         dc.drawText(208, 134, Gfx.FONT_XTINY, "COG", Gfx.TEXT_JUSTIFY_RIGHT);    
     }
     
-    static function PrintMaxSpeed(dc, maxSpeed)
+    function PrintMaxSpeed(dc, maxSpeed)
     {
         var maxSpeedString = maxSpeed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
@@ -49,7 +49,7 @@ class CruiseViewDc
      //   dc.drawText(102, 192, Gfx.FONT_XTINY, "max", Gfx.TEXT_JUSTIFY_RIGHT);       
     }
     
-    static function PrintAvgSpeed(dc, avgSpeed)
+    function PrintAvgSpeed(dc, avgSpeed)
     {
         var avgSpeedString = avgSpeed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
@@ -57,7 +57,7 @@ class CruiseViewDc
         dc.drawText(154, 192, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
-    static function PrintAvgBearing(dc, avgBearing)
+    function PrintAvgBearing(dc, avgBearing)
     {
         var avgBearingString = avgBearing.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
@@ -65,7 +65,7 @@ class CruiseViewDc
         dc.drawText(154, 192, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_RIGHT);
     }    
     
-    static function PrintTotalDistance(dc, totalDistance)
+    function PrintTotalDistance(dc, totalDistance)
     {
         var distanceString = totalDistance.format("%003.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
@@ -73,7 +73,7 @@ class CruiseViewDc
         dc.drawText(102, 192, Gfx.FONT_XTINY, "nm", Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
-    static function DrawGrid(dc)
+    function DrawGrid(dc)
     {
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
         dc.drawLine(0,60,218,60);
@@ -81,7 +81,7 @@ class CruiseViewDc
 		dc.drawLine(109,60,109,160);
     }
     
-    static function DisplayState(dc, gpsStatus, recordingStatus, lapCount)
+    function DisplayState(dc, gpsStatus, recordingStatus, lapCount)
     {
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
     	
@@ -98,7 +98,7 @@ class CruiseViewDc
     
     // Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
     //
-    static function DisplaySpeedTrend(dc, speedDiff)
+    function DisplaySpeedTrend(dc, speedDiff)
     {
     	if (speedDiff > 0)
         {
