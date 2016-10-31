@@ -25,34 +25,34 @@ class LapView extends Ui.View
 
     function onUpdate(dc) 
     {   
-    	var lapInfo = _lapArray[_lamNum];
         _lapViewDc.ClearDc(dc);
         
-        if (_lapArray == null || lapInfo == null)
+        if (_lapArray == null || _lapArray.size() == 0)
         {
             _lapViewDc.PrintLapsEmpty(dc);
             return;
         }
         
+        var lapInfo = _lapArray[_lapNum];
 		_lapViewDc.PrintLapInfo(dc, lapInfo);
 	}
 	
 	function NextLap()
 	{
-		_lamNum += 1;
-        if (_lamNum >= _lapArray.size())
+		_lapNum += 1;
+        if (_lapNum >= _lapArray.size())
         {
-            _lamNum -= 1;
+            _lapNum -= 1;
         }
         Ui.requestUpdate();
 	}
 	
 	function PreviousLap()
 	{
-		_lamNum -= 1;
-        if (_lamNum < 0)
+		_lapNum -= 1;
+        if (_lapNum < 0)
         {
-            _lamNum += 1;
+            _lapNum += 1;
         }
         Ui.requestUpdate();
 	}
@@ -72,8 +72,8 @@ class ConfirmDeleteDelegate extends Ui.ConfirmationDelegate
 	
 	function initialize(gpsWrapper)
     {	
-        _gpsWrapper = gpsWrapper;
         ConfirmationDelegate.initialize();
+        _gpsWrapper = gpsWrapper;
     }
     
     function onResponse(value)
@@ -82,9 +82,5 @@ class ConfirmDeleteDelegate extends Ui.ConfirmationDelegate
         {	
     		_gpsWrapper.SetLapArray(new[0]);      	
         }
-
-        var lapArray = _gpsWrapper.GetLapArray();
-        var view = new LapView((lapArray.size() == 0) ? null : lapArray[0]);
-        Ui.switchToView(view, new LapViewDelegate(_gpsWrapper), Ui.SLIDE_UP); 
     }
 }

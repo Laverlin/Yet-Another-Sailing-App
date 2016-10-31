@@ -50,4 +50,5 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
             Sys.exit();
         }   
     }
+    
 }
