@@ -27,7 +27,7 @@ class CruiseMenuDelegate extends Ui.MenuInputDelegate
     	}
         else if (item == :cruiseView)
         {
-            Ui.pushView(_cruiseView, new CruiseViewDelegate(_cruiseView, _raceTimerView, _lapView, _gpsWrapper), Ui.SLIDE_RIGHT);
+            Ui.pushView(_cruiseView, new CruiseViewDelegate(_cruiseView, _gpsWrapper), Ui.SLIDE_RIGHT);
         }
         else if (item == :lapView)
         {

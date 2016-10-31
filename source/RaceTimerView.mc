@@ -51,7 +51,7 @@ class RaceTimerView extends Ui.View
         	{
         		SignalWrapper.Start();
         		_gpsWrapper.AddLap();
-        		Ui.switchToView(_cruiseView, new CruiseViewDelegate(_cruiseView, self, _gpsWrapper), Ui.SLIDE_LEFT);
+        		Ui.switchToView(_cruiseView, new CruiseViewDelegate(_cruiseView, _gpsWrapper), Ui.SLIDE_LEFT);
         		return;
         	}
         	

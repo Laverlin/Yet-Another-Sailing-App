@@ -18,7 +18,7 @@ class RaceTimerViewDelegate extends Ui.BehaviorDelegate
 
     function onMenu() 
     {
-        Ui.popView(Ui.SLIDE_LEFT);
+        Ui.popView(Ui.SLIDE_RIGHT);
         return true;
     }
     

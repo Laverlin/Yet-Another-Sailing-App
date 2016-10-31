@@ -7,14 +7,11 @@ class CruiseViewDelegate extends Ui.BehaviorDelegate
     hidden var _raceTimerView;
     hidden var _cruiseMenuDelegate;
     
-    function initialize(cruiseView, raceTimerView, cruiseMenuDelegate, gpsWrapper) 
+    function initialize(cruiseView, gpsWrapper) 
     {
         BehaviorDelegate.initialize();
         _cruiseView = cruiseView;
         _gpsWrapper = gpsWrapper;
-        _raceTimerView = raceTimerView;
-        _cruiseMenuDelegate = cruiseMenuDelegate;
-        _lapView = lapView;
     }    
     
     function onSelect()
@@ -30,7 +27,7 @@ class CruiseViewDelegate extends Ui.BehaviorDelegate
 
     function onMenu() 
     {
-        Ui.pushView(new Rez.Menus.CruiseMenu(), _cruiseMenuDelegate, Ui.SLIDE_UP);
+        Ui.popView(Ui.SLIDE_RIGHT);
         return true;
     }
     
