@@ -17,11 +17,11 @@ class LapView extends Ui.View
         _lapViewDc = lapViewDc;
         _gpsWrapper = gpsWrapper;
 	}
-	
-	function SetLapArray(lapArray)
-	{
-		_lapArray = lapArray;
-	}
+
+    function onShow()
+    {
+        _lapArray = _gpsWrapper.GetLapArray();
+    }
 
     function onUpdate(dc) 
     {   
