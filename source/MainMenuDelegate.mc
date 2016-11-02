@@ -48,5 +48,4 @@ class MainMenuDelegate extends Ui.MenuInputDelegate
             Sys.exit();
         }   
     }
-    
 }
