@@ -3,7 +3,7 @@ using Toybox.System as Sys;
 
 // main menu handler
 //
-class CruiseMenuDelegate extends Ui.MenuInputDelegate 
+class MainMenuDelegate extends Ui.MenuInputDelegate 
 {
     hidden var _cruiseView;
     hidden var _gpsWrapper;

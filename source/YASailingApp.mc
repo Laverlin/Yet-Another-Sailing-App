@@ -46,7 +46,7 @@ class YASailingApp extends App.AppBase
     //
     function getInitialView() 
     {
-        return [ new StartupView(new Rez.Menus.CruiseMenu(), new CruiseMenuDelegate(_cruiseView, _raceTimerView, _lapView, _gpsWrapper)) ];
+        return [ new StartupView(new Rez.Menus.MainMenu(), new MainMenuDelegate(_cruiseView, _raceTimerView, _lapView, _gpsWrapper)) ];
     }
     
     // handle position event

@@ -6,21 +6,21 @@ using Toybox.System as Sys;
 //
 class StartupView extends Ui.View 
 {
-	hidden var _cruiseMenuView;
-	hidden var _cruiseMenuDelegate;
+	hidden var _mainMenuView;
+	hidden var _mainMenuDelegate;
 	
-    function initialize(cruiseMenuView, cruiseMenuDelegate) 
+    function initialize(mainMenuView, mainMenuDelegate) 
     {
         View.initialize();
         
-        _cruiseMenuView = cruiseMenuView;
-		_cruiseMenuDelegate = cruiseMenuDelegate;
+        _mainMenuView = mainMenuView;
+		_mainMenuDelegate = mainMenuDelegate;
     }
 
     // just switch to main menu as soon as shows
     //
     function onShow() 
     {
-		Ui.pushView(_cruiseMenuView, _cruiseMenuDelegate, Ui.SLIDE_IMMEDIATE);
+		Ui.pushView(_mainMenuView, _mainMenuDelegate, Ui.SLIDE_IMMEDIATE);
     }
 }
