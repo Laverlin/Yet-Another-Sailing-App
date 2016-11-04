@@ -1,14 +1,14 @@
 using Toybox.WatchUi as Ui;
 
-class CruiseViewDelegate extends Ui.BehaviorDelegate 
+class WaypointViewDelegate extends Ui.BehaviorDelegate 
 {
-    hidden var _cruiseView;
+    hidden var _waypointView;
     hidden var _gpsWrapper;
     
-    function initialize(cruiseView, gpsWrapper) 
+    function initialize(waypointView, gpsWrapper) 
     {
         BehaviorDelegate.initialize();
-        _cruiseView = cruiseView;
+        _waypointView = waypointView;
         _gpsWrapper = gpsWrapper;
     }    
     
@@ -40,8 +40,4 @@ class CruiseViewDelegate extends Ui.BehaviorDelegate
         return true;
     }
     
-    function onNextPage()
-    {
-    	_cruiseView.SwitchNextMode();
-    }
 }
