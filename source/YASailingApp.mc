@@ -28,15 +28,15 @@ class YASailingApp extends App.AppBase
 
 		if (deviceSettings.screenHeight == 218)
 		{
-	        _cruiseView = new CruiseView(_gpsWrapper, new CruiseViewDc());
-    	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerViewDc());
-        	_lapView = new LapView(new LapViewDc(), _gpsWrapper);
+	        _cruiseView = new CruiseView(_gpsWrapper, new CruiseView218Dc());
+    	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView218Dc());
+        	_lapView = new LapView(new LapView218Dc(), _gpsWrapper);
 		}
 		else if (deviceSettings.screenHeight == 240)
 		{
-			_cruiseView = new CruiseView(_gpsWrapper, new CruiseViewDc());
+			_cruiseView = new CruiseView(_gpsWrapper, new CruiseView240Dc());
     	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView240Dc());
-        	_lapView = new LapView(new LapViewDc(), _gpsWrapper);
+        	_lapView = new LapView(new LapView240Dc(), _gpsWrapper);
 		}
 		else
 		{

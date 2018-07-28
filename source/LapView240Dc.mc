@@ -7,7 +7,7 @@ using Toybox.Time as Time;
 /// all boiler-plate code for drawing objects need to be done manually.
 /// This class dedicated to hide all dirty work around dc
 /// 
-class LapViewDc
+class LapView240Dc
 {	
 
 	function ClearDc(dc)
