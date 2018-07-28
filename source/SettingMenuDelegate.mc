@@ -5,17 +5,19 @@ using Toybox.System as Sys;
 //
 class SettingMenuDelegate extends Ui.MenuInputDelegate 
 {
+    hidden var _raceTimerView;
     
-    function initialize() 
+    function initialize(raceTimerView) 
     {
         MenuInputDelegate.initialize();
+        _raceTimerView = raceTimerView;
     }
 
     function onMenuItem(item) 
     {
         if (item == :setTimer)
         {
-            Ui.pushView(new Rez.Menus.SetTimerMenu(), new SetTimerMenuDelegate(), Ui.SLIDE_LEFT);
+            Ui.pushView(new Rez.Menus.SetTimerMenu(), new SetTimerMenuDelegate(_raceTimerView), Ui.SLIDE_LEFT);
         } 
         else if (item == :backgroundColor)
         {
