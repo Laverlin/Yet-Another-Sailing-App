@@ -8,6 +8,7 @@ class Settings
 	static var ForegroundColor = Gfx.COLOR_WHITE;
 	static var BackgroundColor = Gfx.COLOR_BLACK;
 	static var TimerValue = 300;
+	static var IsTimerValueUpdated = false;
 	static var IsAutoRecording = false;
 	static var IsWhiteBackground = false;
 
@@ -35,11 +36,18 @@ class Settings
 	static function SetTimerValue(value)
 	{
 		TimerValue = (value == null) ? 300 : value;
+		IsTimerValueUpdated = true;
 	}
+	
+	static function GetTimerValue()
+	{
+		IsTimerValueUpdated = false; 
+		return TimerValue;
+	}
+	
 
 	static function SetAutoRecording(isAutoRecording)
 	{
 		IsAutoRecording = (isAutoRecording == null) ? false : isAutoRecording;
 	}
-
 }

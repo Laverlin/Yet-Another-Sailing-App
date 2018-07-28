@@ -215,7 +215,7 @@ class GpsWrapper
     	_currentLap.LapNumber = _lapCount;
     }
 
-	// return data collected from the whole application run
+	// return data collected while application was run
 	//
     function GetAppStatistic()
     {
