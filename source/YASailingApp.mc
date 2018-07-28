@@ -2,6 +2,7 @@ using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
 using Toybox.Position as Position;
 using Toybox.Time as Time;
+using Toybox.System as System;
 
 class YASailingApp extends App.AppBase 
 {
@@ -9,17 +10,39 @@ class YASailingApp extends App.AppBase
 	hidden var _cruiseView;
 	hidden var _raceTimerView;
 	hidden var _lapView;
+	hidden var _isStartSuccess = false;
 
     function initialize() 
     {
         AppBase.initialize();
 
-        Settings.LoadSettings();        
+		var deviceSettings = System.getDeviceSettings();
+		if (deviceSettings.screenShape != 1)
+		{
+			LogWrapper.WriteWrongDevice();
+			System.exit();
+		}
+		
+	    Settings.LoadSettings();        
+		_gpsWrapper = new GpsWrapper();
 
-        _gpsWrapper = new GpsWrapper();
-        _cruiseView = new CruiseView(_gpsWrapper, new CruiseViewDc());
-        _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerViewDc());
-        _lapView = new LapView(new LapViewDc(), _gpsWrapper);
+		if (deviceSettings.screenHeight == 218)
+		{
+	        _cruiseView = new CruiseView(_gpsWrapper, new CruiseViewDc());
+    	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerViewDc());
+        	_lapView = new LapView(new LapViewDc(), _gpsWrapper);
+		}
+		else if (deviceSettings.screenHeight == 240)
+		{
+			_cruiseView = new CruiseView(_gpsWrapper, new CruiseViewDc());
+    	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView240Dc());
+        	_lapView = new LapView(new LapViewDc(), _gpsWrapper);
+		}
+		else
+		{
+			LogWrapper.WriteWrongScreen();
+			System.exit();
+		}
     }
 
     // onStart() is called on application start up
@@ -29,12 +52,17 @@ class YASailingApp extends App.AppBase
     	Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
 		loadState();
         LogWrapper.WriteAppStart(Time.now());
+        _isStartSuccess = true;
     }
 
     // onStop() is called when your application is exiting
     //
     function onStop(state) 
     {
+    	if (!_isStartSuccess)
+    	{
+    		return;
+    	}	
     	Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
 		saveState();
         Settings.SaveSettings();
