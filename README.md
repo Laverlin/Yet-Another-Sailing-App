@@ -2,7 +2,9 @@
 
 ### supported devices
 
-Fenix 3 [HR] / Quatix 3 / Tactix Bravo 
+Fenix 3 [HR] / Quatix 3 / Tactix Bravo / D2 / D2 Titanum
+Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / Tactix charlie
+ForeRunner 930
 
 ### install
 
@@ -56,26 +58,31 @@ In **Laps View** you can see data from last 20 laps. This data stores permanentl
 - DOWN scroll to next lap
 - BACK offer you to clear all laps from permanent storage and drop lap counter to zero.  
 
-======== 0.67 changes
+### Changelog
+
+**version 0.70**
+- add support / D2 / D2 Titanum / Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / ForeRunner 930 / Tactix charlie
+
+**version 0.67**
 - fix set timer issue : it was need to reload app after countown time setup
 - auto switch to race timer after new countdown time setup
 
-======== 0.66 changes
+**version 0.66**
 - set main menu as a default view from start 
  
-======== 0.65 changes 
+**version 0.65** 
 - display distance covered in cruise mode 
 - change layout in cruise mode
 - max speed calculated as moving average for 3 sec, to avoid fluctuation 
   
-======== 0.6 changes 
+**version 0.6**
 - color countdown progress bar   
 - new main menu   
 - permanently stored laps   
    
-======== 0.5 changes   
+**version 0.5**  
 - add Race Timer   
 - fix view issues   
    
-======== 0.21   
+**version 0.21**   
 - minor change in UI   
