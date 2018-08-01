@@ -2,8 +2,8 @@
 
 ### supported devices
 
-Fenix 3 [HR] / Quatix 3 / Tactix Bravo / D2 / D2 Titanum
-Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / Tactix charlie
+Fenix 3 [HR] / Quatix 3 / Tactix Bravo / D2 / D2 Titanum /
+Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / Tactix Charlie /
 ForeRunner 930
 
 ### install
@@ -16,42 +16,41 @@ https://forums.garmin.com/showthread.php?360221-App-Yet-Another-Sailing-App
 
 ### description
 
-There is already a few nice sailing apps but this yet another one... =)   
+There are a few nice sailing apps already, but this is yet another one... =)   
 
 This app has 
 - Race Timer with ISAF starting sequence support 
-- Cruise view 
+- Cruise view with speed bearing and other valuable data
 - Laps view 
 
-In **Cruise** mode you can see at one glance actual speed, bearing, max speed and avg speed for last 10 seconds. Also there is a set of helpful indicators, like GPS status, recording status and actual speed vs avg speed, which is very useful for sail trimming.
-Moving average of bearing for last 10 sec. could be helpful in long distance cruise.   
+In **Cruise** mode you may see at one glance, actual speed, bearing, max speed and avg speed for last 10 seconds. Also, there are set of helpful indicators, like GPS status, recording status and actual speed vs avg speed, which is very useful for sail trimming.
+Moving average of bearing for last 10 sec. could be helpful in long-distance cruise.   
 
-In **Race Timer** mode you can see remaining seconds till start, actual time and speed. You can also adjust countdown timer by one sec up and down and down to next minute.
+In **Race Timer** mode you may see remaining seconds till start, actual time and speed. You can also adjust countdown timer by one sec up and down, and down to next minute.
 
-In **Laps view** you can see data - max speed, average speed, distance and time of last 20 laps  
+In **Laps view** you may see data - max speed, average speed, distance and time of last 20 laps  
 
 Waypoint mode is under development.
 
 ### usage
 
 - In any view press and hold UP (over 2 sec.) to get access to main menu.    
-	In main menu you can   
-   -- switch to Race Timer mode  
-   -- switch to Cruise mode   
-   -- switch to Laps view  
+	In main menu you'll able to   
+   -- switch to *Race Timer* mode  
+   -- switch to *Cruise* mode   
+   -- switch to *Laps view*  
    -- change settings, like countdown value for Race Timer, Background Color, Auto recording  
 
 In **Cruise** mode     
 - press start/stop button to start/stop recording. This option available only if GPS signal strong enough (gps indicator yellow or green)
-- press back button to add new lap, you can view laps statistic later.  
+- press back button to add new lap. You'll be able to view laps statistic later in *Laps View*.  
  
 In **Race Timer** mode   
 - UP add one second to countdown timer
 - DOWN subtract one second from countdown timer
 - BACK round timer to nearest minute down 
 - START start/stop countdown
-After countdown ends, app will automatically add one lap (if activity is recording) and will switch back to *Cruise* mode.
-To manually exit back to *Cruise* mode, press and hold UP button (over 2 sec.) 
+After countdown ends, app will automatically add one lap (if activity is recording) and switch to *Cruise* mode.
 
 In **Laps View** you can see data from last 20 laps. This data stores permanently, even if you close the app and start it again, laps data will be on place  
 - UP shows previous lap
@@ -61,11 +60,11 @@ In **Laps View** you can see data from last 20 laps. This data stores permanentl
 ### Changelog
 
 **version 0.70**
-- add support / D2 / D2 Titanum / Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / ForeRunner 930 / Tactix charlie
+- add support / D2 / D2 Titanum / Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / ForeRunner 930 / Tactix Charlie
 
 **version 0.67**
 - fix set timer issue : it was need to reload app after countown time setup
-- auto switch to race timer after new countdown time setup
+- automatically popout race timer, after new countdown time set
 
 **version 0.66**
 - set main menu as a default view from start 
