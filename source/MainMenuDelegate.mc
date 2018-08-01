@@ -35,7 +35,7 @@ class MainMenuDelegate extends Ui.MenuInputDelegate
         }         
         else if (item == :setting)
         {
-            Ui.pushView(new Rez.Menus.SettingMenu(), new SettingMenuDelegate(), Ui.SLIDE_LEFT);
+            Ui.pushView(new Rez.Menus.SettingMenu(), new SettingMenuDelegate(_raceTimerView), Ui.SLIDE_LEFT);
         }
         else if (item == :exitSave) 
         {

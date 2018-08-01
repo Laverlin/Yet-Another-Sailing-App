@@ -2,7 +2,9 @@
 
 ### supported devices
 
-Fenix 3 [HR] / Quatix 3/ Tactix Bravo 
+Fenix 3 [HR] / Quatix 3 / Tactix Bravo / D2 / D2 Titanum
+Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / Tactix charlie
+ForeRunner 930
 
 ### install
 
@@ -32,7 +34,7 @@ Waypoint mode is under development.
 
 ### usage
 
-- In any view press and hold UP button (over 2 sec.) to get access to main menu.    
+- In any view press and hold UP (over 2 sec.) to get access to main menu.    
 	In main menu you can   
    -- switch to Race Timer mode  
    -- switch to Cruise mode   
@@ -44,34 +46,43 @@ In **Cruise** mode
 - press back button to add new lap, you can view laps statistic later.  
  
 In **Race Timer** mode   
-- UP button add one second to countdown timer
-- DOWN button subtract one second from countdown timer
-- BACK button round timer to nearest minute down 
-- START button start/stop countdown
+- UP add one second to countdown timer
+- DOWN subtract one second from countdown timer
+- BACK round timer to nearest minute down 
+- START start/stop countdown
 After countdown ends, app will automatically add one lap (if activity is recording) and will switch back to *Cruise* mode.
 To manually exit back to *Cruise* mode, press and hold UP button (over 2 sec.) 
 
 In **Laps View** you can see data from last 20 laps. This data stores permanently, even if you close the app and start it again, laps data will be on place  
-- UP button shows previous lap
-- DOWN button scroll to next lap
-- BACK button offer you to clear all laps from permanent storage and drop lap counter to zero.  
+- UP shows previous lap
+- DOWN scroll to next lap
+- BACK offer you to clear all laps from permanent storage and drop lap counter to zero.  
 
-======== 0.66 changes
+### Changelog
+
+**version 0.70**
+- add support / D2 / D2 Titanum / Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / ForeRunner 930 / Tactix charlie
+
+**version 0.67**
+- fix set timer issue : it was need to reload app after countown time setup
+- auto switch to race timer after new countdown time setup
+
+**version 0.66**
 - set main menu as a default view from start 
  
-======== 0.65 changes 
+**version 0.65** 
 - display distance covered in cruise mode 
 - change layout in cruise mode
 - max speed calculated as moving average for 3 sec, to avoid fluctuation 
   
-======== 0.6 changes 
+**version 0.6**
 - color countdown progress bar   
 - new main menu   
 - permanently stored laps   
    
-======== 0.5 changes   
+**version 0.5**  
 - add Race Timer   
 - fix view issues   
    
-======== 0.21   
+**version 0.21**   
 - minor change in UI   

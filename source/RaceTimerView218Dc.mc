@@ -5,7 +5,7 @@ using Toybox.Lang as Lang;
 
 // print race timer objecs
 //
-class RaceTimerViewDc
+class RaceTimerView218Dc
 {
 	function ClearDc(dc)
 	{

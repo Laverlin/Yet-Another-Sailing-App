@@ -41,4 +41,14 @@ class LogWrapper
         Sys.println("distance : " + lapInfo.Distance);
         Sys.println("avg speed : " + lapInfo.AvgSpeedKnot);
     }
+    
+    static function WriteWrongDevice()
+	{
+    	Sys.println("Unsupported device");
+	}
+	
+	static function WriteWrongScreen()
+	{
+    	Sys.println("Unsupported screen size");
+	}
 }
