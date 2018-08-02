@@ -12,7 +12,7 @@ https://apps.garmin.com/en-US/apps/159028ac-590b-4836-a1e2-474d248469c5
 
 ### feedback 
 
-https://forums.garmin.com/showthread.php?360221-App-Yet-Another-Sailing-App 
+https://forums.garmin.com/forum/developers/connect-iq/connect-iq-showcase/1383630-app-yet-another-sailing-app 
 
 ### description
 
