@@ -3,8 +3,8 @@
 ### supported devices
 
 Fenix 3 [HR] / Quatix 3 / Tactix Bravo / D2 / D2 Titanum /
-Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / Tactix Charlie /
-ForeRunner 930
+Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / Fenix 5S Plus/ Tactix Charlie /
+Forerunner 935
 
 ### install
 
@@ -59,8 +59,11 @@ In **Laps View** you can see data from last 20 laps. This data stores permanentl
 
 ### Changelog
 
+**version 0.71**
+- add Fenix 5S Plus support (Fenix 5S does not supported yet)
+
 **version 0.70**
-- add support / D2 / D2 Titanum / Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / ForeRunner 930 / Tactix Charlie
+- add support  D2 / D2 Titanum / Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / ForeRunner 935 / Tactix Charlie
 
 **version 0.67**
 - fix set timer issue: it was needed to reload app after init countdown timer 
