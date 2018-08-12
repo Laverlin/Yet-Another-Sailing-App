@@ -25,9 +25,9 @@ class RaceTimerView extends Ui.View
     function onShow() 
     {
     	_timer.start(method(:onTimerUpdate), 1000, true);
-    	if (_timerValue <= 0)
+    	if (_timerValue <= 0 || Settings.IsTimerValueUpdated)
     	{
-    		_timerValue = Settings.TimerValue;
+    		_timerValue = Settings.GetTimerValue();
     	}
     }
 

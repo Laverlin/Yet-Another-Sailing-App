@@ -5,10 +5,12 @@ using Toybox.System as Sys;
 //
 class SetTimerMenuDelegate extends Ui.MenuInputDelegate
 {
+	hidden var _raceTimerView;
 
-	function initialize() 
+	function initialize(raceTimerView) 
     {
         MenuInputDelegate.initialize();
+        _raceTimerView = raceTimerView;
     }
 
     function onMenuItem(item) 
@@ -57,5 +59,9 @@ class SetTimerMenuDelegate extends Ui.MenuInputDelegate
         {
             Settings.SetTimerValue(3600);
         } 
+        
+        Ui.popView(Ui.SLIDE_IMMEDIATE);
+        Ui.popView(Ui.SLIDE_IMMEDIATE);
+        Ui.pushView(_raceTimerView, new RaceTimerViewDelegate(_raceTimerView), Ui.SLIDE_RIGHT);
     }
 }
