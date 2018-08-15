@@ -1,7 +1,7 @@
 <menu id="MainMenu" title="Menu">
 		<menu-item id="raceTimer">Race Timer</menu-item>
 		<menu-item id="cruiseView">Cruise</menu-item>
-		<menu-item id="waypointView">Waypoint</menu-item>
+		<menu-item id="routeMenu">Routes</menu-item>
     	<menu-item id="lapView">View Laps</menu-item>
     	<menu-item id="setting">Settings</menu-item>
    		<menu-item id="exitDiscard">Exit Discard Track</menu-item>

@@ -31,9 +31,9 @@ class MainMenuDelegate extends Ui.MenuInputDelegate
         {
             Ui.pushView(_cruiseView, new CruiseViewDelegate(_cruiseView, _gpsWrapper), Ui.SLIDE_RIGHT);
         }
-        else if (item == :waypointView)
+        else if (item == :routeMenu)
         {
-            Ui.pushView(_waypointView, new WaypointViewDelegate(_waypointView, _gpsWrapper), Ui.SLIDE_RIGHT);
+        	Ui.pushView(new Rez.Menus.RouteMenu(), new RouteMenuDelegate(_waypointView, null, _gpsWrapper), Ui.SLIDE_RIGHT);
         }
         else if (item == :lapView)
         {
