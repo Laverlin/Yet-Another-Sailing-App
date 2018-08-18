@@ -84,6 +84,14 @@ class YASailingApp extends App.AppBase
         	new MainMenuDelegate(_cruiseView, _raceTimerView, _lapView, _waypointView, _selectRouteView, _gpsWrapper)) ];
     }
     
+    // Calls when app settings where updated from mobile device
+    //
+    function onSettingsChanged() 
+    { 
+    	Settings.UserId = App.getApp().getProperty("userId");
+    }
+
+    
     // handle position event
     //
     function onPosition(info) 

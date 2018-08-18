@@ -3,4 +3,5 @@
     <property id="isWhiteBackground" type="boolean">false</property>
     <property id="timerValue" type="number">300</property>
     <property id="IsAutoRecording" type="boolean">false</property>
+    <property id="userId" type = "string"></property>
 </properties>

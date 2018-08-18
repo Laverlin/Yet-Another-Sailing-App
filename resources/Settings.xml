@@ -1,0 +1,11 @@
+<settings>
+
+    <setting propertyKey="@Properties.appVersion" title="@Strings.AppVersionTitle">
+        <settingConfig type="alphaNumeric" readonly="true" />
+    </setting>
+
+    <setting propertyKey="@Properties.userId" title="@Strings.UserIdTitle">
+        <settingConfig type="alphaNumeric" required="true" />
+    </setting>
+
+</settings>

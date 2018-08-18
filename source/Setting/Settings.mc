@@ -11,12 +11,16 @@ class Settings
 	static var IsTimerValueUpdated = false;
 	static var IsAutoRecording = false;
 	static var IsWhiteBackground = false;
+	static var RouteApiUrl = "http://localhost:3000/garminapi";
+	static var RouteListMethod = "routelist";
+	static var UserId = "";
 
 	static function LoadSettings()
 	{
 		SetAutoRecording(App.getApp().getProperty("IsAutoRecording"));
 		SetTimerValue(App.getApp().getProperty("timerValue"));
 		SetBackground(App.getApp().getProperty("isWhiteBackground"));
+		UserId = App.getApp().getProperty("userId");
 	}
 
 	static function SaveSettings()

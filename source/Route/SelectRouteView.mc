@@ -1,6 +1,7 @@
 using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
 using Toybox.Communications as Comm;
+using Toybox.Lang as Lang;
 
 class SelectRouteView extends Ui.View 
 {
@@ -36,7 +37,10 @@ class SelectRouteView extends Ui.View
 	
 	function makeLoadRoutesRequest()
 	{
-		var url = "http://localhost:3000/garminapi/routelist/-IU43Aiin";     
+		var url = Lang.format("$1$/$2$/$3$", [
+			Settings.RouteApiUrl,
+			Settings.RouteListMethod,
+			Settings.UserId]);     
 
         var options = {
           :method => Comm.HTTP_REQUEST_METHOD_GET,
