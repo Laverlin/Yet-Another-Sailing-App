@@ -64,7 +64,8 @@ class SelectRouteView extends Ui.View
 	
 		for( var i = 0; i < data.size(); i++ )
 		{
-			selectRouteMenu.add(new DMenuItem (data[i]["RouteId"], data[i]["RouteName"], data[i]["RouteDate"], data[i]["WayPoints"]));
+			//var routeInfo = new RouteInfo(data[i]["RouteId"], data[i]["RouteName"], data[i]["RouteDate"], data[i]["WayPoints"]);
+			selectRouteMenu.add(new DMenuItem (data[i]["RouteId"], data[i]["RouteName"], data[i]["RouteDate"], data[i]));
 		}
 
 		var routeListView = new DMenu (selectRouteMenu, "Select Route");
@@ -86,9 +87,7 @@ class SelectRouteDelegate extends Ui.MenuInputDelegate
 
     function onMenuItem (item) 
 	{
-		Sys.println(item.id);
-		Sys.println(item.label);
-		Sys.println(item.value);
+		Settings.CurrentRoute = item.userData;
     }
     
     

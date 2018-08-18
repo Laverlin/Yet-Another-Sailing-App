@@ -88,7 +88,7 @@ class YASailingApp extends App.AppBase
     //
     function onSettingsChanged() 
     { 
-    	Settings.UserId = App.getApp().getProperty("userId");
+    	Settings.LoadSettings();
     }
 
     

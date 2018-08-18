@@ -14,6 +14,7 @@ class Settings
 	static var RouteApiUrl = "http://localhost:3000/garminapi";
 	static var RouteListMethod = "routelist";
 	static var UserId = "";
+	static var CurrentRoute = null;
 
 	static function LoadSettings()
 	{
@@ -21,6 +22,9 @@ class Settings
 		SetTimerValue(App.getApp().getProperty("timerValue"));
 		SetBackground(App.getApp().getProperty("isWhiteBackground"));
 		UserId = App.getApp().getProperty("userId");
+		
+		CurrentRoute = App.getApp().getProperty("CurrentRoute");
+		//CurrentRoute = App.Storage.getValue("CurrentRoute");
 	}
 
 	static function SaveSettings()
@@ -28,6 +32,10 @@ class Settings
 		App.getApp().setProperty("isWhiteBackground", IsWhiteBackground);
 		App.getApp().setProperty("timerValue", TimerValue);
 		App.getApp().setProperty("IsAutoRecording", IsAutoRecording);
+		
+		App.getApp().setProperty("CurrentRoute", CurrentRoute);
+		
+		//App.Storage.setValue("CurrentRoute", CurrentRoute);
 	}
 
 	static function SetBackground(isWhiteBackground)

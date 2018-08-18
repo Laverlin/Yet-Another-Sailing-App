@@ -23,7 +23,11 @@ class WaypointView extends Ui.View
     	_timer = new Timer.Timer();
     	_timer.start(method(:onTimerUpdate), 1000, true);
     	
-    	makeRequest();
+		var currentRoute = Settings.CurrentRoute;
+		
+		Sys.println(currentRoute["RouteId"]);
+		Sys.println(currentRoute["RouteName"]);
+		Sys.println(currentRoute["RouteDate"]);
     }
 
     // Stop timer then hide
@@ -65,34 +69,4 @@ class WaypointView extends Ui.View
         _waypointViewDc.DisplayState(dc, gpsInfo.Accuracy, gpsInfo.IsRecording, gpsInfo.LapCount);
         _waypointViewDc.DrawGrid(dc);
     }
-    
-    
-       // set up the response callback function
-   function onReceive(responseCode, data) 
-   {
-       if (responseCode == 200) {
-           Sys.println("Request Successful");                   // print success
-           Sys.println(data[0]["RouteName"]);
-           Sys.println(data[0]["RouteDate"]);
-           Sys.println(data[0]["RouteId"]);
-       }
-       else {
-           Sys.println("Response: " + responseCode);            // print response code
-       }
-
-   }
-
-   function makeRequest() {
-       var url = "http://localhost:3000/garminapi/routelist/-IU43Aiin";     
-
-        var options = {
-          :method => Comm.HTTP_REQUEST_METHOD_GET,
-          :responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
-        };
-
-//       var responseCallback = method(:onReceive);                  // set responseCallback to
-                                                                   // onReceive() method
-       // Make the Communications.makeWebRequest() call
-       Comm.makeWebRequest(url, {}, options, method(:onReceive));
-  }
 }

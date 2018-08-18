@@ -3,4 +3,6 @@
     <string id="AppVersionTitle">App Version</string>
     <string id="BackgroundPropertyName">isWhiteBackground</string>
     <string id="UserIdTitle">User ID</string>
+    <string id="TimerValueTitle">Race Timer</string>
+    <string id="IsAutoRecordingTitle">Enable Auto Recording</string>
 </strings>

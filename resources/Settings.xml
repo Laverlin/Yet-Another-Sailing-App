@@ -8,4 +8,12 @@
         <settingConfig type="alphaNumeric" required="true" />
     </setting>
 
+    <setting propertyKey="@Properties.timerValue" title="@Strings.TimerValueTitle">
+        <settingConfig type="numeric" />
+    </setting>
+
+    <setting propertyKey="@Properties.IsAutoRecording" title="@Strings.IsAutoRecordingTitle">
+        <settingConfig type="boolean" />
+    </setting>
+	
 </settings>
