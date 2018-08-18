@@ -11,6 +11,7 @@ class YASailingApp extends App.AppBase
 	hidden var _raceTimerView;
 	hidden var _waypointView;
 	hidden var _lapView;
+	hidden var _selectRouteView;
 	hidden var _isStartSuccess = false;
 
     function initialize() 
@@ -26,6 +27,7 @@ class YASailingApp extends App.AppBase
 		
 	    Settings.LoadSettings();        
 		_gpsWrapper = new GpsWrapper();
+		_selectRouteView = new SelectRouteView(new SelectRouteViewDc());
 
 		if (deviceSettings.screenHeight == 218)
 		{
@@ -79,7 +81,7 @@ class YASailingApp extends App.AppBase
     {
         return [ 
         	new StartupView(new Rez.Menus.MainMenu(), 
-        	new MainMenuDelegate(_cruiseView, _raceTimerView, _lapView, _waypointView, _gpsWrapper)) ];
+        	new MainMenuDelegate(_cruiseView, _raceTimerView, _lapView, _waypointView, _selectRouteView, _gpsWrapper)) ];
     }
     
     // handle position event

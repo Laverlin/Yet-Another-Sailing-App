@@ -9,7 +9,7 @@ class DMenuItem
 {
 	const LABEL_FONT = Gfx.FONT_SMALL;
 	const SELECTED_LABEL_FONT = Gfx.FONT_LARGE;
-	const VALUE_FONT = Gfx.FONT_MEDIUM;
+	const VALUE_FONT = Gfx.FONT_TINY;
 	const PAD = 0;
 
 	var	id, label, value, userData;

@@ -10,8 +10,9 @@ class MainMenuDelegate extends Ui.MenuInputDelegate
     hidden var _raceTimerView;
     hidden var _lapView;
     hidden var _waypointView;
+    hidden var _selectRouteView;
     
-    function initialize(cruiseView, raceTimerView, lapView, waypointView, gpsWrapper) 
+    function initialize(cruiseView, raceTimerView, lapView, waypointView, selectRouteView, gpsWrapper) 
     {
         MenuInputDelegate.initialize();
         _cruiseView = cruiseView;
@@ -19,6 +20,7 @@ class MainMenuDelegate extends Ui.MenuInputDelegate
         _lapView = lapView;
         _waypointView = waypointView;
         _gpsWrapper = gpsWrapper;
+        _selectRouteView = selectRouteView;
     }
 
     function onMenuItem(item) 
@@ -33,7 +35,7 @@ class MainMenuDelegate extends Ui.MenuInputDelegate
         }
         else if (item == :routeMenu)
         {
-        	Ui.pushView(new Rez.Menus.RouteMenu(), new RouteMenuDelegate(_waypointView, null, _gpsWrapper), Ui.SLIDE_RIGHT);
+        	Ui.pushView(new Rez.Menus.RouteMenu(), new RouteMenuDelegate(_waypointView, _selectRouteView, _gpsWrapper), Ui.SLIDE_RIGHT);
         }
         else if (item == :lapView)
         {
