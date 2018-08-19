@@ -35,16 +35,24 @@ class WaypointView240Dc
     {
         var speedString = speed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
-        dc.drawText(94, 108, Gfx.FONT_NUMBER_MEDIUM, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(34, 118, Gfx.FONT_XTINY, "SOG", Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(115, 75, Gfx.FONT_NUMBER_MEDIUM, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(49, 72, Gfx.FONT_XTINY, "sog", Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
-    function PrintBearing(dc, bearing)
+    function PrintCog(dc, cog)
     {
-        var bearingString = bearing.format("%003d");
+        var cogString = cog.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(94, 58, Gfx.FONT_NUMBER_MEDIUM, bearingString, Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(34, 68, Gfx.FONT_XTINY, "COG", Gfx.TEXT_JUSTIFY_RIGHT);    
+        dc.drawText(115, 120, Gfx.FONT_NUMBER_MEDIUM, cogString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(49, 117, Gfx.FONT_XTINY, "cog", Gfx.TEXT_JUSTIFY_RIGHT);    
+    }
+    
+    function PrintVmg(dc, vmg)
+    {
+        var vmgString = vmg.format("%2.1f");
+    	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
+        dc.drawText(125, 75, Gfx.FONT_NUMBER_MEDIUM, vmgString, Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(200, 90, Gfx.FONT_XTINY, "vmg", Gfx.TEXT_JUSTIFY_LEFT);    
     }
     
     function DrawGrid(dc)

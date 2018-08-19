@@ -37,6 +37,7 @@ class GpsWrapper
 	hidden var _speedKnot = 0.0;
     hidden var _accuracy = 0;
     hidden var _bearingDegree = 0;
+    hidden var _location = null;
 
     // global values
     //
@@ -116,6 +117,8 @@ class GpsWrapper
         var timelapsSecond = timelaps.toDouble() / 1000;
         _distance += positionInfo.speed * timelapsSecond;
         _duration += timelapsSecond;
+        
+        _location = positionInfo.position;
 	}
 
 	// return all calculated data from GPS 
@@ -132,6 +135,7 @@ class GpsWrapper
         gpsInfo.LapCount = _lapCount;
         gpsInfo.AvgBearingDegree = _avgBearingDegree;
         gpsInfo.TotalDistance = _distance / METERS_PER_NAUTICAL_MILE;
+        gpsInfo.GpsLocation = _location; 
 
         return gpsInfo;
     }

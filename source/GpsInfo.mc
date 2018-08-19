@@ -37,5 +37,9 @@ class GpsInfo
 	// Total distance covered
 	//
 	var TotalDistance = 0.0;
+	
+	// Actual location
+	//
+	var GpsLocation = null;
 
 }
