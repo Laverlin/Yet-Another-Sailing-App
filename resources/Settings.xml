@@ -15,5 +15,9 @@
     <setting propertyKey="@Properties.IsAutoRecording" title="@Strings.IsAutoRecordingTitle">
         <settingConfig type="boolean" />
     </setting>
+    
+    <setting propertyKey="@Properties.isWhiteBackground" title="@Strings.isWhiteBackgroundTitle">
+        <settingConfig type="boolean" />
+    </setting>
 	
 </settings>

@@ -1,0 +1,7 @@
+<resources>
+    <bitmap id="rec_black" filename="drawables\rec_black.png" />
+    <bitmap id="gps_black" filename="drawables\gps_black.png" />
+    <bitmap id="gps_yellow" filename="drawables\gps_yellow.png" />
+    <bitmap id="gps_green" filename="drawables\gps_green.png" />
+    <bitmap id="gps_red" filename="drawables\gps_red.png" />
+</resources>

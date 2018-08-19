@@ -8,6 +8,8 @@ class WaypointView extends Ui.View
 	hidden var _timer;
 	hidden var _waypointViewDc;
 	hidden var _waypoint;
+	hidden var _currentWayPoint = 1;
+	hidden var _totalWayPoints;
 
     function initialize(gpsWrapper, waypointViewDc) 
     {
@@ -24,10 +26,12 @@ class WaypointView extends Ui.View
     	_timer.start(method(:onTimerUpdate), 1000, true);
     	
 		var currentRoute = Settings.CurrentRoute;
+		_totalWayPoints = currentRoute["WayPoints"].size();
 		
 		Sys.println(currentRoute["RouteId"]);
 		Sys.println(currentRoute["RouteName"]);
 		Sys.println(currentRoute["RouteDate"]);
+		Sys.println(_totalWayPoints);
     }
 
     // Stop timer then hide
@@ -66,7 +70,7 @@ class WaypointView extends Ui.View
     	//
         var clockTime = Sys.getClockTime();        
         _waypointViewDc.PrintTime(dc, clockTime);
-        _waypointViewDc.DisplayState(dc, gpsInfo.Accuracy, gpsInfo.IsRecording, gpsInfo.LapCount);
+        _waypointViewDc.DisplayState(dc, gpsInfo.Accuracy, gpsInfo.IsRecording, _currentWayPoint, _totalWayPoints);
         _waypointViewDc.DrawGrid(dc);
     }
 }
