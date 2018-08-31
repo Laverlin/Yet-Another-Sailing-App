@@ -42,6 +42,8 @@ class SelectRouteView extends Ui.View
 			Settings.RouteListMethod,
 			Settings.UserId]);     
 
+		Sys.println(url);
+		
         var options = {
           :method => Comm.HTTP_REQUEST_METHOD_GET,
           :responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
@@ -56,6 +58,7 @@ class SelectRouteView extends Ui.View
 		{
 			_loadingError = responseCode;
 			Sys.println("error loading routes, response code: " + responseCode.toString());
+			Sys.println(data);
 			Ui.requestUpdate();
 			return;
 		}
@@ -78,8 +81,6 @@ class SelectRouteView extends Ui.View
 //
 class SelectRouteDelegate extends Ui.MenuInputDelegate 
 {
-
-	
     function initialize ()
 	{
         MenuInputDelegate.initialize ();
@@ -89,6 +90,4 @@ class SelectRouteDelegate extends Ui.MenuInputDelegate
 	{
 		Settings.CurrentRoute = item.userData;
     }
-    
-    
 }
