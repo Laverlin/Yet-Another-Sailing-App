@@ -8,8 +8,6 @@ class WaypointView extends Ui.View
     hidden var _gpsWrapper;
 	hidden var _timer;
 	hidden var _waypointViewDc;
-	
-	hidden var _currentRoute;
 	hidden var _routeTrack;
 	 
     function initialize(gpsWrapper, waypointViewDc) 
@@ -17,27 +15,31 @@ class WaypointView extends Ui.View
         View.initialize();
         _gpsWrapper = gpsWrapper;
         _waypointViewDc = waypointViewDc;
-        
-        _currentRoute = Settings.CurrentRoute;
-        _routeTrack = new RouteTrack(_currentRoute);
     }
 
 	// SetUp timer on show to update every second
     //
     function onShow() 
     {
+    	var currentRoute = Settings.CurrentRoute;
+    	if (currentRoute == null)
+    	{
+    		Sys.println("there is no active route");
+    		return;
+    	}
+        _routeTrack = new RouteTrack(currentRoute);
+        
     	_timer = new Timer.Timer();
     	_timer.start(method(:onTimerUpdate), 1000, true);
     	
+		Sys.println(currentRoute["RouteId"]);
+		Sys.println(currentRoute["RouteName"]);
+		Sys.println(currentRoute["RouteDate"]);
 		
-		Sys.println(_currentRoute["RouteId"]);
-		Sys.println(_currentRoute["RouteName"]);
-		Sys.println(_currentRoute["RouteDate"]);
-		
-		var lat1 = _currentRoute["WayPoints"][0]["Lat"].toFloat();
-		var lon1 = _currentRoute["WayPoints"][0]["Lon"].toFloat();
-		var lat2 = _currentRoute["WayPoints"][1]["Lat"].toFloat();
-		var lon2 = _currentRoute["WayPoints"][1]["Lon"].toFloat();
+		var lat1 = currentRoute["WayPoints"][0]["Lat"].toFloat();
+		var lon1 = currentRoute["WayPoints"][0]["Lon"].toFloat();
+		var lat2 = currentRoute["WayPoints"][1]["Lat"].toFloat();
+		var lon2 = currentRoute["WayPoints"][1]["Lon"].toFloat();
 		
 		Sys.println("lat1 : " + lat1);
 		Sys.println("lon1 : " + lon1);
@@ -45,7 +47,7 @@ class WaypointView extends Ui.View
 		Sys.println("lon2 : " + lon2);		
 		
 		var gpsInfo = _gpsWrapper.GetGpsInfo();
-		var geoCalc = new RouteTrack(_currentRoute);
+		var geoCalc = _routeTrack;
 		
 	
 		var geoDistance = geoCalc.GetDistance(Math.toRadians(lat1), Math.toRadians(lon1), Math.toRadians(lat2), Math.toRadians(lon2));

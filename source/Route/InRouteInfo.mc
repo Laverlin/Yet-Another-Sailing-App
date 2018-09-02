@@ -7,4 +7,5 @@ class InRouteInfo
 	var Distance2Wp;
 	var Distance2Finish;
 	var Xte;
+	var IsRouteFinished;
 }

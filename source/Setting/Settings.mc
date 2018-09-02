@@ -11,7 +11,7 @@ class Settings
 	static var IsTimerValueUpdated = false;
 	static var IsAutoRecording = false;
 	static var IsWhiteBackground = false;
-	static var RouteApiUrl = "http://localhost:3000/garminapi";
+	static var RouteApiUrl = "http://ivan-b.com/api/garminapi";
 	static var RouteListMethod = "routelist";
 	static var UserId = "";
 	static var CurrentRoute = null;
@@ -24,7 +24,6 @@ class Settings
 		UserId = App.getApp().getProperty("userId");
 		
 		CurrentRoute = App.getApp().getProperty("CurrentRoute");
-		//CurrentRoute = App.Storage.getValue("CurrentRoute");
 	}
 
 	static function SaveSettings()

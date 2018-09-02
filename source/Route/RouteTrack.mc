@@ -5,7 +5,7 @@ using Toybox.Math as Math;
 //
 class RouteTrack
 {
-	hidden var _currentWayPoint = 5;
+	hidden var _currentWayPoint = 0;
 	hidden var _totalWayPoints;
 	hidden var _currentRoute;
 	
@@ -14,8 +14,12 @@ class RouteTrack
 	hidden var _lastKnownTime = 0;
 	hidden var _currentTime = 0; 
 	hidden var _distanceWp2Finish = 0.0;
+	hidden var _isRouteFinished = false;
+
+	hidden var _gvmg = 0;
 
 	const EARTH_RADIUS_M = 6378137;
+	const WP_EPSILON = 650; // 100 m radius around WP
 	
 	hidden function getVmg(currentDistance2Wp)
 	{
@@ -30,11 +34,18 @@ class RouteTrack
 			_currentDistance = currentDistance2Wp;
 			_currentTime = Sys.getTimer();
 			var timeLaps = (_currentTime - _lastKnownTime).toDouble() / 1000;
+			if (_lastKnownDistance - _currentDistance == 0)
+			{
+				return _gvmg;
+			}
 			vmg = (_lastKnownDistance - _currentDistance) / timeLaps;
+			_gvmg = vmg;
 			_lastKnownDistance = _currentDistance;
 			_lastKnownTime = _currentTime;
+			
+			Sys.println("timelaps: " + timeLaps + ", distance: " + _currentDistance );
 		}
-		
+
 		return vmg;
 	}
 	
@@ -42,21 +53,41 @@ class RouteTrack
 	{
 		if (_distanceWp2Finish == 0)
 		{
-		  	for(var i=_currentWayPoint; i<_currentRoute["WayPoints"].size()-1; i++)
+		  	for(var i = _currentWayPoint; i < _currentRoute["WayPoints"].size() - 1; i++)
     		{
-    			_distanceWp2Finish = _distanceWp2Finish +  GetDistance(	
-    				_currentRoute["WayPoints"][i]["Lat"].toFloat(), _currentRoute["WayPoints"][i]["Lon"].toFloat(),
-    				_currentRoute["WayPoints"][i+1]["Lat"].toFloat(), _currentRoute["WayPoints"][i+1]["Lon"].toFloat());
+    			_distanceWp2Finish = _distanceWp2Finish + GetDistance(	
+    				Math.toRadians(_currentRoute["WayPoints"][i]["Lat"].toFloat()), 
+    				Math.toRadians(_currentRoute["WayPoints"][i]["Lon"].toFloat()),
+    				Math.toRadians(_currentRoute["WayPoints"][i+1]["Lat"].toFloat()), 
+    				Math.toRadians(_currentRoute["WayPoints"][i+1]["Lon"].toFloat()));
     		}
     	}
     	
     	return _distanceWp2Finish + distance2Wp;
 	}
 	
+	hidden function changeCurrentWp()
+	{
+		_currentWayPoint++;
+		if (_currentWayPoint > _totalWayPoints - 1)
+		{
+			_currentWayPoint--;
+			_isRouteFinished = true;
+			return;
+		}
+		
+		_distanceWp2Finish = 0; // to recalculate without passed WP
+		_currentRoute.put("CurrentWayPoint", _currentWayPoint);
+	}
+	
 	function initialize(currentRoute)
 	{
 		_currentRoute = currentRoute;
 		_totalWayPoints = _currentRoute["WayPoints"].size();
+		if (_currentRoute["CurrentWayPoint"] != null)
+		{
+			_currentWayPoint = _currentRoute["CurrentWayPoint"];
+		}
 	}
 	
 	// Return total Waypoints in actual route
@@ -89,6 +120,7 @@ class RouteTrack
 		inRouteInfo.Bearing = GetBearing(gpsLat, gpsLon, wpLat, wpLon);
 		inRouteInfo.Vmg = getVmg(distance2Wp) * GpsWrapper.MS_TO_KNOT;
 		inRouteInfo.Distance2Finish = getDistance2Finish(distance2Wp) / GpsWrapper.METERS_PER_NAUTICAL_MILE;
+		inRouteInfo.IsRouteFinished = _isRouteFinished;
 		if (_currentWayPoint > 0)
 		{
 			inRouteInfo.Xte = getXte(
@@ -100,6 +132,11 @@ class RouteTrack
 		else
 		{
 			inRouteInfo.Xte = 0;
+		}
+		
+		if (distance2Wp < WP_EPSILON)
+		{
+			changeCurrentWp();
 		}
 		
 		return inRouteInfo;

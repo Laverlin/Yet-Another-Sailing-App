@@ -8,6 +8,8 @@ class SelectRouteView extends Ui.View
 	hidden var _selectRouteViewDc;
 	hidden var _loadingError = 0;
 	
+	var IsSelectionMade = false;
+	
     function initialize(selectRouteViewDc) 
     {
         View.initialize();
@@ -18,6 +20,12 @@ class SelectRouteView extends Ui.View
     //
     function onShow() 
     {
+    	if (IsSelectionMade)
+    	{
+    		IsSelectionMade = false;
+    		Ui.popView(Ui.SLIDE_IMMEDIATE);
+    		return;
+    	}
     	makeLoadRoutesRequest();
     }
     
@@ -32,6 +40,7 @@ class SelectRouteView extends Ui.View
 		else
 		{
 			_selectRouteViewDc.PrintErrorMessage(dc, "Loading Error", "Code: " + _loadingError.toString());
+			_loadingError = 0;
 		}
 	}
 	
@@ -67,12 +76,11 @@ class SelectRouteView extends Ui.View
 	
 		for( var i = 0; i < data.size(); i++ )
 		{
-			//var routeInfo = new RouteInfo(data[i]["RouteId"], data[i]["RouteName"], data[i]["RouteDate"], data[i]["WayPoints"]);
 			selectRouteMenu.add(new DMenuItem (data[i]["RouteId"], data[i]["RouteName"], data[i]["RouteDate"], data[i]));
 		}
 
 		var routeListView = new DMenu (selectRouteMenu, "Select Route");
-		var routeListViewDelegate =  new DMenuDelegate (routeListView, new SelectRouteDelegate());
+		var routeListViewDelegate =  new DMenuDelegate (routeListView, new SelectRouteDelegate(self));
 		Ui.pushView(routeListView, routeListViewDelegate, Ui.SLIDE_IMMEDIATE);
 	}
 }
@@ -81,13 +89,21 @@ class SelectRouteView extends Ui.View
 //
 class SelectRouteDelegate extends Ui.MenuInputDelegate 
 {
-    function initialize ()
+	var _selectRouteView;
+	
+    function initialize (selectRouteView)
 	{
         MenuInputDelegate.initialize ();
+        _selectRouteView = selectRouteView;
     }
 
     function onMenuItem (item) 
 	{
 		Settings.CurrentRoute = item.userData;
+		
+		Sys.println(Settings.CurrentRoute["RouteName"]);
+		
+		Ui.popView(Ui.SLIDE_IMMEDIATE);
+		_selectRouteView.IsSelectionMade = true;
     }
 }
