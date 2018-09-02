@@ -16,7 +16,7 @@ class SelectRouteViewDc
 	function PrintLoadingMessage(dc, message)
 	{
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(dc.getWidth()/2, dc.getHeight()/2, Gfx.FONT_MEDIUM, message, Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(dc.getWidth()/2, dc.getHeight()/2 - 25, Gfx.FONT_MEDIUM, message, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 	
 	function PrintErrorMessage(dc, message, details)

@@ -19,11 +19,11 @@ class RouteMenuDelegate extends Ui.MenuInputDelegate
 
     function onMenuItem(item) 
     {
-        if (item == :startRoute)
+        if (item.id == :startRoute)
         {
             Ui.pushView(_waypointView, new WaypointViewDelegate(_waypointView, _gpsWrapper), Ui.SLIDE_RIGHT);
         } 
-        else if (item == :selectRoute)
+        else if (item.id == :selectRoute)
         {
 			Ui.pushView(_selectRouteView, null, Ui.SLIDE_RIGHT);
         }  

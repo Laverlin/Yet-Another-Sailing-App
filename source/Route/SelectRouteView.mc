@@ -76,7 +76,8 @@ class SelectRouteView extends Ui.View
 	
 		for( var i = 0; i < data.size(); i++ )
 		{
-			selectRouteMenu.add(new DMenuItem (data[i]["RouteId"], data[i]["RouteName"], data[i]["RouteDate"], data[i]));
+			var routeDate = data[i]["RouteDate"].substring(0, 10) + " " + data[i]["RouteDate"].substring(11, 16); 
+			selectRouteMenu.add(new DMenuItem (data[i]["RouteId"], data[i]["RouteName"], routeDate, data[i]));
 		}
 
 		var routeListView = new DMenu (selectRouteMenu, "Select Route");

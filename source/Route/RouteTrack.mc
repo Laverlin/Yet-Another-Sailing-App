@@ -19,7 +19,7 @@ class RouteTrack
 	hidden var _gvmg = 0;
 
 	const EARTH_RADIUS_M = 6378137;
-	const WP_EPSILON = 650; // 100 m radius around WP
+	const WP_EPSILON = 100; // 100 m radius around WP
 	
 	hidden function getVmg(currentDistance2Wp)
 	{
@@ -34,16 +34,16 @@ class RouteTrack
 			_currentDistance = currentDistance2Wp;
 			_currentTime = Sys.getTimer();
 			var timeLaps = (_currentTime - _lastKnownTime).toDouble() / 1000;
-			if (_lastKnownDistance - _currentDistance == 0)
-			{
-				return _gvmg;
-			}
+//			if (_lastKnownDistance - _currentDistance == 0)
+//			{
+//				return _gvmg;
+//			}
 			vmg = (_lastKnownDistance - _currentDistance) / timeLaps;
 			_gvmg = vmg;
 			_lastKnownDistance = _currentDistance;
 			_lastKnownTime = _currentTime;
 			
-			Sys.println("timelaps: " + timeLaps + ", distance: " + _currentDistance );
+//			Sys.println("timelaps: " + timeLaps + ", distance: " + _currentDistance );
 		}
 
 		return vmg;
@@ -78,6 +78,7 @@ class RouteTrack
 		
 		_distanceWp2Finish = 0; // to recalculate without passed WP
 		_currentRoute.put("CurrentWayPoint", _currentWayPoint);
+		SignalWrapper.PressButton();
 	}
 	
 	function initialize(currentRoute)
