@@ -8,6 +8,10 @@
         <settingConfig type="alphaNumeric" required="true" />
     </setting>
 
+    <setting propertyKey="@Properties.wpEpsilon" title="@Strings.wpEpsilonTitle">
+        <settingConfig type="numeric" />
+    </setting>
+
     <setting propertyKey="@Properties.timerValue" title="@Strings.TimerValueTitle">
         <settingConfig type="numeric" />
     </setting>

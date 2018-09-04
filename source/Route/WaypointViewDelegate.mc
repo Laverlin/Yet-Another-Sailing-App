@@ -40,4 +40,10 @@ class WaypointViewDelegate extends Ui.BehaviorDelegate
         return true;
     }
     
+    function onNextPage()
+    {
+    	_waypointView.SkipWayPoint();
+    	return true;
+    }
+    
 }

@@ -3,6 +3,7 @@ using Toybox.Graphics as Gfx;
 using Toybox.Lang as Lang;
 using Toybox.Time as Time;
 using Toybox.System as Sys;
+using Toybox.Math as Math;
 
 /// Since there is no way to setup a background color in layout.xml
 /// all boiler-plate code for drawing objects need to be done manually.
@@ -65,7 +66,15 @@ class WaypointView240Dc
     
     function PrintDistance2Wp(dc, distance2wp)
     {
-    	var distanceString = distance2wp.format("%2.1f");
+    	var distanceString;
+    	if (distance2wp < 0.2)
+    	{
+    		distanceString = "." + (distance2wp * 100).format("%2d");
+    	}
+    	else
+    	{
+    		distanceString = distance2wp.format("%2.1f");
+    	}
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
         dc.drawText(125, 173, Gfx.FONT_SYSTEM_SMALL, distanceString, Gfx.TEXT_JUSTIFY_LEFT);
         //dc.drawText(200, 117, Gfx.FONT_XTINY, "cwp", Gfx.TEXT_JUSTIFY_LEFT); 
@@ -81,7 +90,9 @@ class WaypointView240Dc
     
     function PrintXte(dc, xte)
     {
-    	var xteString = xte.format("%2.1f");
+       	var xteString = (xte < 0.2 && xte > -0.2 && xte != 0)
+       		? "." + (xte * 100).format("%2d")
+       		: xte.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
         dc.drawText(115, 173, Gfx.FONT_SYSTEM_SMALL, xteString, Gfx.TEXT_JUSTIFY_RIGHT);
         dc.drawText(55, 173, Gfx.FONT_XTINY, "xte", Gfx.TEXT_JUSTIFY_RIGHT); 

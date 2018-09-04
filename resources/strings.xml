@@ -6,4 +6,5 @@
     <string id="TimerValueTitle">Race Timer</string>
     <string id="IsAutoRecordingTitle">Enable Auto Recording</string>
     <string id="isWhiteBackgroundTitle">White Background</string>
+    <string id="wpEpsilonTitle">Pass Waypoint Radius (m)</string>
 </strings>

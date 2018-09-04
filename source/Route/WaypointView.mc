@@ -115,4 +115,9 @@ class WaypointView extends Ui.View
         	gpsInfo.Accuracy, gpsInfo.IsRecording, _routeTrack.CurrentWayPoint(), _routeTrack.TotalWayPoints());
         _waypointViewDc.DrawGrid(dc);
     }
+    
+    function SkipWayPoint()
+    {
+    	_routeTrack.SkipWayPoint();
+    }
 }

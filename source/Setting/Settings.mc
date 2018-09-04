@@ -15,6 +15,7 @@ class Settings
 	static var RouteListMethod = "routelist";
 	static var UserId = "";
 	static var CurrentRoute = null;
+	static var WpEpsilon = 100;
 
 	static function LoadSettings()
 	{
@@ -22,7 +23,7 @@ class Settings
 		SetTimerValue(App.getApp().getProperty("timerValue"));
 		SetBackground(App.getApp().getProperty("isWhiteBackground"));
 		UserId = App.getApp().getProperty("userId");
-		
+		WpEpsilon = App.getApp().getProperty("wpEpsilon");
 		CurrentRoute = App.getApp().getProperty("CurrentRoute");
 	}
 
