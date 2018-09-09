@@ -1,7 +1,4 @@
 <resources>
-    <bitmap id="rec_black" filename="drawables\rec_black.png" />
-    <bitmap id="gps_black" filename="drawables\gps_black.png" />
-    <bitmap id="gps_yellow" filename="drawables\gps_yellow.png" />
-    <bitmap id="gps_green" filename="drawables\gps_green.png" />
-    <bitmap id="gps_red" filename="drawables\gps_red.png" />
+    <font id="trebuchet" filename="Fonts\Trebuchet16.fnt" antialias="true"/> 
+    <font id="verticalSSPSB12" filename="Fonts\verticalSSPSB12.fnt" antialias="true"/> 
 </resources>

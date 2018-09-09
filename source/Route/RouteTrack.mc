@@ -79,6 +79,7 @@ class RouteTrack
 		
 		_distanceWp2Finish = 0; // to recalculate without passed WP
 		_currentRoute.put("CurrentWayPoint", _currentWayPoint);
+		_gpsWrapper.AddLap();
 		SignalWrapper.PressButton();
 	}
 	

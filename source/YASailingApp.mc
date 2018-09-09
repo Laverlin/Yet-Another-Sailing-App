@@ -13,6 +13,7 @@ class YASailingApp extends App.AppBase
 	hidden var _lapView;
 	hidden var _selectRouteView;
 	hidden var _isStartSuccess = false;
+	hidden var _routeCustomMenuView;
 
     function initialize() 
     {
@@ -42,6 +43,7 @@ class YASailingApp extends App.AppBase
     	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView240Dc());
         	_lapView = new LapView(new LapView240Dc(), _gpsWrapper);
         	_waypointView = new WaypointView(_gpsWrapper, new WaypointView240Dc());
+        	_routeCustomMenuView = new RouteCustomMenuView(new RouteCustomMenuView240Dc());
 		}
 		else
 		{
@@ -81,7 +83,7 @@ class YASailingApp extends App.AppBase
     {
         return [ 
         	new StartupView(new Rez.Menus.MainMenu(), 
-        	new MainMenuDelegate(_cruiseView, _raceTimerView, _lapView, _waypointView, _selectRouteView, _gpsWrapper)) ];
+        	new MainMenuDelegate(_cruiseView, _raceTimerView, _lapView, _waypointView, _selectRouteView, _routeCustomMenuView, _gpsWrapper)) ];
     }
     
     // Calls when app settings where updated from mobile device

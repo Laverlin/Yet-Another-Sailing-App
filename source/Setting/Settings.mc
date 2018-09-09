@@ -7,6 +7,7 @@ class Settings
 {
 	static var ForegroundColor = Gfx.COLOR_WHITE;
 	static var BackgroundColor = Gfx.COLOR_BLACK;
+	static var DimColor = Gfx.COLOR_LT_GRAY;
 	static var TimerValue = 300;
 	static var IsTimerValueUpdated = false;
 	static var IsAutoRecording = false;
@@ -43,6 +44,7 @@ class Settings
 		IsWhiteBackground = (isWhiteBackground == null) ? false : isWhiteBackground;
         ForegroundColor = isWhiteBackground ? Gfx.COLOR_BLACK : Gfx.COLOR_WHITE;
         BackgroundColor = isWhiteBackground ? Gfx.COLOR_WHITE : Gfx.COLOR_BLACK;
+        DimColor = isWhiteBackground ? Gfx.COLOR_DK_GRAY : Gfx.COLOR_LT_GRAY;
 	}
 	
 	static function SetTimerValue(value)

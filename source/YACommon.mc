@@ -19,4 +19,16 @@ class YACommon
             "$1$:$2$:$3$", 
             [hour.format("%02d"), min.format("%02d"), sec.format("%02d")]);
     }
+    
+    // return absolute number
+    //
+    static function Abs(x)
+    {
+    	return (x < 0) ? -x : x;
+    }
+    
+    static function DateJson2Short(date)
+    {
+    	return Lang.format("$1$ $2$", [date.substring(0, 10), date.substring(11, 16)]);
+    }
 }

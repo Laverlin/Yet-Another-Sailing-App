@@ -12,7 +12,9 @@ class MainMenuDelegate extends Ui.MenuInputDelegate
     hidden var _waypointView;
     hidden var _selectRouteView;
     
-    function initialize(cruiseView, raceTimerView, lapView, waypointView, selectRouteView, gpsWrapper) 
+    hidden var _routeCustomMenuView;
+    
+    function initialize(cruiseView, raceTimerView, lapView, waypointView, selectRouteView, routeCustomMenuView, gpsWrapper) 
     {
         MenuInputDelegate.initialize();
         _cruiseView = cruiseView;
@@ -21,6 +23,8 @@ class MainMenuDelegate extends Ui.MenuInputDelegate
         _waypointView = waypointView;
         _gpsWrapper = gpsWrapper;
         _selectRouteView = selectRouteView;
+        
+        _routeCustomMenuView = routeCustomMenuView;
     }
 
     function onMenuItem(item) 
@@ -35,6 +39,11 @@ class MainMenuDelegate extends Ui.MenuInputDelegate
         }
         else if (item == :routeMenu)
         {
+        	Ui.pushView(
+        		_routeCustomMenuView, 
+        		new RouteCustomMenuDelegate(_gpsWrapper, _routeCustomMenuView, _waypointView, _selectRouteView), 
+        		Ui.SLIDE_RIGHT);
+        /*
         	var routeMenu = [];
         	if (Settings.CurrentRoute!= null)
         	{
@@ -47,7 +56,7 @@ class MainMenuDelegate extends Ui.MenuInputDelegate
 				routeMenuView, 
 				new RouteMenuDelegate(_waypointView, _selectRouteView, _gpsWrapper));
 			Ui.pushView(routeMenuView, routeMenuViewDelegate, Ui.SLIDE_IMMEDIATE);
-		
+		*/
         	//Ui.pushView(new Rez.Menus.RouteMenu(), new RouteMenuDelegate(_waypointView, _selectRouteView, _gpsWrapper), Ui.SLIDE_RIGHT);
         }
         else if (item == :lapView)
