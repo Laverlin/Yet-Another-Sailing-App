@@ -11,9 +11,7 @@ using Toybox.Math as Math;
 /// 
 class WaypointView240Dc
 {
-
 	hidden var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, Gfx.COLOR_GREEN];	
-		
 	hidden var _trebuchetFont = Ui.loadResource(Rez.Fonts.trebuchet);
 	hidden var _verticalSSPSB12Font = Ui.loadResource(Rez.Fonts.verticalSSPSB12);
 	
@@ -33,10 +31,9 @@ class WaypointView240Dc
 	
     function PrintSpeed(dc, speed)
     {
-    	var locX = 110;
         var speedString = speed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
-        dc.drawText(locX, 85, Gfx.FONT_NUMBER_MEDIUM, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(43, 85, Gfx.FONT_NUMBER_MEDIUM, speedString, Gfx.TEXT_JUSTIFY_LEFT);
         
         dc.setColor(Settings.DimColor, Gfx.COLOR_TRANSPARENT);
         dc.drawText(36, 113, _verticalSSPSB12Font, "S", Gfx.TEXT_JUSTIFY_RIGHT);
@@ -46,10 +43,9 @@ class WaypointView240Dc
     
     function PrintCog(dc, cog)
     {
-    	var locX = 110;
         var cogString = cog.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
-        dc.drawText(locX, 132, Gfx.FONT_NUMBER_MEDIUM, cogString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(43, 132, Gfx.FONT_NUMBER_MEDIUM, cogString, Gfx.TEXT_JUSTIFY_LEFT);
         
         dc.setColor(Settings.DimColor, Gfx.COLOR_TRANSPARENT);
         dc.drawText(36, 159, _verticalSSPSB12Font, "C", Gfx.TEXT_JUSTIFY_RIGHT);
@@ -89,6 +85,10 @@ class WaypointView240Dc
 
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
         dc.drawText(125, 173, Gfx.FONT_SYSTEM_SMALL, distanceString, Gfx.TEXT_JUSTIFY_LEFT);
+        
+        dc.setColor(Gfx.COLOR_YELLOW, Settings.BackgroundColor);
+        dc.drawText(125 + dc.getTextWidthInPixels(distanceString, Gfx.FONT_SYSTEM_SMALL) + 2, 173, 
+       	 _verticalSSPSB12Font, "|", Gfx.TEXT_JUSTIFY_LEFT);   
     }
     
     function PrintDistance2Finish(dc, distance2Finish)
@@ -96,6 +96,9 @@ class WaypointView240Dc
     	var distanceString = distance2Finish.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
         dc.drawText(125, 200, Gfx.FONT_SYSTEM_SMALL, distanceString, Gfx.TEXT_JUSTIFY_LEFT);
+        
+        dc.drawText(125 + dc.getTextWidthInPixels(distanceString, Gfx.FONT_SYSTEM_SMALL) + 2, 200, 
+        	_verticalSSPSB12Font, "|", Gfx.TEXT_JUSTIFY_LEFT);
     }
     
     function PrintXte(dc, xte)
@@ -111,7 +114,7 @@ class WaypointView240Dc
         dc.setColor(Settings.DimColor, Gfx.COLOR_TRANSPARENT);
         dc.drawText(
         	115 - dc.getTextWidthInPixels(xteString, Gfx.FONT_SYSTEM_SMALL) - 5,
-        	180, _trebuchetFont, "xte", Gfx.TEXT_JUSTIFY_RIGHT); 
+        	179, _trebuchetFont, "xte", Gfx.TEXT_JUSTIFY_RIGHT); 
     }
     
     function PrintDistanceCovered(dc, distanceCovered)

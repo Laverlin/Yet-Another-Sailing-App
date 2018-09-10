@@ -12,7 +12,7 @@ class Settings
 	static var IsTimerValueUpdated = false;
 	static var IsAutoRecording = false;
 	static var IsWhiteBackground = false;
-	static var RouteApiUrl = "https://ivan-b.com/garminapi";
+	static var RouteApiUrl = /*"https://ivan-b.com/garminapi";*/ "http://localhost:3000/garminapi";
 	static var RouteListMethod = "routelist";
 	static var UserId = "";
 	static var CurrentRoute = null;

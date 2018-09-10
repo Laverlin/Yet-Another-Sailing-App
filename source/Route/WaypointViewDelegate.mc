@@ -42,7 +42,13 @@ class WaypointViewDelegate extends Ui.BehaviorDelegate
     
     function onNextPage()
     {
-    	_waypointView.SkipWayPoint();
+    	_waypointView.NextWayPoint();
+    	return true;
+    }
+    
+    function  onPreviousPage()
+    {
+    	_waypointView.PrevWayPoint();
     	return true;
     }
     

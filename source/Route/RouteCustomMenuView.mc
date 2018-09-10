@@ -5,10 +5,8 @@ using Toybox.Lang as Lang;
 
 class RouteCustomMenuView extends Ui.View 
 {
-
     hidden var _routeCustomMenuViewDc;
-    hidden var _currentSelection;
-
+    hidden var _selection;
 
 	function initialize(routeCustomMenuViewDc) 
     {
@@ -21,11 +19,11 @@ class RouteCustomMenuView extends Ui.View
     {
 		if (Settings.CurrentRoute != null)
 		{
-			_currentSelection = :start;
+			_selection = :start;
 		}
 		else
 		{
-			_currentSelection = :load;
+			_selection = :load;
 		}
     }
 
@@ -37,21 +35,27 @@ class RouteCustomMenuView extends Ui.View
         
         if (actualRoute != null)
         {
-        	_routeCustomMenuViewDc.PrintActualRoute(dc, actualRoute, _currentSelection);
+        	_routeCustomMenuViewDc.PrintActualRoute(dc, actualRoute, _selection);
+        }
+        else
+        {
+        	_routeCustomMenuViewDc.PrintNoRoute(dc);
         }
 	
-		_routeCustomMenuViewDc.PrintLoadRoute(dc, _currentSelection);
+		_routeCustomMenuViewDc.PrintLoadRoute(dc, _selection);
 	}
 	
 	function ChangeSelection()
 	{
-		_currentSelection = (_currentSelection == :start) ? :load : :start;
-        Ui.requestUpdate();
+		if (Settings.CurrentRoute != null)
+		{
+			_selection = (_selection == :start) ? :load : :start;
+        	Ui.requestUpdate();
+        }
 	}
 	
-	function GetCurrentSelection()
+	function GetSelection()
 	{
-		return _currentSelection;
+		return _selection;
 	}
-
 }

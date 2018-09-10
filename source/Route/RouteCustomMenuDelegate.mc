@@ -38,14 +38,14 @@ class RouteCustomMenuDelegate extends Ui.BehaviorDelegate
     
     function onSelect()
     {
-    	var currentSelection = _routeCustomMenuView.GetCurrentSelection();
+    	var currentSelection = _routeCustomMenuView.GetSelection();
     	if (currentSelection == :start)
     	{
     		Ui.pushView(_waypointView, new WaypointViewDelegate(_waypointView, _gpsWrapper), Ui.SLIDE_RIGHT);
     	}
     	if (currentSelection == :load)
     	{
-    		Ui.pushView(_selectRouteView, null, Ui.SLIDE_RIGHT);
+    		Ui.pushView(_selectRouteView, new SelectRouteViewDelegate(_selectRouteView), Ui.SLIDE_RIGHT);
     	}
     	return true;
     }
@@ -55,5 +55,4 @@ class RouteCustomMenuDelegate extends Ui.BehaviorDelegate
 		Ui.popView(Ui.SLIDE_RIGHT);
 		return true;
     }
-    
 }

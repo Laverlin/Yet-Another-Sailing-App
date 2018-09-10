@@ -17,7 +17,7 @@ class RouteCustomMenuView240Dc
     	dc.fillRectangle(0, 0, 240, 70);
     	
     	dc.setColor( Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
-    	dc.drawText(120, 35, Gfx.FONT_SYSTEM_SMALL, "Choose", Gfx.TEXT_JUSTIFY_CENTER);
+    	dc.drawText(120, 35, Gfx.FONT_SYSTEM_SMALL, "Menu", Gfx.TEXT_JUSTIFY_CENTER);
     	
     	dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
     	dc.drawLine(0, 150, 240, 150);
@@ -38,4 +38,10 @@ class RouteCustomMenuView240Dc
 
     	dc.drawText(120, 170, font, "Load Routes", Gfx.TEXT_JUSTIFY_CENTER);
     }    
+    
+    function PrintNoRoute(dc)
+    {
+    	 dc.setColor(Gfx.COLOR_DK_GRAY, Gfx.COLOR_WHITE);
+    	 dc.drawText(125, 80, Gfx.FONT_SYSTEM_XTINY, "no active routes", Gfx.TEXT_JUSTIFY_CENTER);
+    }
 }

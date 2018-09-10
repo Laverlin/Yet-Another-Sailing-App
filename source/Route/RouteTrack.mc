@@ -8,78 +8,50 @@ class RouteTrack
 	hidden var _currentWayPoint = 0;
 	hidden var _totalWayPoints;
 	hidden var _currentRoute;
-	
-	hidden var _lastKnownDistance = 0;
-	hidden var _currentDistance = 0;
-	hidden var _lastKnownTime = 0;
-	hidden var _currentTime = 0; 
-	hidden var _distanceWp2Finish = 0.0;
+
+	hidden var _routeDistance = 0.0;
 	hidden var _isRouteFinished = false;
 	
 	hidden var _wpEpsilon;
 
-	hidden var _gvmg = 0;
-
 	const EARTH_RADIUS_M = 6378137;
 	
-	hidden function getVmg(currentDistance2Wp)
+	// Return route distance from current Waypoint to Finish
+	//
+	hidden function getRouteDistance()
 	{
-		var vmg = 0;
-		if (_lastKnownTime == 0)
-		{
-			_lastKnownTime = Sys.getTimer();
-			_lastKnownDistance = currentDistance2Wp;
-		}
-		else
-		{
-			_currentDistance = currentDistance2Wp;
-			_currentTime = Sys.getTimer();
-			var timeLaps = (_currentTime - _lastKnownTime).toDouble() / 1000;
-//			if (_lastKnownDistance - _currentDistance == 0)
-//			{
-//				return _gvmg;
-//			}
-			vmg = (_lastKnownDistance - _currentDistance) / timeLaps;
-			_gvmg = vmg;
-			_lastKnownDistance = _currentDistance;
-			_lastKnownTime = _currentTime;
-			
-//			Sys.println("timelaps: " + timeLaps + ", distance: " + _currentDistance );
-		}
-
-		return vmg;
-	}
-	
-	hidden function getDistance2Finish(distance2Wp)
-	{
-		if (_distanceWp2Finish == 0)
-		{
+		var routeDistance = 0;
 		  	for(var i = _currentWayPoint; i < _currentRoute["WayPoints"].size() - 1; i++)
     		{
-    			_distanceWp2Finish = _distanceWp2Finish + GetDistance(	
+    			routeDistance = routeDistance + GetDistance(	
     				Math.toRadians(_currentRoute["WayPoints"][i]["Lat"].toFloat()), 
     				Math.toRadians(_currentRoute["WayPoints"][i]["Lon"].toFloat()),
     				Math.toRadians(_currentRoute["WayPoints"][i+1]["Lat"].toFloat()), 
     				Math.toRadians(_currentRoute["WayPoints"][i+1]["Lon"].toFloat()));
     		}
-    	}
     	
-    	return _distanceWp2Finish + distance2Wp;
+    	return routeDistance;
 	}
 	
-	hidden function changeCurrentWp()
+	// Increase or decrease current waypoint
+	//
+	hidden function changeCurrentWp(newWp)
 	{
-		_currentWayPoint++;
-		if (_currentWayPoint > _totalWayPoints - 1)
+		if (newWp > _totalWayPoints - 1)
 		{
-			_currentWayPoint--;
 			_isRouteFinished = true;
 			return;
 		}
 		
-		_distanceWp2Finish = 0; // to recalculate without passed WP
+		if (newWp < 0)
+		{
+			return;
+		}
+		
+		_isRouteFinished = false;
+		_currentWayPoint = newWp;
+		_routeDistance = getRouteDistance();
 		_currentRoute.put("CurrentWayPoint", _currentWayPoint);
-		_gpsWrapper.AddLap();
 		SignalWrapper.PressButton();
 	}
 	
@@ -92,6 +64,7 @@ class RouteTrack
 			_currentWayPoint = _currentRoute["CurrentWayPoint"];
 		}
 		_wpEpsilon = Settings.WpEpsilon;
+		_routeDistance = getRouteDistance();
 	}
 	
 	// Return total Waypoints in actual route
@@ -103,7 +76,7 @@ class RouteTrack
     
     // Return current waypoint in actual route
     //
-    function CurrentWayPoint()
+    function GetCurrentWayPoint()
     {
     	return _currentWayPoint + 1;
     }
@@ -122,10 +95,9 @@ class RouteTrack
 		var inRouteInfo = new InRouteInfo();
 		inRouteInfo.Distance2Wp = distance2Wp / GpsWrapper.METERS_PER_NAUTICAL_MILE;
 		inRouteInfo.Bearing = GetBearing(gpsLat, gpsLon, wpLat, wpLon);
-		//inRouteInfo.Vmg = getVmg(distance2Wp) * GpsWrapper.MS_TO_KNOT;
 		inRouteInfo.Vmg = GetVmg2(gpsInfo.SpeedKnot, gpsInfo.BearingDegree, inRouteInfo.Bearing);
-		inRouteInfo.Distance2Finish = getDistance2Finish(distance2Wp) / GpsWrapper.METERS_PER_NAUTICAL_MILE;
-		inRouteInfo.IsRouteFinished = _isRouteFinished;
+		inRouteInfo.Distance2Finish = (_routeDistance + distance2Wp) / GpsWrapper.METERS_PER_NAUTICAL_MILE;
+
 		if (_currentWayPoint > 0)
 		{
 			inRouteInfo.Xte = getXte(
@@ -141,18 +113,26 @@ class RouteTrack
 		
 		if (distance2Wp < _wpEpsilon)
 		{
-			changeCurrentWp();
+			changeCurrentWp(_currentWayPoint + 1);
 		}
 		
 		return inRouteInfo;
 	}
 	
-	function SkipWayPoint()
+	function NextWayPoint()
 	{
-		changeCurrentWp();
+		changeCurrentWp(_currentWayPoint + 1);
 	}
 	
+	function PrevWayPoint()
+	{
+		changeCurrentWp(_currentWayPoint - 1);
+	}
 	
+	function GetIsRouteFinished()
+	{
+		return _isRouteFinished;
+	}
 	
 	// return distance between two GPS points. 
 	// lat & lon suppose to be in radians

@@ -43,21 +43,6 @@ class MainMenuDelegate extends Ui.MenuInputDelegate
         		_routeCustomMenuView, 
         		new RouteCustomMenuDelegate(_gpsWrapper, _routeCustomMenuView, _waypointView, _selectRouteView), 
         		Ui.SLIDE_RIGHT);
-        /*
-        	var routeMenu = [];
-        	if (Settings.CurrentRoute!= null)
-        	{
-				routeMenu.add(new DMenuItem (:startRoute, "Start Route", Settings.CurrentRoute["RouteName"], null));
-			}
-			routeMenu.add(new DMenuItem (:selectRoute, "Select Route", null, null));
-
-			var routeMenuView = new DMenu (routeMenu, "Choose");
-			var routeMenuViewDelegate =  new DMenuDelegate (
-				routeMenuView, 
-				new RouteMenuDelegate(_waypointView, _selectRouteView, _gpsWrapper));
-			Ui.pushView(routeMenuView, routeMenuViewDelegate, Ui.SLIDE_IMMEDIATE);
-		*/
-        	//Ui.pushView(new Rez.Menus.RouteMenu(), new RouteMenuDelegate(_waypointView, _selectRouteView, _gpsWrapper), Ui.SLIDE_RIGHT);
         }
         else if (item == :lapView)
         {

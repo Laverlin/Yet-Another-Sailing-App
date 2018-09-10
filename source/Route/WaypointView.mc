@@ -9,12 +9,16 @@ class WaypointView extends Ui.View
 	hidden var _timer;
 	hidden var _waypointViewDc;
 	hidden var _routeTrack;
+	hidden var _gpsInfo;
+	hidden var _routeInfo;
+	hidden var _cruiseView; 
 	 
-    function initialize(gpsWrapper, waypointViewDc) 
+    function initialize(gpsWrapper, waypointViewDc, cruiseView) 
     {
         View.initialize();
         _gpsWrapper = gpsWrapper;
         _waypointViewDc = waypointViewDc;
+        _cruiseView = cruiseView;
     }
 
 	// SetUp timer on show to update every second
@@ -76,6 +80,13 @@ class WaypointView extends Ui.View
     //
     function onTimerUpdate()
     {
+    	if (_routeTrack.GetIsRouteFinished())
+    	{
+        	Ui.popView(Ui.SLIDE_IMMEDIATE);
+        	Ui.popView(Ui.SLIDE_IMMEDIATE);
+        	Ui.pushView(_cruiseView, new CruiseViewDelegate(_cruiseView, _gpsWrapper), Ui.SLIDE_IMMEDIATE);
+    	}
+    	
         Ui.requestUpdate();
     }    
 
@@ -90,14 +101,14 @@ class WaypointView extends Ui.View
         var gpsInfo = _gpsWrapper.GetGpsInfo();
         if (gpsInfo.Accuracy > 0)
         {
-        	// boat data
+	       	// boat data
         	//
 			_waypointViewDc.PrintCog(dc, gpsInfo.BearingDegree);
 			_waypointViewDc.PrintSpeed(dc, gpsInfo.SpeedKnot);
 			
 			// route data
 			//
-			var inRouteInfo = _routeTrack.GetInRouteInfo(gpsInfo);
+        	var inRouteInfo = _routeTrack.GetInRouteInfo(gpsInfo);
 			
 			_waypointViewDc.PrintVmg(dc, inRouteInfo.Vmg);
 			_waypointViewDc.PrintBearing(dc, inRouteInfo.Bearing);
@@ -112,12 +123,17 @@ class WaypointView extends Ui.View
         var clockTime = Sys.getClockTime();        
         _waypointViewDc.PrintTime(dc, clockTime);
         _waypointViewDc.DisplayState(dc, 
-        	gpsInfo.Accuracy, gpsInfo.IsRecording, _routeTrack.CurrentWayPoint(), _routeTrack.TotalWayPoints());
+        	gpsInfo.Accuracy, gpsInfo.IsRecording, _routeTrack.GetCurrentWayPoint(), _routeTrack.TotalWayPoints());
         _waypointViewDc.DrawGrid(dc);
     }
     
-    function SkipWayPoint()
+    function NextWayPoint()
     {
-    	_routeTrack.SkipWayPoint();
+    	_routeTrack.NextWayPoint();
+    }
+    
+    function PrevWayPoint()
+    {
+        _routeTrack.PrevWayPoint();
     }
 }

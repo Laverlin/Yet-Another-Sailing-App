@@ -7,8 +7,8 @@ class SelectRouteView extends Ui.View
 {
 	hidden var _selectRouteViewDc;
 	hidden var _loadingError = 0;
-	
-	var IsSelectionMade = false;
+	hidden var _routesData = null;
+	hidden var _selectedRouteId = 0;
 	
     function initialize(selectRouteViewDc) 
     {
@@ -20,31 +20,62 @@ class SelectRouteView extends Ui.View
     //
     function onShow() 
     {
-    	if (IsSelectionMade)
+    	if (_routesData == null)
     	{
-    		IsSelectionMade = false;
-    		Ui.popView(Ui.SLIDE_IMMEDIATE);
-    		return;
+    		makeLoadRoutesRequest();
     	}
-    	makeLoadRoutesRequest();
     }
     
     function onUpdate(dc) 
     {   
         _selectRouteViewDc.ClearDc(dc);
         
-        if (_loadingError == 0)
+        if (_routesData == null || _routesData.size() == 0)
         {
-			_selectRouteViewDc.PrintLoadingMessage(dc, "Routes loading...");
+        	if (_loadingError == 0)
+        	{
+				_selectRouteViewDc.PrintLoadingMessage(dc);
+			}
+			else
+			{
+				_selectRouteViewDc.PrintErrorMessage(dc, _loadingError);
+				_loadingError = 0;
+			}
 		}
 		else
 		{
-			_selectRouteViewDc.PrintErrorMessage(dc, "Loading Error", "Code: " + _loadingError.toString());
-			_loadingError = 0;
+			_selectRouteViewDc.PrintSelectedRoute(dc, _routesData[_selectedRouteId], _selectedRouteId, _routesData.size());
 		}
 	}
 	
-	function makeLoadRoutesRequest()
+	
+	function NextRoute()
+	{
+		if (_selectedRouteId < _routesData.size() - 1)
+		{
+			_selectedRouteId++;
+		}
+		Ui.requestUpdate();
+	}
+	
+	function PreviousRoute()
+	{
+		if (_selectedRouteId > 0)
+		{
+			_selectedRouteId--;
+		}
+		Ui.requestUpdate();
+	}
+	
+	function RouteSelected()
+	{
+		Settings.CurrentRoute = _routesData[_selectedRouteId];
+		Ui.popView(Ui.SLIDE_IMMEDIATE);
+	}
+	
+	// Make web request to load available routes
+	//	
+	hidden function makeLoadRoutesRequest()
 	{
 		var url = Lang.format("$1$/$2$/$3$", [
 			Settings.RouteApiUrl,
@@ -59,8 +90,10 @@ class SelectRouteView extends Ui.View
         };
 
        Comm.makeWebRequest(url, {}, options, method(:onReceive));
-	}
+ 	}
 	
+	// Receive routes from server
+	//
 	function onReceive(responseCode, data)
 	{
 		if (responseCode != 200)
@@ -68,43 +101,17 @@ class SelectRouteView extends Ui.View
 			_loadingError = responseCode;
 			Sys.println("error loading routes, response code: " + responseCode.toString());
 			Sys.println(data);
-			Ui.requestUpdate();
-			return;
+		}
+		else if (data.size() == 0)
+		{
+			_loadingError = -404;
+		}
+		else
+		{
+			_routesData = data;
 		}
 		
-		var selectRouteMenu = [];
-	
-		for( var i = 0; i < data.size(); i++ )
-		{
-			var routeDate = data[i]["RouteDate"].substring(0, 10) + " " + data[i]["RouteDate"].substring(11, 16); 
-			selectRouteMenu.add(new DMenuItem (data[i]["RouteId"], data[i]["RouteName"], routeDate, data[i]));
-		}
-
-		var routeListView = new DMenu (selectRouteMenu, "Select Route");
-		var routeListViewDelegate =  new DMenuDelegate (routeListView, new SelectRouteDelegate(self));
-		Ui.pushView(routeListView, routeListViewDelegate, Ui.SLIDE_IMMEDIATE);
+		Ui.requestUpdate();
 	}
 }
 
-// Select route menu processing
-//
-class SelectRouteDelegate extends Ui.MenuInputDelegate 
-{
-	var _selectRouteView;
-	
-    function initialize (selectRouteView)
-	{
-        MenuInputDelegate.initialize ();
-        _selectRouteView = selectRouteView;
-    }
-
-    function onMenuItem (item) 
-	{
-		Settings.CurrentRoute = item.userData;
-		
-		Sys.println(Settings.CurrentRoute["RouteName"]);
-		
-		Ui.popView(Ui.SLIDE_IMMEDIATE);
-		_selectRouteView.IsSelectionMade = true;
-    }
-}
