@@ -25,7 +25,7 @@ class WaypointViewDelegate extends Ui.BehaviorDelegate
 
     function onMenu() 
     {
-        Ui.popView(Ui.SLIDE_RIGHT);
+        Ui.popView(Ui.SLIDE_IMMEDIATE);
         return true;
     }
     

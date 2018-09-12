@@ -59,14 +59,23 @@ class WaypointView extends Ui.View
 		Sys.println("geo bearing: " + geoBearing);
 		Sys.println("geo distance: " + geoDistance + " m, " + geoDistance / _gpsWrapper.METERS_PER_NAUTICAL_MILE + " nm");
 		
-		var xte2 = geoCalc.getXte(
+		var xte2 = geoCalc.GetXte(
 			Math.toRadians(18.35585066137293), Math.toRadians(-38.08834475672381), 
 			Math.toRadians(18.35585066137293), Math.toRadians(-20.35775407416596),
 			Math.toRadians(9.987217572513453), Math.toRadians(-38.04593696104232));
 		Sys.println("xte2: " + xte2 +" m, " + xte2 / _gpsWrapper.METERS_PER_NAUTICAL_MILE + " nm");
 		
-		var xte3 = geoCalc.getXte(Math.toRadians(0), Math.toRadians(0), Math.toRadians(2), Math.toRadians(0), Math.toRadians(0), Math.toRadians(1));
+		var xte3 = geoCalc.GetXte(Math.toRadians(0), Math.toRadians(0), Math.toRadians(2), Math.toRadians(0), Math.toRadians(0), Math.toRadians(1));
 		Sys.println("xte3: " + xte3 +" m, " + xte3 / _gpsWrapper.METERS_PER_NAUTICAL_MILE + " nm");
+		
+		var xte4 = geoCalc.GetXte2(
+			Math.toRadians(18.35585066137293), Math.toRadians(-38.08834475672381), 
+			Math.toRadians(18.35585066137293), Math.toRadians(-20.35775407416596),
+			Math.toRadians(9.987217572513453), Math.toRadians(-38.04593696104232));
+		Sys.println("xte4: " + xte4 +" m, " + xte4 / _gpsWrapper.METERS_PER_NAUTICAL_MILE + " nm");
+		
+		var xte5 = geoCalc.GetXte2(Math.toRadians(0), Math.toRadians(0), Math.toRadians(2), Math.toRadians(0), Math.toRadians(0), Math.toRadians(1));
+		Sys.println("xte5: " + xte5 +" m, " + xte5 / _gpsWrapper.METERS_PER_NAUTICAL_MILE + " nm");
     }
 
     // Stop timer then hide

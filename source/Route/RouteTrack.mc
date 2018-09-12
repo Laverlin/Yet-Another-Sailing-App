@@ -95,7 +95,7 @@ class RouteTrack
 		var inRouteInfo = new InRouteInfo();
 		inRouteInfo.Distance2Wp = distance2Wp / GpsWrapper.METERS_PER_NAUTICAL_MILE;
 		inRouteInfo.Bearing = GetBearing(gpsLat, gpsLon, wpLat, wpLon);
-		inRouteInfo.Vmg = GetVmg2(gpsInfo.SpeedKnot, gpsInfo.BearingDegree, inRouteInfo.Bearing);
+		inRouteInfo.Vmg = GetVmg(gpsInfo.SpeedKnot, gpsInfo.BearingDegree, inRouteInfo.Bearing);
 		inRouteInfo.Distance2Finish = (_routeDistance + distance2Wp) / GpsWrapper.METERS_PER_NAUTICAL_MILE;
 
 		if (_currentWayPoint > 0)
@@ -165,7 +165,7 @@ class RouteTrack
 	
 	// return cross-track error - distance between start-end line and the point
 	//
-	function getXte(startLat, startLon, endLat, endLon, pointLat, pointLon)
+	function GetXte(startLat, startLon, endLat, endLon, pointLat, pointLon)
     {
        	var d13 = GetDistance(startLat, startLon, pointLat, pointLon) / EARTH_RADIUS_M;
     	var bearing13 = GetBearing(startLat, startLon, pointLat, pointLon);
@@ -174,9 +174,18 @@ class RouteTrack
     	return Math.asin(Math.sin(d13) * Math.sin(Math.toRadians(bearing13-bearing12))) * EARTH_RADIUS_M; 
     }
     
-    function GetVmg2(speed, bearing, cts)
+    function GetXte2(startLat, startLon, endLat, endLon, pointLat, pointLon)
     {
-    	return speed * Math.cos(Math.toRadians(cts-bearing));
+       	var d13 = GetDistance(pointLat, pointLon, endLat, endLon ) / EARTH_RADIUS_M;
+    	var bearing13 = GetBearing(pointLat, pointLon, endLat, endLon);
+    	var bearing12 = GetBearing(startLat, startLon, endLat, endLon);
+      	
+    	return Math.asin(Math.sin(d13) * Math.sin(Math.toRadians(bearing13-bearing12))) * EARTH_RADIUS_M; 
+    }
+    
+    function GetVmg(speed, bearing, cts)
+    {
+    	return speed * Math.cos(Math.toRadians(cts - bearing));
     }
 
 }

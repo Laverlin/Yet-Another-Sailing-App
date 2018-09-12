@@ -28,7 +28,7 @@ class RouteCustomMenuView240Dc
     	var font = (_currentSelection == :start) ? Gfx.FONT_SYSTEM_SMALL : Gfx.FONT_SYSTEM_XTINY;
 
     	dc.drawText(125, 80, font, 
-    		Lang.format("Start Route: $1$\n$2$",[actualRoute["RouteName"], YACommon.DateJson2Short(actualRoute["RouteDate"])]), 
+    		Lang.format("Start Route: $1$\n$2$", [actualRoute["RouteName"], YACommon.DateJson2Short(actualRoute["RouteDate"])]), 
     		Gfx.TEXT_JUSTIFY_CENTER);
     }
     
@@ -42,6 +42,6 @@ class RouteCustomMenuView240Dc
     function PrintNoRoute(dc)
     {
     	 dc.setColor(Gfx.COLOR_DK_GRAY, Gfx.COLOR_WHITE);
-    	 dc.drawText(125, 80, Gfx.FONT_SYSTEM_XTINY, "no active routes", Gfx.TEXT_JUSTIFY_CENTER);
+    	 dc.drawText(125, 80, Gfx.FONT_SYSTEM_XTINY, "no active route", Gfx.TEXT_JUSTIFY_CENTER);
     }
 }

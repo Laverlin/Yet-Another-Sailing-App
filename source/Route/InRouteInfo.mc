@@ -21,5 +21,4 @@ class InRouteInfo
 	// Cross track error
 	//
 	var Xte;
-	
 }

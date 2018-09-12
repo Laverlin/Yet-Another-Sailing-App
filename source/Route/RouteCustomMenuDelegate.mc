@@ -1,25 +1,20 @@
 using Toybox.WatchUi as Ui;
 
+// Custom menu to choose - start to track route or load available routes and choose one
+//
 class RouteCustomMenuDelegate extends Ui.BehaviorDelegate 
 {
 	hidden var _routeCustomMenuView;
-	hidden var _selectRouteView;
-	hidden var _waypointView;
-	hidden var _gpsWrapper;
 	
-	
-    function initialize(gpsWrapper, routeCustomMenuView, waypointView, selectRouteView) 
+    function initialize(routeCustomMenuView) 
     {
         BehaviorDelegate.initialize();
 		_routeCustomMenuView = routeCustomMenuView;
-		_selectRouteView = selectRouteView;
-		_waypointView = waypointView;
-		_gpsWrapper = gpsWrapper;
     }
     
     function onMenu()
     {
-    	Ui.popView(Ui.SLIDE_RIGHT);
+    	Ui.popView(Ui.SLIDE_IMMEDIATE);
     }
     
     function onNextPage()
@@ -38,21 +33,13 @@ class RouteCustomMenuDelegate extends Ui.BehaviorDelegate
     
     function onSelect()
     {
-    	var currentSelection = _routeCustomMenuView.GetSelection();
-    	if (currentSelection == :start)
-    	{
-    		Ui.pushView(_waypointView, new WaypointViewDelegate(_waypointView, _gpsWrapper), Ui.SLIDE_RIGHT);
-    	}
-    	if (currentSelection == :load)
-    	{
-    		Ui.pushView(_selectRouteView, new SelectRouteViewDelegate(_selectRouteView), Ui.SLIDE_RIGHT);
-    	}
+    	_routeCustomMenuView.PushSelectedView();
     	return true;
     }
     
     function onBack()
     {
-		Ui.popView(Ui.SLIDE_RIGHT);
+		Ui.popView(Ui.SLIDE_IMMEDIATE);
 		return true;
     }
 }

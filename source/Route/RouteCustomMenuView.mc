@@ -5,14 +5,22 @@ using Toybox.Lang as Lang;
 
 class RouteCustomMenuView extends Ui.View 
 {
+	hidden var _gpsWrapper;
     hidden var _routeCustomMenuViewDc;
+    hidden var _waypointView;
+    hidden var _selectRouteView;
+    
     hidden var _selection;
+    hidden var _isInSelection = false;
 
-	function initialize(routeCustomMenuViewDc) 
+	function initialize(gpsWrapper, routeCustomMenuViewDc, waypointView, selectRouteView) 
     {
         View.initialize();
 
+		_gpsWrapper = gpsWrapper;
         _routeCustomMenuViewDc = routeCustomMenuViewDc;
+        _waypointView = waypointView;
+        _selectRouteView = selectRouteView;
 	}
 
     function onShow()
@@ -21,9 +29,19 @@ class RouteCustomMenuView extends Ui.View
 		{
 			_selection = :start;
 		}
+		// if there is no any routes - push to choose one
+		// but if back button was pressed and no route were selected, then needs to pop one level up
+		// that's why _isInSelection flag is needed. 
+		//
+		else if (!_isInSelection)
+		{
+			_isInSelection = true;
+			Ui.pushView(_selectRouteView, new SelectRouteViewDelegate(_selectRouteView), Ui.SLIDE_RIGHT);
+		}
 		else
 		{
-			_selection = :load;
+			_isInSelection = false;
+			Ui.popView(Ui.SLIDE_IMMEDIATE);
 		}
     }
 
@@ -54,8 +72,15 @@ class RouteCustomMenuView extends Ui.View
         }
 	}
 	
-	function GetSelection()
-	{
-		return _selection;
-	}
+ 	function PushSelectedView()
+ 	{
+ 	    if (_selection == :start)
+    	{
+    		Ui.pushView(_waypointView, new WaypointViewDelegate(_waypointView, _gpsWrapper), Ui.SLIDE_RIGHT);
+    	}
+    	if (_selection == :load)
+    	{
+    		Ui.pushView(_selectRouteView, new SelectRouteViewDelegate(_selectRouteView), Ui.SLIDE_RIGHT);
+    	}
+ 	}
 }

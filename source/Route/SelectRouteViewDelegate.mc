@@ -13,7 +13,8 @@ class SelectRouteViewDelegate extends Ui.BehaviorDelegate
     
     function onMenu()
     {
-    	Ui.popView(Ui.SLIDE_RIGHT);
+    	Ui.popView(Ui.SLIDE_IMMEDIATE);
+    	return true;
     }
     
     function onNextPage()
@@ -38,7 +39,7 @@ class SelectRouteViewDelegate extends Ui.BehaviorDelegate
     
     function onBack()
     {
-		Ui.popView(Ui.SLIDE_RIGHT);
+		Ui.popView(Ui.SLIDE_IMMEDIATE);
 		return true;
     }
     
