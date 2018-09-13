@@ -5,7 +5,7 @@ using Toybox.Graphics as Gfx;
 /// all boiler-plate code for drawing objects need to be done manually.
 /// This class dedicated to hide all dirty work around dc
 /// 
-class SelectRouteViewDc
+class SelectRouteView240Dc
 {
 	function ClearDc(dc)
 	{
@@ -22,17 +22,21 @@ class SelectRouteViewDc
 	function PrintErrorMessage(dc, errorCode)
 	{
 		var message = "";
-		if (errorCode == 404)
+		if (errorCode == 1)
+		{
+			message = "Use ConnectIQ app to setup \n user id";
+		} 
+		else if (errorCode == 404)
 		{
 			message = "Loading Error:\n server not found";
 		}
 		else if (errorCode == -400)
 		{
-			message = "Loading Error:\n wrong user id";
+			message = "Wrong user id, use \nConnectIQ app to setup \n user id";
 		}
 		else if (errorCode == -404)
 		{
-			message = "There is no routes,\n use Telegram to upload route";
+			message = "There is no routes,\n use Telegram NavGarminBot \n to upload route";
 		}
 		else
 		{
@@ -40,7 +44,7 @@ class SelectRouteViewDc
 		}
 		
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-		dc.drawText(dc.getWidth()/2, dc.getHeight()/2 - 30, Gfx.FONT_MEDIUM, message, Gfx.TEXT_JUSTIFY_CENTER);
+		dc.drawText(dc.getWidth()/2, dc.getHeight()/2 - 30, Gfx.FONT_XTINY, message, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 	
 	function PrintSelectedRoute(dc, selectedRouteData, selectedRouteId, routesSize)

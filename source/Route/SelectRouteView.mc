@@ -30,6 +30,11 @@ class SelectRouteView extends Ui.View
     {   
         _selectRouteViewDc.ClearDc(dc);
         
+        if (Settings.UserId.length() != 9)
+        {
+        	_loadingError = 1;
+        }
+        
         if (_routesData == null || _routesData.size() == 0)
         {
         	if (_loadingError == 0)

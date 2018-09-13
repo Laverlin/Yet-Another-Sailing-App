@@ -35,7 +35,7 @@ class YASailingApp extends App.AppBase
     	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView218Dc());
         	_lapView = new LapView(new LapView218Dc(), _gpsWrapper);
         	_waypointView = new WaypointView(_gpsWrapper, new WaypointView240Dc(), _cruiseView);
-        	_selectRouteView = new SelectRouteView(new SelectRouteViewDc());
+        	_selectRouteView = new SelectRouteView(new SelectRouteView240Dc());
         	_routeCustomMenuView = new RouteCustomMenuView(_gpsWrapper, new RouteCustomMenuView240Dc(), _waypointView, _selectRouteView);
         	
 		}
@@ -45,7 +45,7 @@ class YASailingApp extends App.AppBase
     	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView240Dc());
         	_lapView = new LapView(new LapView240Dc(), _gpsWrapper);
         	_waypointView = new WaypointView(_gpsWrapper, new WaypointView240Dc(), _cruiseView);
-        	_selectRouteView = new SelectRouteView(new SelectRouteViewDc());
+        	_selectRouteView = new SelectRouteView(new SelectRouteView240Dc());
         	_routeCustomMenuView = new RouteCustomMenuView(_gpsWrapper, new RouteCustomMenuView240Dc(), _waypointView, _selectRouteView);
 		}
 		else
