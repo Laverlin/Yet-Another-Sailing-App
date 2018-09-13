@@ -52,7 +52,7 @@ class CruiseView240Dc
     function PrintAvgSpeed(dc, avgSpeed)
     {
         var avgSpeedString = avgSpeed.format("%2.1f");
-    	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
+    	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
         dc.drawText(163, 206, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_RIGHT);   	
         dc.drawText(181, 175, Gfx.FONT_LARGE, avgSpeedString, Gfx.TEXT_JUSTIFY_RIGHT);     
         dc.drawText(184, 173, Gfx.FONT_XTINY, "kn", Gfx.TEXT_JUSTIFY_LEFT);   
@@ -61,7 +61,7 @@ class CruiseView240Dc
     function PrintAvgBearing(dc, avgBearing)
     {
         var avgBearingString = avgBearing.format("%003d");
-    	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
+    	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
         dc.drawText(163, 206, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_RIGHT);   	
         dc.drawText(183, 175, Gfx.FONT_LARGE, avgBearingString, Gfx.TEXT_JUSTIFY_RIGHT);
         dc.drawText(185, 170, Gfx.FONT_XTINY, "o", Gfx.TEXT_JUSTIFY_LEFT);
@@ -70,7 +70,7 @@ class CruiseView240Dc
     function PrintTotalDistance(dc, totalDistance)
     {
         var distanceString = totalDistance.format("%003.1f");
-    	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
+    	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
     	dc.drawText(111, 206, Gfx.FONT_XTINY, "nm", Gfx.TEXT_JUSTIFY_RIGHT);
         dc.drawText(113, 175, Gfx.FONT_LARGE, distanceString, Gfx.TEXT_JUSTIFY_RIGHT);
      }
