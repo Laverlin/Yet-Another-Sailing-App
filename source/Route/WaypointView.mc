@@ -105,9 +105,16 @@ class WaypointView extends Ui.View
     {   
     	_waypointViewDc.ClearDc(dc);
         
+        // Display current state
+    	//
+        var clockTime = Sys.getClockTime();
+        var gpsInfo = _gpsWrapper.GetGpsInfo();        
+        _waypointViewDc.PrintTime(dc, clockTime);
+        _waypointViewDc.DisplayState(dc, 
+        	gpsInfo.Accuracy, gpsInfo.IsRecording, _routeTrack.GetCurrentWayPoint(), _routeTrack.TotalWayPoints());
+        
         // Display speed and bearing if GPS available
         //
-        var gpsInfo = _gpsWrapper.GetGpsInfo();
         if (gpsInfo.Accuracy > 0)
         {
 	       	// boat data
@@ -125,14 +132,10 @@ class WaypointView extends Ui.View
 			_waypointViewDc.PrintDistance2Finish(dc, inRouteInfo.Distance2Finish);
 			_waypointViewDc.PrintXte(dc, inRouteInfo.Xte);
 			_waypointViewDc.PrintDistanceCovered(dc, gpsInfo.TotalDistance);
+			
+			_waypointViewDc.DisplayDirection2Wp(dc, gpsInfo.BearingDegree, inRouteInfo.Bearing);
         }
         
-        // Display current state
-    	//
-        var clockTime = Sys.getClockTime();        
-        _waypointViewDc.PrintTime(dc, clockTime);
-        _waypointViewDc.DisplayState(dc, 
-        	gpsInfo.Accuracy, gpsInfo.IsRecording, _routeTrack.GetCurrentWayPoint(), _routeTrack.TotalWayPoints());
         _waypointViewDc.DrawGrid(dc);
     }
     

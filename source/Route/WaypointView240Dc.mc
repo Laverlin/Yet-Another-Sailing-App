@@ -149,4 +149,19 @@ class WaypointView240Dc
         dc.fillCircle(205, 64, 8);
     }
     
+    function DisplayDirection2Wp(dc, heading, bearing)
+    {
+    	var diff = bearing - heading - 90;
+    	var azimuth = Math.toRadians(diff);
+    	var x = 120 * Math.cos(azimuth) + 120;
+    	var y = 120 * Math.sin(azimuth) + 120;
+    	var x1 = 105 * Math.cos(azimuth - 0.0523599) + 120;
+    	var y1 = 105 * Math.sin(azimuth - 0.0523599) + 120;
+    	var x2 = 105 * Math.cos(azimuth + 0.0523599) + 120;
+    	var y2 = 105 * Math.sin(azimuth + 0.0523599) + 120;
+    	
+    	dc.setColor(Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
+        dc.fillPolygon([[x, y], [x1, y1], [x2, y2]]);
+    }
+    
 }

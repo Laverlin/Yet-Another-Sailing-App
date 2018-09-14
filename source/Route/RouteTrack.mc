@@ -100,7 +100,7 @@ class RouteTrack
 
 		if (_currentWayPoint > 0)
 		{
-			inRouteInfo.Xte = getXte(
+			inRouteInfo.Xte = GetXte(
 				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint - 1]["Lat"].toFloat()),
 				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint - 1]["Lon"].toFloat()),
 				wpLat, wpLon,
