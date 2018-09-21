@@ -9,7 +9,6 @@ using Toybox.Time as Time;
 /// 
 class RouteCustomMenuView240Dc
 {	
-
 	function ClearDc(dc)
 	{
     	dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);

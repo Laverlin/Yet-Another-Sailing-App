@@ -1,5 +1,6 @@
 using Toybox.System as Sys;
 using Toybox.Math as Math;
+using Toybox.Test as Test;
 
 // calculate current in route position
 //
@@ -11,6 +12,7 @@ class RouteTrack
 
 	hidden var _routeDistance = 0.0;
 	hidden var _isRouteFinished = false;
+	hidden var _currentLegBearing; // bearing between two wps on current leg
 	
 	hidden var _wpEpsilon;
 
@@ -21,16 +23,32 @@ class RouteTrack
 	hidden function getRouteDistance()
 	{
 		var routeDistance = 0;
-		  	for(var i = _currentWayPoint; i < _currentRoute["WayPoints"].size() - 1; i++)
-    		{
-    			routeDistance = routeDistance + GetDistance(	
-    				Math.toRadians(_currentRoute["WayPoints"][i]["Lat"].toFloat()), 
-    				Math.toRadians(_currentRoute["WayPoints"][i]["Lon"].toFloat()),
-    				Math.toRadians(_currentRoute["WayPoints"][i+1]["Lat"].toFloat()), 
-    				Math.toRadians(_currentRoute["WayPoints"][i+1]["Lon"].toFloat()));
-    		}
+		for(var i = _currentWayPoint; i < _currentRoute["WayPoints"].size() - 1; i++)
+    	{
+    		routeDistance = routeDistance + GetDistance(	
+    			Math.toRadians(_currentRoute["WayPoints"][i]["Lat"].toFloat()), 
+    			Math.toRadians(_currentRoute["WayPoints"][i]["Lon"].toFloat()),
+    			Math.toRadians(_currentRoute["WayPoints"][i+1]["Lat"].toFloat()), 
+    			Math.toRadians(_currentRoute["WayPoints"][i+1]["Lon"].toFloat()));
+    	}
     	
     	return routeDistance;
+	}
+	
+	// Return bearing between two WP of current leg
+	// 
+	hidden function getCurrentLegBearing()
+	{
+		if (_currentWayPoint > 0)
+		{
+			return GetBearing(
+				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint - 1]["Lat"].toFloat()), 
+				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint - 1]["Lon"].toFloat()), 
+				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint]["Lat"].toFloat()), 
+				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint]["Lon"].toFloat()));
+		}
+		
+		return null;
 	}
 	
 	// Increase or decrease current waypoint
@@ -40,6 +58,7 @@ class RouteTrack
 		if (newWp > _totalWayPoints - 1)
 		{
 			_isRouteFinished = true;
+			SignalWrapper.Start();
 			return;
 		}
 		
@@ -47,9 +66,10 @@ class RouteTrack
 		{
 			return;
 		}
-		
+
 		_isRouteFinished = false;
 		_currentWayPoint = newWp;
+		_currentLegBearing = getCurrentLegBearing();		
 		_routeDistance = getRouteDistance();
 		_currentRoute.put("CurrentWayPoint", _currentWayPoint);
 		SignalWrapper.PressButton();
@@ -57,12 +77,16 @@ class RouteTrack
 	
 	function initialize(currentRoute)
 	{
+		Test.assertMessage(currentRoute != null, "currentRoute can not be null!");
+		Test.assertMessage(currentRoute["WayPoints"] != null, "currentRoute should have WayPoints dictionary.");
+		
 		_currentRoute = currentRoute;
 		_totalWayPoints = _currentRoute["WayPoints"].size();
 		if (_currentRoute["CurrentWayPoint"] != null)
 		{
 			_currentWayPoint = _currentRoute["CurrentWayPoint"];
 		}
+		_currentLegBearing = getCurrentLegBearing();
 		_wpEpsilon = Settings.WpEpsilon;
 		_routeDistance = getRouteDistance();
 	}
@@ -100,11 +124,7 @@ class RouteTrack
 
 		if (_currentWayPoint > 0)
 		{
-			inRouteInfo.Xte = GetXte(
-				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint - 1]["Lat"].toFloat()),
-				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint - 1]["Lon"].toFloat()),
-				wpLat, wpLon,
-				gpsLat, gpsLon) / GpsWrapper.METERS_PER_NAUTICAL_MILE;
+			inRouteInfo.Xte = GetXte(distance2Wp, inRouteInfo.Bearing) / GpsWrapper.METERS_PER_NAUTICAL_MILE;
 		}
 		else
 		{
@@ -163,29 +183,17 @@ class RouteTrack
         return bearing;
     }
 	
-	// return cross-track error - distance between start-end line and the point
-	//
-	function GetXte(startLat, startLon, endLat, endLon, pointLat, pointLon)
+	// Return Cross-Track Error in meters
+	//    
+    function GetXte(distance2Wp, bearing2Wp)
     {
-       	var d13 = GetDistance(startLat, startLon, pointLat, pointLon) / EARTH_RADIUS_M;
-    	var bearing13 = GetBearing(startLat, startLon, pointLat, pointLon);
-    	var bearing12 = GetBearing(startLat, startLon, endLat, endLon);
-      	
-    	return Math.asin(Math.sin(d13) * Math.sin(Math.toRadians(bearing13-bearing12))) * EARTH_RADIUS_M; 
+    	return distance2Wp * Math.sin(Math.toRadians(_currentLegBearing - bearing2Wp));
     }
     
-    function GetXte2(startLat, startLon, endLat, endLon, pointLat, pointLon)
-    {
-       	var d13 = GetDistance(pointLat, pointLon, endLat, endLon ) / EARTH_RADIUS_M;
-    	var bearing13 = GetBearing(pointLat, pointLon, endLat, endLon);
-    	var bearing12 = GetBearing(startLat, startLon, endLat, endLon);
-      	
-    	return Math.asin(Math.sin(d13) * Math.sin(Math.toRadians(bearing13-bearing12))) * EARTH_RADIUS_M; 
-    }
-    
+    // Return VMG to nearest Way Point
+    //
     function GetVmg(speed, bearing, cts)
     {
     	return speed * Math.cos(Math.toRadians(cts - bearing));
     }
-
 }

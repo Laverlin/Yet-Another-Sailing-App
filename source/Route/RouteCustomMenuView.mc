@@ -29,6 +29,7 @@ class RouteCustomMenuView extends Ui.View
 		{
 			_selection = :start;
 		}
+		
 		// if there is no any routes - push to choose one
 		// but if back button was pressed and no route were selected, then needs to pop one level up
 		// that's why _isInSelection flag is needed. 
