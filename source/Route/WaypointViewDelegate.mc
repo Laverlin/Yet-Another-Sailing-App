@@ -1,16 +1,15 @@
 using Toybox.WatchUi as Ui;
 
-class CruiseViewDelegate extends Ui.BehaviorDelegate 
+(:savememory)
+class WaypointViewDelegate extends Ui.BehaviorDelegate 
 {
-    hidden var _cruiseView;
+    hidden var _waypointView;
     hidden var _gpsWrapper;
-    hidden var _raceTimerView;
-    hidden var _cruiseMenuDelegate;
     
-    function initialize(cruiseView, gpsWrapper) 
+    function initialize(waypointView, gpsWrapper) 
     {
         BehaviorDelegate.initialize();
-        _cruiseView = cruiseView;
+        _waypointView = waypointView;
         _gpsWrapper = gpsWrapper;
     }    
     
@@ -27,7 +26,7 @@ class CruiseViewDelegate extends Ui.BehaviorDelegate
 
     function onMenu() 
     {
-        Ui.popView(Ui.SLIDE_RIGHT);
+        Ui.popView(Ui.SLIDE_IMMEDIATE);
         return true;
     }
     
@@ -44,6 +43,14 @@ class CruiseViewDelegate extends Ui.BehaviorDelegate
     
     function onNextPage()
     {
-    	_cruiseView.SwitchNextMode();
+    	_waypointView.NextWayPoint();
+    	return true;
     }
+    
+    function  onPreviousPage()
+    {
+    	_waypointView.PrevWayPoint();
+    	return true;
+    }
+    
 }

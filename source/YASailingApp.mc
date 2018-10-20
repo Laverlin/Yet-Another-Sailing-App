@@ -9,8 +9,12 @@ class YASailingApp extends App.AppBase
     hidden var _gpsWrapper;
 	hidden var _cruiseView;
 	hidden var _raceTimerView;
+	hidden var _waypointView;
 	hidden var _lapView;
+	hidden var _selectRouteView;
 	hidden var _isStartSuccess = false;
+	hidden var _routeCustomMenuView;
+	hidden var _mainMenu;
 
     function initialize() 
     {
@@ -28,21 +32,42 @@ class YASailingApp extends App.AppBase
 
 		if (deviceSettings.screenHeight == 218)
 		{
-	        _cruiseView = new CruiseView(_gpsWrapper, new CruiseView218Dc());
-    	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView218Dc());
-        	_lapView = new LapView(new LapView218Dc(), _gpsWrapper);
+			initFor218();
 		}
 		else if (deviceSettings.screenHeight == 240)
 		{
-			_cruiseView = new CruiseView(_gpsWrapper, new CruiseView240Dc());
-    	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView240Dc());
-        	_lapView = new LapView(new LapView240Dc(), _gpsWrapper);
+			initFor240();
 		}
 		else
 		{
 			LogWrapper.WriteWrongScreen();
 			System.exit();
 		}
+    }
+    
+    function initFor218()
+    {
+ 	    _cruiseView = new CruiseView(_gpsWrapper, new CruiseView218Dc());
+    	_raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView218Dc());
+        _lapView = new LapView(new LapView218Dc(), _gpsWrapper);
+        //_waypointView = new WaypointView(_gpsWrapper, new WaypointView240Dc(), _cruiseView);
+    	//_selectRouteView = new SelectRouteView(new SelectRouteView240Dc());
+    	//_routeCustomMenuView = new RouteCustomMenuView(_gpsWrapper, new RouteCustomMenuView240Dc(), _waypointView, _selectRouteView); 
+    	
+    	_mainMenu = new Rez.Menus.MainMenuLess();  	
+    }
+    
+    (:savememory)
+    function initFor240()
+    {
+		_cruiseView = new CruiseView(_gpsWrapper, new CruiseView240Dc());
+	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView240Dc());
+    	_lapView = new LapView(new LapView240Dc(), _gpsWrapper);
+    	_waypointView = new WaypointView(_gpsWrapper, new WaypointView240Dc(), _cruiseView);
+    	_selectRouteView = new SelectRouteView(new SelectRouteView240Dc());
+    	_routeCustomMenuView = new RouteCustomMenuView(_gpsWrapper, new RouteCustomMenuView240Dc(), _waypointView, _selectRouteView); 
+    	
+    	_mainMenu = new Rez.Menus.MainMenuFull();   
     }
 
     // onStart() is called on application start up
@@ -74,8 +99,30 @@ class YASailingApp extends App.AppBase
     //
     function getInitialView() 
     {
-        return [ new StartupView(new Rez.Menus.MainMenu(), new MainMenuDelegate(_cruiseView, _raceTimerView, _lapView, _gpsWrapper)) ];
+    /*
+    	var mainMenu = new Ui.Menu(); 
+        mainMenu.setTitle("Menu");
+        mainMenu.addItem("Race Timer", :raceTimer);
+        mainMenu.addItem("Cruise", :cruiseView);
+        mainMenu.addItem("Route", :routeMenu);
+        mainMenu.addItem("View Laps", :lapView);
+        mainMenu.addItem("Settings", :setting);
+        mainMenu.addItem("Exit Discard Track", :exitDiscard);
+        mainMenu.addItem("Exit Save Track", :exitSave);
+        */
+    			
+        return [ 
+        	new StartupView(_mainMenu, 
+        	new MainMenuDelegate(_cruiseView, _raceTimerView, _lapView, _waypointView, _selectRouteView, _routeCustomMenuView, _gpsWrapper)) ];
     }
+    
+    // Calls when app settings where updated from mobile device
+    //
+    function onSettingsChanged() 
+    { 
+    	Settings.LoadSettings();
+    }
+
     
     // handle position event
     //

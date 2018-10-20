@@ -1,8 +1,19 @@
-<menu id="MainMenu" title="Menu">
-		<menu-item id="raceTimer">Race Timer</menu-item>
-		<menu-item id="cruiseView">Cruise View</menu-item>
-    	<menu-item id="lapView">Laps View</menu-item>
-    	<menu-item id="setting">Settings</menu-item>
-   		<menu-item id="exitDiscard">Exit Discard Track</menu-item>
-    	<menu-item id="exitSave">Exit Save Track</menu-item>
-</menu>
+<resources>
+	<menu id="MainMenuFull" title="Menu">
+			<menu-item id="raceTimer">Race Timer</menu-item>
+			<menu-item id="cruiseView">Cruise</menu-item>
+			<menu-item id="routeMenu">Route</menu-item>
+	    	<menu-item id="lapView">View Laps</menu-item>
+	    	<menu-item id="setting">Settings</menu-item>
+	   		<menu-item id="exitDiscard">Exit Discard Track</menu-item>
+	    	<menu-item id="exitSave">Exit Save Track</menu-item>
+	</menu>
+	<menu id="MainMenuLess" title="Menu">
+			<menu-item id="raceTimer">Race Timer</menu-item>
+			<menu-item id="cruiseView">Cruise</menu-item>
+	    	<menu-item id="lapView">View Laps</menu-item>
+	    	<menu-item id="setting">Settings</menu-item>
+	   		<menu-item id="exitDiscard">Exit Discard Track</menu-item>
+	    	<menu-item id="exitSave">Exit Save Track</menu-item>
+	</menu>	
+</resources>

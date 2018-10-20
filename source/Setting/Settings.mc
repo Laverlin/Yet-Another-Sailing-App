@@ -7,16 +7,25 @@ class Settings
 {
 	static var ForegroundColor = Gfx.COLOR_WHITE;
 	static var BackgroundColor = Gfx.COLOR_BLACK;
+	static var DimColor = Gfx.COLOR_LT_GRAY;
 	static var TimerValue = 300;
 	static var IsTimerValueUpdated = false;
 	static var IsAutoRecording = false;
 	static var IsWhiteBackground = false;
+	static var RouteApiUrl = "https://ivan-b.com/garminapi"; //"http://localhost:3000/garminapi";
+	static var RouteListMethod = "routelist";
+	static var UserId = "";
+	static var CurrentRoute = null;
+	static var WpEpsilon = 100;
 
 	static function LoadSettings()
 	{
 		SetAutoRecording(App.getApp().getProperty("IsAutoRecording"));
 		SetTimerValue(App.getApp().getProperty("timerValue"));
 		SetBackground(App.getApp().getProperty("isWhiteBackground"));
+		UserId = App.getApp().getProperty("userId");
+		WpEpsilon = App.getApp().getProperty("wpEpsilon");
+		CurrentRoute = App.getApp().getProperty("CurrentRoute");
 	}
 
 	static function SaveSettings()
@@ -24,6 +33,10 @@ class Settings
 		App.getApp().setProperty("isWhiteBackground", IsWhiteBackground);
 		App.getApp().setProperty("timerValue", TimerValue);
 		App.getApp().setProperty("IsAutoRecording", IsAutoRecording);
+		
+		App.getApp().setProperty("CurrentRoute", CurrentRoute);
+		
+		//App.Storage.setValue("CurrentRoute", CurrentRoute);
 	}
 
 	static function SetBackground(isWhiteBackground)
@@ -31,6 +44,7 @@ class Settings
 		IsWhiteBackground = (isWhiteBackground == null) ? false : isWhiteBackground;
         ForegroundColor = isWhiteBackground ? Gfx.COLOR_BLACK : Gfx.COLOR_WHITE;
         BackgroundColor = isWhiteBackground ? Gfx.COLOR_WHITE : Gfx.COLOR_BLACK;
+        DimColor = isWhiteBackground ? Gfx.COLOR_DK_GRAY : Gfx.COLOR_LT_GRAY;
 	}
 	
 	static function SetTimerValue(value)

@@ -1,0 +1,4 @@
+<menu id="RouteMenu" title="Menu">
+		<menu-item id="startRoute">Start Route</menu-item>
+		<menu-item id="selectRoute">Select Route</menu-item>
+</menu>
