@@ -9,6 +9,7 @@ using Toybox.Math as Math;
 /// all boiler-plate code for drawing objects need to be done manually.
 /// This class dedicated to hide all dirty work around dc
 /// 
+(:savememory)
 class WaypointView240Dc
 {
 	hidden var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, Gfx.COLOR_GREEN];	

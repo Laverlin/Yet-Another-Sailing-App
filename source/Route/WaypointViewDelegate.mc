@@ -1,5 +1,6 @@
 using Toybox.WatchUi as Ui;
 
+(:savememory)
 class WaypointViewDelegate extends Ui.BehaviorDelegate 
 {
     hidden var _waypointView;

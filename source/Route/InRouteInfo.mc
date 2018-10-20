@@ -1,5 +1,6 @@
 // Class to present in route data
 //
+(:savememory)
 class InRouteInfo
 {
 	// VMG to Waypoint

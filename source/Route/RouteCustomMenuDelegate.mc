@@ -2,6 +2,7 @@ using Toybox.WatchUi as Ui;
 
 // Custom menu to choose - start to track route or load available routes and choose one
 //
+(:savememory)
 class RouteCustomMenuDelegate extends Ui.BehaviorDelegate 
 {
 	hidden var _routeCustomMenuView;

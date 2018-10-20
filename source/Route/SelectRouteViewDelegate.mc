@@ -1,5 +1,6 @@
 using Toybox.WatchUi as Ui;
 
+(:savememory)
 class SelectRouteViewDelegate extends Ui.BehaviorDelegate 
 {
 	hidden var _selectRouteView;

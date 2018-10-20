@@ -3,6 +3,7 @@ using Toybox.System as Sys;
 using Toybox.Communications as Comm;
 using Toybox.Lang as Lang;
 
+(:savememory)
 class SelectRouteView extends Ui.View 
 {
 	hidden var _selectRouteViewDc;

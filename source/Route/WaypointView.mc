@@ -4,6 +4,7 @@ using Toybox.Communications as Comm;
 using Toybox.Math as Math;
 using Toybox.Test as Test;
 
+(:savememory)
 class WaypointView extends Ui.View 
 {
     hidden var _gpsWrapper;

@@ -5,6 +5,7 @@ using Toybox.Graphics as Gfx;
 /// all boiler-plate code for drawing objects need to be done manually.
 /// This class dedicated to hide all dirty work around dc
 /// 
+(:savememory)
 class SelectRouteView240Dc
 {
 	function ClearDc(dc)

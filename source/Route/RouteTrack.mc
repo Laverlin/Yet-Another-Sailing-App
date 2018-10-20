@@ -4,6 +4,7 @@ using Toybox.Test as Test;
 
 // calculate current in route position
 //
+(:savememory)
 class RouteTrack
 {
 	hidden var _currentWayPoint = 0;

@@ -3,6 +3,7 @@ using Toybox.System as Sys;
 using Toybox.Graphics as Gfx;
 using Toybox.Lang as Lang;
 
+(:savememory)
 class RouteCustomMenuView extends Ui.View 
 {
 	hidden var _gpsWrapper;
