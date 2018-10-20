@@ -26,8 +26,9 @@ class RouteCustomMenuView240Dc
     {
     	var font = (_currentSelection == :start) ? Gfx.FONT_SYSTEM_SMALL : Gfx.FONT_SYSTEM_XTINY;
 
-    	dc.drawText(125, 80, font, 
-    		Lang.format("Start Route: $1$\n$2$", [actualRoute["RouteName"], YACommon.DateJson2Short(actualRoute["RouteDate"])]), 
+		//dc.drawText(120, 65, Gfx.FONT_SYSTEM_XTINY, "start", Gfx.TEXT_JUSTIFY_CENTER);
+    	dc.drawText(120, 80, font, 
+    		Lang.format("$1$\n$2$", [actualRoute["RouteName"], YACommon.DateJson2Short(actualRoute["RouteDate"])]), 
     		Gfx.TEXT_JUSTIFY_CENTER);
     }
     

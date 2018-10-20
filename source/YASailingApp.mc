@@ -34,9 +34,9 @@ class YASailingApp extends App.AppBase
 	        _cruiseView = new CruiseView(_gpsWrapper, new CruiseView218Dc());
     	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView218Dc());
         	_lapView = new LapView(new LapView218Dc(), _gpsWrapper);
-        	_waypointView = new WaypointView(_gpsWrapper, new WaypointView240Dc(), _cruiseView);
-        	_selectRouteView = new SelectRouteView(new SelectRouteView240Dc());
-        	_routeCustomMenuView = new RouteCustomMenuView(_gpsWrapper, new RouteCustomMenuView240Dc(), _waypointView, _selectRouteView);
+        	//_waypointView = new WaypointView(_gpsWrapper, new WaypointView240Dc(), _cruiseView);
+        	//_selectRouteView = new SelectRouteView(new SelectRouteView240Dc());
+        	//_routeCustomMenuView = new RouteCustomMenuView(_gpsWrapper, new RouteCustomMenuView240Dc(), _waypointView, _selectRouteView);
         	
 		}
 		else if (deviceSettings.screenHeight == 240)
