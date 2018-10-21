@@ -1,3 +1,6 @@
 project.manifest = manifest.xml
 base.sourcePath = source/**.mc
 fenix3.excludeAnnotations = $(fenix3.excludeAnnotations);savememory
+fenix3_hr.excludeAnnotations = $(fenix3_hr.excludeAnnotations);savememory
+d2bravo.excludeAnnotations = $(d2bravo.excludeAnnotations);savememory
+d2bravo_titanium.excludeAnnotations = $(d2bravo_titanium.excludeAnnotations);savememory
