@@ -1,5 +1,5 @@
 <menu id="SettingMenu" title="Settings">
-		<menu-item id="setTimer">Set Timer</menu-item>
-    	<menu-item id="backgroundColor">Background Color</menu-item>
-    	<menu-item id="isAutoStartRecording">Auto Recording</menu-item>
+		<menu-item id="setTimer" label="Set Timer"/>
+    	<menu-item id="backgroundColor" label="Background Color"/>
+    	<menu-item id="isAutoStartRecording" label="Auto Recording"/>
 </menu>

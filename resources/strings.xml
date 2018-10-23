@@ -1,10 +1,18 @@
 <strings>
     <string id="AppName">YA-Sailing-Test</string>
-    <string id="AppVersionTitle">App Version</string>
+    <string id="AppVersionTitle">app version</string>
     <string id="BackgroundPropertyName">isWhiteBackground</string>
     <string id="UserIdTitle">User ID</string>
     <string id="TimerValueTitle">Race Timer</string>
     <string id="IsAutoRecordingTitle">Enable Auto Recording</string>
     <string id="isWhiteBackgroundTitle">White Background</string>
     <string id="wpEpsilonTitle">Pass Waypoint Radius (m)</string>
+    
+    <string id="mmenuRacetimer">Race Timer</string>
+    <string id="mmenuCruise">Cruise</string>
+    <string id="mmenuRoute">Route</string>
+    <string id="mmenuLapsView">Laps View</string>
+    <string id="mmenuSetting">Settings</string>
+    <string id="mmenuExitDiscard">Exit Discard Track</string>
+    <string id="mmenuExitSave">Exit Save Track</string>
 </strings>

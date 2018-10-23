@@ -1,19 +1,19 @@
 <resources>
 	<menu id="MainMenuFull" title="Menu">
-			<menu-item id="raceTimer">Race Timer</menu-item>
-			<menu-item id="cruiseView">Cruise</menu-item>
-			<menu-item id="routeMenu">Route</menu-item>
-	    	<menu-item id="lapView">View Laps</menu-item>
-	    	<menu-item id="setting">Settings</menu-item>
-	   		<menu-item id="exitDiscard">Exit Discard Track</menu-item>
-	    	<menu-item id="exitSave">Exit Save Track</menu-item>
+			<menu-item id="raceTimer" label="@Strings.mmenuRacetimer"/>
+			<menu-item id="cruiseView" label="@Strings.mmenuCruise"/>
+			<menu-item id="routeMenu" label="@Strings.mmenuRoute"/>
+	    	<menu-item id="lapView" label="@Strings.mmenuLapsView"/>
+	    	<menu-item id="setting" label="@Strings.mmenuSetting"/>
+	   		<menu-item id="exitDiscard" label="@Strings.mmenuExitDiscard"/>
+	    	<menu-item id="exitSave" label="@Strings.mmenuExitSave"/>
 	</menu>
 	<menu id="MainMenuLess" title="Menu">
-			<menu-item id="raceTimer">Race Timer</menu-item>
-			<menu-item id="cruiseView">Cruise</menu-item>
-	    	<menu-item id="lapView">View Laps</menu-item>
-	    	<menu-item id="setting">Settings</menu-item>
-	   		<menu-item id="exitDiscard">Exit Discard Track</menu-item>
-	    	<menu-item id="exitSave">Exit Save Track</menu-item>
+			<menu-item id="raceTimer" label="@Strings.mmenuRacetimer"/>
+			<menu-item id="cruiseView" label="@Strings.mmenuCruise"/>
+	    	<menu-item id="lapView" label="@Strings.mmenuLapsView"/>
+	    	<menu-item id="setting" label="@Strings.mmenuSetting"/>
+	   		<menu-item id="exitDiscard" label="@Strings.mmenuExitDiscard"/>
+	    	<menu-item id="exitSave" label="@Strings.mmenuExitSave"/>
 	</menu>	
 </resources>

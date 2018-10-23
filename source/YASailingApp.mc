@@ -19,6 +19,8 @@ class YASailingApp extends App.AppBase
     function initialize() 
     {
         AppBase.initialize();
+        
+        setProperty("appVersion", Toybox.WebUI.loadResource(Rez.Strings.appVersion));
 
 		var deviceSettings = System.getDeviceSettings();
 		if (deviceSettings.screenShape != 1)
