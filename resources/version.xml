@@ -1,1 +1,5 @@
-<strings><string id="appVersion">1.0.176</string><string id="apiUrl">https://ivan-b.com/garminapi</string></strings>
+<strings>
+	<string id="appVersion">1.0.176</string>
+	<string id="apiUrl">https://ivan-b.com/garminapi</string>
+	<string id="AppName">YA-Sailing</string>
+</strings>
