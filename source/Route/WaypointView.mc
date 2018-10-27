@@ -30,7 +30,7 @@ class WaypointView extends Ui.View
     	var currentRoute = Settings.CurrentRoute;
     	if (currentRoute == null)
     	{
-    		Sys.println("there is no active route");
+    		//Sys.println("there is no active route");
     		return;
     	}
         _routeTrack = new RouteTrack(currentRoute);

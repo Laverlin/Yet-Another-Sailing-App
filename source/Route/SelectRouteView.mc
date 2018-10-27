@@ -88,7 +88,7 @@ class SelectRouteView extends Ui.View
 			Settings.RouteListMethod,
 			Settings.UserId]);     
 
-		Sys.println(url);
+		//Sys.println(url);
 		
         var options = {
           :method => Comm.HTTP_REQUEST_METHOD_GET,
@@ -106,7 +106,7 @@ class SelectRouteView extends Ui.View
 		{
 			_loadingError = responseCode;
 			Sys.println("error loading routes, response code: " + responseCode.toString());
-			Sys.println(data);
+			//Sys.println(data);
 		}
 		else if (data.size() == 0)
 		{

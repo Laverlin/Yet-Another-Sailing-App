@@ -26,6 +26,7 @@ class Settings
 		UserId = App.getApp().getProperty("userId");
 		WpEpsilon = App.getApp().getProperty("wpEpsilon");
 		CurrentRoute = App.getApp().getProperty("CurrentRoute");
+		RouteApiUrl = Toybox.WatchUi.loadResource(Rez.Strings.apiUrl);
 	}
 
 	static function SaveSettings()
