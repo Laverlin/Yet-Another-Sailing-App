@@ -43,7 +43,7 @@ In **Laps view** you may see data - max speed, average speed, distance and time 
    -- switch to *Cruise* mode   
    -- switch to *Route* mode
    -- switch to *Laps view*  
-   -- change settings: initialize countdown value for Race Timer, change Background Color and enable/disable Auto recording  
+   -- change settings: initialize Race Timer, change Background Color and enable/disable Auto recording  
 
 **Route** mode:
 This is a bit tricky and here is a short description why is that. Watches has a limited UX ability and setting a waypoint[s] is not a very convenient. A little more handy using phone for this, but still typing a GPS coordinates is not how you'd like to spend your time... On the other hands, there is a lot of nice services and applications, which allows you to plan a route, so why is not use one of them?
@@ -51,19 +51,19 @@ After some considerations I chose the "Navionics" (navionics.com) for that purpo
 Sounds good, but unfortunately Navionics does not have an API to import routes... Fortunately, Navionics mobile app has an option to export saved Route in a well known format. Unfortunately, there is no option to export it directly to the Watch Application, so we need some intermediate service which should be able to accept Routes from Navionics mobile App and has an API for import Routes to the watch application. It turns out that for such kind of scenarios chat bots, like Telegram bots, work surprisingly good.
 So, in general it works like this:
 - plan your route in Navionics mobile app or web-site.
-- open Navionics mobile app and export your route to Telegram bot, named "YAS-NavGarminBot" (you have to install telegram messenger on your iPhone or Android and type @YAS-NavGarminBot in search to enable the bot)
-- in response YAS-NavGarminBot will send back your user id
+- open Navionics mobile app and export your route to Telegram bot, named "YA-SailingBot" (you have to install telegram messenger on your iPhone or Android and type @YA-SailngBot in search to enable the bot)
+- in response *YA-SailingBot* will send back your user id
 - you have to put this ID in settings of Yet-Another-Sailing App, using Garmin Connect mobile application. (open Garmin Connect mobile app, then tap device icon on the top row -> Activities, Apps & More -> Activities & Applications, choose Yet Another Sailing App and tap Settings). You need to do this just once, any uploaded route will have the same user id, unless you change your Telegram account.
 - now open YAS app on your watch and choose Route -> Load Routes.
 - choose route and you ready to go!
 UP and DOWN buttons on your watch will change current waypoint.
 START/STOP button will start/stop track recording, just like in *Cruise* mode
 
-Couple notes about NavGarmin telegram bot:
+Couple notes about YA-SailingBot telegram bot:
 - Navionics allow to change route name but for some reason does not export it. But you can change Route name using /rename command
 - Use /list command to get list of available routes and /delete:<id> command to delete route by id      
- 
- 
+- /myid command will send you string with your id 
+  
 In **Cruise** mode     
 - press start/stop button to start/stop recording. This option available only if GPS signal strong enough (gps indicator yellow or green)
 - press back button to add new lap. Laps statistic available in *Laps View*.  
@@ -82,7 +82,7 @@ In **Laps View** you can see data from last 20 laps. This data stores permanentl
 
 ### Changelog
 
-**version 1.0.178**
+**version 1.0.181**
 - add Route mode  
 
 **version 0.71**
