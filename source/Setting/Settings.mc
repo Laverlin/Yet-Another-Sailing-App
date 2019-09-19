@@ -12,7 +12,8 @@ class Settings
 	static var IsTimerValueUpdated = false;
 	static var IsAutoRecording = false;
 	static var IsWhiteBackground = false;
-	static var RouteApiUrl = "https://ivan-b.com/garminapi"; //"http://localhost:3000/garminapi";
+	static var RouteApiUrl = "https://ivan-b.com/garminapi"; 
+	//static var RouteApiUrl = "http://localhost:3000/garminapi";
 	static var RouteListMethod = "routelist";
 	static var UserId = "";
 	static var CurrentRoute = null;
@@ -36,8 +37,6 @@ class Settings
 		App.getApp().setProperty("IsAutoRecording", IsAutoRecording);
 		
 		App.getApp().setProperty("CurrentRoute", CurrentRoute);
-		
-		//App.Storage.setValue("CurrentRoute", CurrentRoute);
 	}
 
 	static function SetBackground(isWhiteBackground)

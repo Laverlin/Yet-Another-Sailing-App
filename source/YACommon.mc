@@ -43,7 +43,7 @@ class YACommon
         	} 
         	else 
         	{
-            	value = thisDefault;
+            	value = defaultValue;
         	}
     	}
     	return value;

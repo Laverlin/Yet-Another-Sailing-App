@@ -161,7 +161,7 @@ class YASailingApp extends App.AppBase
     	}
     	catch(exception)
     	{
-    		Sys.println("failed to load state" + exception);
+    		System.println("failed to load state" + exception);
     	}
     }
     
