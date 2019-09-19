@@ -5,20 +5,22 @@
             <iq:product id="fenix6s"/>
             <iq:product id="fenix6spro"/>            
             <iq:product id="fenix5xplus"/>
+            <iq:product id="d2bravo"/>
+            <iq:product id="d2bravo_titanium"/>
             <iq:product id="fenix3"/>
-            <iq:product id="fenix5x"/>
+            <iq:product id="fenix3_hr"/>
             <iq:product id="fenix5"/>
             <iq:product id="fenix5plus"/>
-            <iq:product id="d2bravo"/>
             <iq:product id="fenix5splus"/>
-            <iq:product id="d2bravo_titanium"/>
-            <iq:product id="fenix3_hr"/>
+            <iq:product id="fenix5x"/>
+            <iq:product id="fenix5xplus"/>
+            <iq:product id="fr645"/>
             <iq:product id="fr935"/>
         </iq:products>
         <iq:permissions>
+            <iq:uses-permission id="Communications"/>
             <iq:uses-permission id="Fit"/>
             <iq:uses-permission id="Positioning"/>
-            <iq:uses-permission id="Communications"/>
             <iq:uses-permission id="Sensor"/>
         </iq:permissions>
         <iq:languages>
