@@ -75,6 +75,10 @@ class SelectRouteView extends Ui.View
 	
 	function RouteSelected()
 	{
+		if (_routesData == null)
+		{
+			return;
+		}
 		Settings.CurrentRoute = _routesData[_selectedRouteId];
 		Ui.popView(Ui.SLIDE_IMMEDIATE);
 	}

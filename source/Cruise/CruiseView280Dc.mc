@@ -10,8 +10,7 @@ using Toybox.Time as Time;
 class CruiseView280Dc
 {
 	hidden var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, Gfx.COLOR_GREEN];
-    hidden var halfd = 140;	
-    hidden var _margin = 7;
+
 	function ClearDc(dc)
 	{
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
@@ -30,73 +29,82 @@ class CruiseView280Dc
     {
         var speedString = speed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(halfd - _margin, 82, Gfx.FONT_NUMBER_HOT, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(halfd - _margin, 184, Gfx.FONT_XTINY, "SOG", Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(138, 82, Gfx.FONT_NUMBER_HOT, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.setColor(Settings.DimColor, Settings.BackgroundColor);
+        dc.drawText(135, 178, Gfx.FONT_TINY, "SOG", Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
     function PrintBearing(dc, bearing)
     {
         var bearingString = bearing.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(halfd + _margin, 82, Gfx.FONT_NUMBER_HOT, bearingString, Gfx.TEXT_JUSTIFY_LEFT);
-        dc.drawText(halfd + _margin, 184, Gfx.FONT_XTINY, "COG", Gfx.TEXT_JUSTIFY_LEFT);    
+        dc.drawText(145, 82, Gfx.FONT_NUMBER_HOT, bearingString, Gfx.TEXT_JUSTIFY_LEFT);
+        dc.setColor(Settings.DimColor, Settings.BackgroundColor);
+        dc.drawText(255, 178, Gfx.FONT_TINY, "COG", Gfx.TEXT_JUSTIFY_RIGHT);    
     }
     
     function PrintMaxSpeed(dc, maxSpeed)
     {
         var maxSpeedString = maxSpeed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(80, 170, Gfx.FONT_MEDIUM, maxSpeedString, Gfx.TEXT_JUSTIFY_RIGHT);
-     //   dc.drawText(102, 192, Gfx.FONT_XTINY, "max", Gfx.TEXT_JUSTIFY_RIGHT);       
+        dc.drawText(75, 170, Gfx.FONT_MEDIUM, maxSpeedString, Gfx.TEXT_JUSTIFY_RIGHT);
+        //dc.drawText(76, 165, Gfx.FONT_XTINY, "max", Gfx.TEXT_JUSTIFY_LEFT);       
     }
     
     function PrintAvgSpeed(dc, avgSpeed)
     {
         var avgSpeedString = avgSpeed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
-        dc.drawText(halfd + _margin, 246, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_LEFT);   	
-        dc.drawText(halfd + _margin, 215, Gfx.FONT_LARGE, avgSpeedString, Gfx.TEXT_JUSTIFY_LEFT);     
-        dc.drawText(202, 214, Gfx.FONT_XTINY, "kn", Gfx.TEXT_JUSTIFY_LEFT);   
+    	dc.drawText(152, 210, Gfx.FONT_LARGE, avgSpeedString, Gfx.TEXT_JUSTIFY_LEFT);
+    	
+    	dc.setColor(Settings.DimColor, Settings.BackgroundColor);
+        dc.drawText(155, 246, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_LEFT);   	     
+        dc.drawText(155 + dc.getTextWidthInPixels(avgSpeedString, Gfx.FONT_LARGE), 209, Gfx.FONT_XTINY, "kn", Gfx.TEXT_JUSTIFY_LEFT);   
     }
     
     function PrintAvgBearing(dc, avgBearing)
     {
         var avgBearingString = avgBearing.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
-        dc.drawText(halfd + _margin, 246, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_LEFT);   	
-        dc.drawText(halfd + _margin, 215, Gfx.FONT_LARGE, avgBearingString, Gfx.TEXT_JUSTIFY_LEFT);
-        dc.drawText(202, 214, Gfx.FONT_XTINY, "o", Gfx.TEXT_JUSTIFY_LEFT);
+    	dc.drawText(152, 210, Gfx.FONT_LARGE, avgBearingString, Gfx.TEXT_JUSTIFY_LEFT);
+    	
+    	dc.setColor(Settings.DimColor, Settings.BackgroundColor);
+        dc.drawText(155, 246, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_LEFT);   	
+        dc.drawText(155 + dc.getTextWidthInPixels(avgBearingString, Gfx.FONT_LARGE), 209, Gfx.FONT_XTINY, "o", Gfx.TEXT_JUSTIFY_LEFT);
     }    
     
     function PrintTotalDistance(dc, totalDistance)
     {
         var distanceString = totalDistance.format("%003.1f");
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
-    	dc.drawText(halfd - _margin, 246, Gfx.FONT_XTINY, "nm", Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(halfd - _margin, 215, Gfx.FONT_LARGE, distanceString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(130, 210, Gfx.FONT_LARGE, distanceString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.setColor(Settings.DimColor, Settings.BackgroundColor);
+        dc.drawText(130, 246, Gfx.FONT_XTINY, "nm", Gfx.TEXT_JUSTIFY_RIGHT);
      }
     
     function DrawGrid(dc)
     {
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawLine(0, 70, 280, 70);
-		dc.drawLine(0, 215, 280, 215);
-		dc.drawLine(140, 70, 140, 280);
+        dc.drawLine(0, 75, 280, 75);
+		dc.drawLine(0, 210, 280, 210);
+		dc.drawLine(140, 75, 140, 210);
     }
     
     function DisplayState(dc, gpsStatus, recordingStatus, lapCount)
     {
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
+    	dc.drawText(89, 44, Gfx.FONT_TINY, lapCount, Gfx.TEXT_JUSTIFY_LEFT);
     	
-    	dc.drawText(80, 43, Gfx.FONT_XTINY, Lang.format("lap: $1$",[lapCount]), Gfx.TEXT_JUSTIFY_RIGHT);
-    	dc.drawText(130, 43, Gfx.FONT_XTINY, "gps:", Gfx.TEXT_JUSTIFY_RIGHT);
-    	dc.drawText(190, 43, Gfx.FONT_XTINY, "rec:", Gfx.TEXT_JUSTIFY_RIGHT);
+    	dc.setColor(Settings.DimColor, Settings.BackgroundColor);
+    	dc.drawText(85, 48, Gfx.FONT_XTINY, "lap:", Gfx.TEXT_JUSTIFY_RIGHT);
+    	dc.drawText(155, 48, Gfx.FONT_XTINY, "gps:", Gfx.TEXT_JUSTIFY_RIGHT);
+    	dc.drawText(215, 48, Gfx.FONT_XTINY, "rec:", Gfx.TEXT_JUSTIFY_RIGHT);
     	
     	dc.setColor(_gpsColorsArray[gpsStatus], Gfx.COLOR_TRANSPARENT);
-        dc.fillCircle(145, 54, 8);
+        dc.fillCircle(169, 58, 8);
         
         dc.setColor(recordingStatus ? Gfx.COLOR_GREEN : Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
-        dc.fillCircle(205, 54, 8);
+        dc.fillCircle(229, 58, 8);
     }
     
     // Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
@@ -106,13 +114,13 @@ class CruiseView280Dc
     	if (speedDiff > 0)
         {
         	dc.setColor(Gfx.COLOR_GREEN, Settings.BackgroundColor);
-        	dc.fillPolygon([[130, 74], [124, 96], [136, 96]]);
+        	dc.fillPolygon([[88, 83], [82, 105], [94, 105]]);
         }
         
         if (speedDiff < 0)
         {
         	dc.setColor(Gfx.COLOR_RED, Settings.BackgroundColor);
-        	dc.fillPolygon([[124, 74], [130, 96], [136, 74]]);
+        	dc.fillPolygon([[82, 83], [88, 105], [94, 83]]);
         }
     }
 }

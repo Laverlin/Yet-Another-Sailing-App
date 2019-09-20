@@ -18,20 +18,23 @@ class LapView240Dc
     
     function PrintLapsEmpty(dc)
     {
-    	dc.drawText(120, 90, Gfx.FONT_MEDIUM, "There is no laps\n to display", Gfx.TEXT_JUSTIFY_CENTER);
+    	dc.drawText(
+    		dc.getWidth() / 2, 
+    		(dc.getHeight() / 2) - dc.getFontHeight(Gfx.FONT_MEDIUM) - 2, 
+    		Gfx.FONT_MEDIUM, "There is no laps\n to display", Gfx.TEXT_JUSTIFY_CENTER);
     }
     
     function PrintLapInfo(dc, lapInfo)
     {
     	var timeInfo = Time.Gregorian.info(lapInfo.StartTime, Time.FORMAT_MEDIUM);
 
-        dc.drawText(120, 10, Gfx.FONT_TINY, Lang.format("lap $1$", [lapInfo.LapNumber.format("%2d")]), Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(120, 36, Gfx.FONT_TINY, Lang.format("[ $1$ $2$ $3$:$4$ ]",
+        dc.drawText(dc.getWidth() / 2, 10, Gfx.FONT_TINY, Lang.format("lap $1$", [lapInfo.LapNumber.format("%2d")]), Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(dc.getWidth() / 2, 36, Gfx.FONT_TINY, Lang.format("[ $1$ $2$ $3$:$4$ ]",
              [timeInfo.day.format("%02d"), timeInfo.month, timeInfo.hour.format("%02d"), timeInfo.min.format("%02d")]), Gfx.TEXT_JUSTIFY_CENTER);
 
-        dc.drawText(30, 74, Gfx.FONT_MEDIUM, "max speed :  " + lapInfo.MaxSpeedKnot.format("%2.1f"), Gfx.TEXT_JUSTIFY_LEFT);
-        dc.drawText(30, 107, Gfx.FONT_MEDIUM, "avg speed  :  " + lapInfo.AvgSpeedKnot.format("%2.1f"), Gfx.TEXT_JUSTIFY_LEFT);
-        dc.drawText(30, 140, Gfx.FONT_MEDIUM, "distance    : " + lapInfo.Distance.format("%3.2f"), Gfx.TEXT_JUSTIFY_LEFT);
-        dc.drawText(32, 172, Gfx.FONT_MEDIUM, "time  : " + YACommon.SecToString(lapInfo.Duration), Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(30, 66, Gfx.FONT_MEDIUM, "max speed :  " + lapInfo.MaxSpeedKnot.format("%2.1f"), Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(30, 66 + dc.getFontHeight(Gfx.FONT_MEDIUM), Gfx.FONT_MEDIUM, "avg speed  :  " + lapInfo.AvgSpeedKnot.format("%2.1f"), Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(30, 66 + dc.getFontHeight(Gfx.FONT_MEDIUM) * 2, Gfx.FONT_MEDIUM, "distance    : " + lapInfo.Distance.format("%3.2f"), Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(32, 66 + dc.getFontHeight(Gfx.FONT_MEDIUM) * 3, Gfx.FONT_MEDIUM, "time  : " + YACommon.SecToString(lapInfo.Duration), Gfx.TEXT_JUSTIFY_LEFT);
     }
 }

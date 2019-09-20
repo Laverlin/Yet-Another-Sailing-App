@@ -49,7 +49,7 @@ class RaceTimerView280Dc
 		{ color = Gfx.COLOR_GREEN; }
 		
 		dc.setColor(color, Settings.BackgroundColor);
-		for (var i = 0; i < 14; i++)
+		for (var i = 0; i < 19; i++)
 		{
 			dc.drawArc(radius, radius, radius - i, Gfx.ARC_COUNTER_CLOCKWISE, secPoint, 90);
 		}
