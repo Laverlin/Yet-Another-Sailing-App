@@ -10,11 +10,15 @@ using Toybox.Time as Time;
 class CruiseView240Dc
 {
 	hidden var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, Gfx.COLOR_GREEN];	
+	hidden var _width;
+	hidden var _height;
 
 	function ClearDc(dc)
 	{
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
     	dc.clear();
+    	_width = dc.getWidth();
+	    _height = dc.getHeight();
     }
 
 	function PrintTime(dc, time)
@@ -22,22 +26,35 @@ class CruiseView240Dc
         var timeString = Lang.format("$1$:$2$:$3$", 
             [time.hour.format("%02d"), time.min.format("%02d"), time.sec.format("%02d")]);
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(120, 7, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(dc.getWidth() / 2, 7, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 	
     function PrintSpeed(dc, speed)
     {
+    	var y = (dc.getFontHeight(Gfx.FONT_NUMBER_HOT) == 52)
+   			? 82
+   			: 62;    
+    
         var speedString = speed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(100, 82, Gfx.FONT_NUMBER_HOT, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(dc.getWidth() / 4, y, Gfx.FONT_NUMBER_HOT, speedString, Gfx.TEXT_JUSTIFY_CENTER);
+        
+        dc.setColor(Settings.DimColor, Settings.BackgroundColor);	        
         dc.drawText(112, 144, Gfx.FONT_XTINY, "SOG", Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
     function PrintBearing(dc, bearing)
     {
+    	var y = (dc.getFontHeight(Gfx.FONT_NUMBER_HOT) == 52)
+   			? 82
+   			: 62;
         var bearingString = bearing.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(226, 82, Gfx.FONT_NUMBER_HOT, bearingString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(
+        	dc.getWidth() / 2 + dc.getWidth() / 4, 
+        	y, Gfx.FONT_NUMBER_HOT, bearingString, Gfx.TEXT_JUSTIFY_CENTER);
+        	
+        dc.setColor(Settings.DimColor, Settings.BackgroundColor);	
         dc.drawText(226, 144, Gfx.FONT_XTINY, "COG", Gfx.TEXT_JUSTIFY_RIGHT);    
     }
     
@@ -51,67 +68,96 @@ class CruiseView240Dc
     
     function PrintAvgSpeed(dc, avgSpeed)
     {
+    	var bottomLine = _height - (_height / 3.5).toNumber();
+    	
         var avgSpeedString = avgSpeed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
-        dc.drawText(163, 206, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_RIGHT);   	
-        dc.drawText(181, 175, Gfx.FONT_LARGE, avgSpeedString, Gfx.TEXT_JUSTIFY_RIGHT);     
-        dc.drawText(184, 173, Gfx.FONT_XTINY, "kn", Gfx.TEXT_JUSTIFY_LEFT);   
+        dc.drawText(_width / 2 + 10,  bottomLine, Gfx.FONT_LARGE, avgSpeedString, Gfx.TEXT_JUSTIFY_LEFT);  
+        
+        dc.setColor(Settings.DimColor, Gfx.COLOR_TRANSPARENT);
+        dc.drawText(_width / 2 + 10, bottomLine + dc.getFontHeight(Gfx.FONT_LARGE) - 3, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_LEFT);   
+        dc.drawText(_width / 2 + 10 + dc.getTextWidthInPixels(avgSpeedString, Gfx.FONT_LARGE), bottomLine, Gfx.FONT_XTINY, "kn", Gfx.TEXT_JUSTIFY_LEFT);   
     }
     
     function PrintAvgBearing(dc, avgBearing)
     {
+    	var bottomLine = _height - (_height / 3.5).toNumber();
+    	
         var avgBearingString = avgBearing.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
-        dc.drawText(163, 206, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_RIGHT);   	
-        dc.drawText(183, 175, Gfx.FONT_LARGE, avgBearingString, Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(185, 170, Gfx.FONT_XTINY, "o", Gfx.TEXT_JUSTIFY_LEFT);
+    	dc.drawText(_width / 2 + 10, bottomLine, Gfx.FONT_LARGE, avgBearingString, Gfx.TEXT_JUSTIFY_LEFT);
+    	
+    	dc.setColor(Settings.DimColor, Gfx.COLOR_TRANSPARENT);
+        dc.drawText(_width / 2 + 10, bottomLine + dc.getFontHeight(Gfx.FONT_LARGE) - 3, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_LEFT);   	
+        dc.drawText(_width / 2 + 10 + dc.getTextWidthInPixels(avgBearingString, Gfx.FONT_LARGE), bottomLine, Gfx.FONT_XTINY, "o", Gfx.TEXT_JUSTIFY_LEFT);
     }    
     
     function PrintTotalDistance(dc, totalDistance)
     {
+    	var bottomLine = _height - (_height / 3.5).toNumber();
         var distanceString = totalDistance.format("%003.1f");
+        
+        dc.setColor(Settings.DimColor, Gfx.COLOR_TRANSPARENT);
+    	dc.drawText(_width / 2 - 10, bottomLine + dc.getFontHeight(Gfx.FONT_LARGE) - 3, Gfx.FONT_XTINY, "nm", Gfx.TEXT_JUSTIFY_RIGHT);
+    	
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
-    	dc.drawText(111, 206, Gfx.FONT_XTINY, "nm", Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(113, 175, Gfx.FONT_LARGE, distanceString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(_width / 2 - 10, bottomLine, Gfx.FONT_LARGE, distanceString, Gfx.TEXT_JUSTIFY_RIGHT);
      }
     
     function DrawGrid(dc)
     {
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawLine(0, 70, 240, 70);
-		dc.drawLine(0, 175, 240, 175);
-		dc.drawLine(120, 70, 120, 175);
+    	var margin = (_height / 3.5).toNumber();
+        dc.drawLine(0, margin, _width, margin);
+		dc.drawLine(0, _height - margin, _width, _height - margin);
+		dc.drawLine(_width / 2, margin, _width / 2, _height - margin);
     }
     
     function DisplayState(dc, gpsStatus, recordingStatus, lapCount)
     {
+    	var margin = (_height / 3.5).toNumber();
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
     	
-    	dc.drawText(80, 38, Gfx.FONT_XTINY, Lang.format("lap: $1$",[lapCount]), Gfx.TEXT_JUSTIFY_RIGHT);
-    	dc.drawText(130, 38, Gfx.FONT_XTINY, "gps:", Gfx.TEXT_JUSTIFY_RIGHT);
-    	dc.drawText(190, 38, Gfx.FONT_XTINY, "rec:", Gfx.TEXT_JUSTIFY_RIGHT);
+    	//Toybox.System.println(dc.getFontHeight(Gfx.FONT_XTINY));
+    	var ty = dc.getFontHeight(Gfx.FONT_XTINY) == 19 
+    		? (margin - dc.getFontHeight(Gfx.FONT_XTINY) * 3 / 2)
+    		: margin - dc.getFontHeight(Gfx.FONT_XTINY) - 3;
+    		
+    	dc.drawText(80, ty, Gfx.FONT_XTINY, Lang.format("lap: $1$",[lapCount]), Gfx.TEXT_JUSTIFY_RIGHT);
+    	dc.drawText(130, ty, Gfx.FONT_XTINY, "gps:", Gfx.TEXT_JUSTIFY_RIGHT);
+    	dc.drawText(190, ty, Gfx.FONT_XTINY, "rec:", Gfx.TEXT_JUSTIFY_RIGHT);
     	
     	dc.setColor(_gpsColorsArray[gpsStatus], Gfx.COLOR_TRANSPARENT);
-        dc.fillCircle(145, 54, 8);
+        dc.fillCircle(145, ty + dc.getFontHeight(Gfx.FONT_XTINY) / 2 + 2, 8);
         
         dc.setColor(recordingStatus ? Gfx.COLOR_GREEN : Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
-        dc.fillCircle(205, 54, 8);
+        dc.fillCircle(205, ty + dc.getFontHeight(Gfx.FONT_XTINY) / 2 + 2, 8);
     }
     
     // Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
     //
-    function DisplaySpeedTrend(dc, speedDiff)
+    function DisplaySpeedTrend(dc, speedDiff, speed)
     {
+    	var yTop = (_height / 3.5).toNumber() + 4;
+    	var height = (dc.getFontHeight(Gfx.FONT_NUMBER_HOT) == 52) ? 15 : 20;
+    	
+    	var xDot = _width / 4 - 
+    			dc.getTextWidthInPixels(speed.format("%2.1f"), Gfx.FONT_NUMBER_HOT) / 2 +
+    			dc.getTextWidthInPixels(speed.toNumber().toString(), Gfx.FONT_NUMBER_HOT) + 
+    			dc.getTextWidthInPixels(".", Gfx.FONT_NUMBER_HOT) / 2;
+    		
+    		//xDot = _width / 2;
+    	
     	if (speedDiff > 0)
         {
         	dc.setColor(Gfx.COLOR_GREEN, Settings.BackgroundColor);
-        	dc.fillPolygon([[110, 74], [104, 96], [116, 96]]);
+        	dc.fillPolygon([[xDot, yTop], [xDot - 6, yTop + height], [xDot + 6, yTop + height]]);
         }
         
         if (speedDiff < 0)
         {
         	dc.setColor(Gfx.COLOR_RED, Settings.BackgroundColor);
-        	dc.fillPolygon([[104, 74], [110, 96], [116, 74]]);
+        	dc.fillPolygon([[xDot - 6, yTop], [xDot, yTop + height], [xDot + 6, yTop]]);
         }
     }
 }

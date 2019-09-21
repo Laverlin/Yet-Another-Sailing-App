@@ -18,21 +18,27 @@ class RaceTimerView240Dc
         var timeString = Lang.format("$1$:$2$:$3$", 
             [time.hour.format("%02d"), time.min.format("%02d"), time.sec.format("%02d")]);
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(120, 31, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(dc.getWidth() / 2, 35, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 	
 	function PrintCountdown(dc, seconds)
 	{
 		var countdownString = Lang.format("$1$:$2$", [(seconds / 60).format("%2d"), (seconds % 60).format("%02d")]);
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(115, 95, Gfx.FONT_SYSTEM_NUMBER_THAI_HOT, countdownString, Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(
+        	dc.getWidth() / 2 - 6, 
+        	dc.getHeight() / 2 - dc.getFontHeight(Gfx.FONT_SYSTEM_NUMBER_THAI_HOT) / 2, 
+        	Gfx.FONT_SYSTEM_NUMBER_THAI_HOT, countdownString, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 
 	function PrintSpeed(dc, speedKnot)
 	{
         var speedString = speedKnot.format("%02.1f");
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(120, 180, Gfx.FONT_MEDIUM, speedString, Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(
+        	dc.getWidth() / 2, 
+        	dc.getHeight() / 2 + dc.getHeight() / 5, 
+        	Gfx.FONT_MEDIUM, speedString, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 
 	function DrawProgress(dc, seconds)

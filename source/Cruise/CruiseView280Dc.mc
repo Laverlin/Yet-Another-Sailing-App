@@ -109,7 +109,7 @@ class CruiseView280Dc
     
     // Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
     //
-    function DisplaySpeedTrend(dc, speedDiff)
+    function DisplaySpeedTrend(dc, speedDiff, speed)
     {
     	if (speedDiff > 0)
         {

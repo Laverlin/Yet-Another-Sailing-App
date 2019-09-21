@@ -70,7 +70,7 @@ class CruiseView extends Ui.View
 
         	// Display speed gradient. If current speed > avg speed then trend is positive and vice versa.
         	//
-        	_cruiseViewDc.DisplaySpeedTrend(dc, gpsInfo.SpeedKnot - gpsInfo.AvgSpeedKnot); 
+        	_cruiseViewDc.DisplaySpeedTrend(dc, gpsInfo.SpeedKnot - gpsInfo.AvgSpeedKnot, gpsInfo.SpeedKnot); 
         }
         
         _cruiseViewDc.DisplayState(dc, gpsInfo.Accuracy, gpsInfo.IsRecording, gpsInfo.LapCount);

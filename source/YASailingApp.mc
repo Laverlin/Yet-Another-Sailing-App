@@ -40,6 +40,10 @@ class YASailingApp extends App.AppBase
 		{
 			initFor240();
 		}
+		else if (deviceSettings.screenHeight == 260)
+		{
+			initFor260();
+		}
 		else if (deviceSettings.screenHeight == 280)
 		{
 			initFor280();
@@ -76,11 +80,24 @@ class YASailingApp extends App.AppBase
     	_mainMenu = new Rez.Menus.MainMenuFull();   
     }
     
+    (:savememory)
+    function initFor260()
+    {
+		_cruiseView = new CruiseView(_gpsWrapper, new CruiseView240Dc());
+	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView240Dc());
+    	_lapView = new LapView(new LapView240Dc(), _gpsWrapper);
+    	_waypointView = new WaypointView(_gpsWrapper, new WaypointView240Dc(), _cruiseView);
+    	_selectRouteView = new SelectRouteView(new SelectRouteView240Dc());
+    	_routeCustomMenuView = new RouteCustomMenuView(_gpsWrapper, new RouteCustomMenuView240Dc(), _waypointView, _selectRouteView); 
+    	
+    	_mainMenu = new Rez.Menus.MainMenuFull();   
+    }    
+    
 	(:savememory)
     function initFor280()
     {
 		_cruiseView = new CruiseView(_gpsWrapper, new CruiseView280Dc());
-	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView280Dc());
+	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView240Dc());
     	_lapView = new LapView(new LapView240Dc(), _gpsWrapper);
     	_waypointView = new WaypointView(_gpsWrapper, new WaypointView280Dc(), _cruiseView);
     	_selectRouteView = new SelectRouteView(new SelectRouteView280Dc());
