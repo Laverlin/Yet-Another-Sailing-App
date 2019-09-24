@@ -20,7 +20,7 @@ class CruiseView extends Ui.View
     //
     function onShow() 
     {
-    	_timer = new Timer.Timer();
+    	_timer = new Toybox.Timer.Timer();
     	_timer.start(method(:onTimerUpdate), 1000, true);
     }
 

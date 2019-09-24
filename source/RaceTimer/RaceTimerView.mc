@@ -2,13 +2,14 @@ using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
 using Toybox.Attention as Attention;
 using Toybox.ActivityRecording as Fit;
+using Toybox.Timer as T;
 
 class RaceTimerView extends Ui.View 
 {
     hidden var _gpsWrapper;
     hidden var _cruiseView;
     hidden var _raceTimerViewDc;
-	hidden var _timer = new Timer.Timer();
+	hidden var _timer; 
 	hidden var _timerValue = 0;
 	hidden var _isTimerRun = false;
 
@@ -18,6 +19,7 @@ class RaceTimerView extends Ui.View
         _gpsWrapper = gpsWrapper;
         _cruiseView = cruiseView;
         _raceTimerViewDc = raceTimerViewDc;
+        _timer = new T.Timer();
     }
 
 	// SetUp timer on show to update every second

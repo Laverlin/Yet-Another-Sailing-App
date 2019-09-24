@@ -61,7 +61,7 @@ class LapView extends Ui.View
 	{
 		if (_lapArray!= null && _lapArray.size() > 0)
     	{
-    		Ui.pushView(new Confirmation("Delete Laps?"), new ConfirmDeleteDelegate(_gpsWrapper), Ui.SLIDE_DOWN);
+    		Ui.pushView(new Toybox.WatchUi.Confirmation("Delete Laps?"), new ConfirmDeleteDelegate(_gpsWrapper), Ui.SLIDE_DOWN);
     	}
 	}
 }

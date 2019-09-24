@@ -35,7 +35,7 @@ class WaypointView extends Ui.View
     	}
         _routeTrack = new RouteTrack(currentRoute);
         
-    	_timer = new Timer.Timer();
+    	_timer = new Toybox.Timer.Timer();
     	_timer.start(method(:onTimerUpdate), 1000, true);
     }
 
