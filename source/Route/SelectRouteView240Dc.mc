@@ -52,24 +52,24 @@ class SelectRouteView240Dc
 	{
 		dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
 		dc.clear();
-		dc.fillRectangle(0, 0, 240, 95);
+		dc.fillRectangle(0, 0, dc.getWidth(), 30 + dc.getFontHeight(Gfx.FONT_SYSTEM_SMALL) * 2 + 5);
 	    dc.setColor( Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
     	dc.drawText(
-    		120, 30, Gfx.FONT_SYSTEM_SMALL, Lang.format("Select Route\n$1$  [ $2$ ]", [selectedRouteId + 1, routesSize]), Gfx.TEXT_JUSTIFY_CENTER);
+    		dc.getWidth() / 2, 30, Gfx.FONT_SYSTEM_SMALL, Lang.format("Select Route\n$1$  [ $2$ ]", [selectedRouteId + 1, routesSize]), Gfx.TEXT_JUSTIFY_CENTER);
     	dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
   		
-    	dc.drawText(120, 120, Gfx.FONT_SYSTEM_XTINY, selectedRouteData["RouteName"], Gfx.TEXT_JUSTIFY_CENTER);	
-    	dc.drawText(120, 150, Gfx.FONT_SYSTEM_XTINY, "WayPoints : " + selectedRouteData["WayPoints"].size(), Gfx.TEXT_JUSTIFY_CENTER);	
-    	dc.drawText(120, 180, Gfx.FONT_SYSTEM_XTINY, YACommon.DateJson2Short(selectedRouteData["RouteDate"]), Gfx.TEXT_JUSTIFY_CENTER);
+    	dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2, Gfx.FONT_SYSTEM_XTINY, selectedRouteData["RouteName"], Gfx.TEXT_JUSTIFY_CENTER);	
+    	dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 + 30, Gfx.FONT_SYSTEM_XTINY, "WayPoints : " + selectedRouteData["WayPoints"].size(), Gfx.TEXT_JUSTIFY_CENTER);	
+    	dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 + 60, Gfx.FONT_SYSTEM_XTINY, YACommon.DateJson2Short(selectedRouteData["RouteDate"]), Gfx.TEXT_JUSTIFY_CENTER);
     	
     	if (selectedRouteId > 0)
     	{
-    		dc.fillPolygon([[120, 100], [110, 110], [130, 110]]);
+    		dc.fillPolygon([[dc.getWidth() / 2, 105], [dc.getWidth() / 2 - 10, 115], [dc.getWidth() / 2 + 10, 115]]);
     	}
     	
     	if (selectedRouteId < routesSize - 1)
     	{
-    		dc.fillPolygon([[120, 230], [110, 220], [130, 220]]);
+    		dc.fillPolygon([[dc.getWidth() / 2, 230], [dc.getWidth() / 2 - 10, 220], [dc.getWidth() / 2 + 10, 220]]);
     	}	    	 
 	}
 }
