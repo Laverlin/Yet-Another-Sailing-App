@@ -82,6 +82,7 @@ class RouteCustomMenuView extends Ui.View
     	}
     	if (_selection == :load)
     	{
+    		_selectRouteView.ClearLoadedRoutes();
     		Ui.pushView(_selectRouteView, new SelectRouteViewDelegate(_selectRouteView), Ui.SLIDE_RIGHT);
     	}
  	}

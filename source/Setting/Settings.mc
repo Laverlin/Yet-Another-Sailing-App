@@ -12,8 +12,9 @@ class Settings
 	static var IsTimerValueUpdated = false;
 	static var IsAutoRecording = false;
 	static var IsWhiteBackground = false;
-	static var RouteApiUrl = "https://ivan-b.com/garminapi"; 
-	//static var RouteApiUrl = "http://localhost:3000/garminapi";
+	//static var RouteApiUrl = "https://ivan-b.com/garminapi"; 
+	
+	static var RouteApiUrl = "http://localhost:5051/api/YASail";
 	static var RouteListMethod = "routelist";
 	static var UserId = "";
 	static var CurrentRoute = null;
@@ -27,7 +28,7 @@ class Settings
 		UserId = App.getApp().getProperty("userId");
 		WpEpsilon = App.getApp().getProperty("wpEpsilon");
 		CurrentRoute = App.getApp().getProperty("CurrentRoute");
-		RouteApiUrl = Toybox.WatchUi.loadResource(Rez.Strings.apiUrl);
+		//RouteApiUrl = Toybox.WatchUi.loadResource(Rez.Strings.apiUrl);
 	}
 
 	static function SaveSettings()

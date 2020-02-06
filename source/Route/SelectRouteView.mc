@@ -27,11 +27,16 @@ class SelectRouteView extends Ui.View
     	}
     }
     
+    function ClearLoadedRoutes()
+    {
+    	_routesData = null;
+    }
+    
     function onUpdate(dc) 
     {   
         _selectRouteViewDc.ClearDc(dc);
         
-        if (Settings.UserId.length() != 9)
+        if (Settings.UserId.length() < 7 or Settings.UserId.length() > 14)
         {
         	_loadingError = 1;
         }
@@ -57,7 +62,12 @@ class SelectRouteView extends Ui.View
 	
 	function NextRoute()
 	{
-		if (_selectedRouteId < _routesData.size() - 1)
+		if (_routesData == null)
+		{
+			return;
+		}
+		
+		if ( _selectedRouteId < _routesData.size() - 1)
 		{
 			_selectedRouteId++;
 		}
@@ -66,6 +76,11 @@ class SelectRouteView extends Ui.View
 	
 	function PreviousRoute()
 	{
+		if (_routesData == null)
+		{
+			return;
+		}
+			
 		if (_selectedRouteId > 0)
 		{
 			_selectedRouteId--;
@@ -109,8 +124,7 @@ class SelectRouteView extends Ui.View
 		if (responseCode != 200)
 		{
 			_loadingError = responseCode;
-			Sys.println("error loading routes, response code: " + responseCode.toString());
-			//Sys.println(data);
+			//Sys.println("error loading routes, response code: " + responseCode.toString());
 		}
 		else if (data.size() == 0)
 		{

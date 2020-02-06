@@ -27,11 +27,7 @@ class SelectRouteView240Dc
 		{
 			message = "Use ConnectIQ app to setup \n user id";
 		} 
-		else if (errorCode == 404)
-		{
-			message = "Loading Error:\n server not found";
-		}
-		else if (errorCode == -400)
+		else if (errorCode == -400 || errorCode == 404)
 		{
 			message = "Wrong user id, use \nConnectIQ app to setup \n user id";
 		}
