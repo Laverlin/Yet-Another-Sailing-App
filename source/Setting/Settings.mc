@@ -11,8 +11,7 @@ class Settings
 	static var TimerValue = 300;
 	static var IsTimerValueUpdated = false;
 	static var IsAutoRecording = false;
-	static var IsWhiteBackground = false;
-	//static var RouteApiUrl = "https://ivan-b.com/garminapi"; 
+	static var IsWhiteBackground = false; 
 	
 	static var RouteApiUrl = "http://localhost:5051/api/YASail";
 	static var RouteListMethod = "routelist";
@@ -36,7 +35,6 @@ class Settings
 		App.getApp().setProperty("isWhiteBackground", IsWhiteBackground);
 		App.getApp().setProperty("timerValue", TimerValue);
 		App.getApp().setProperty("IsAutoRecording", IsAutoRecording);
-		
 		App.getApp().setProperty("CurrentRoute", CurrentRoute);
 	}
 

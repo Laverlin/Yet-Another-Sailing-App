@@ -1,4 +1,4 @@
-SET CPath=c:\Projects\CIQSDK\connectiq-sdk-win-2.4.9\bin
+SET CPath=%CIQ_SDK_Path%
 SET AppName=YASailingApp
 SET Key=c:\#Sync\Projects\Garmin-Keys\YASailingApp.key
 

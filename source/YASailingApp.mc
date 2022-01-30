@@ -222,8 +222,7 @@ class YASailingApp extends App.AppBase
     	//
     	for (var i = lapArray.size(); i < _gpsWrapper.LAP_ARRAY_MAX; i++)
     	{
-    		var lapId = "lapId" + i;
-    		deleteProperty(lapId);
+    		deleteProperty("lapId" + i);
     	}
     }
 }
