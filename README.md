@@ -1,10 +1,7 @@
 # Yet-Another-Sailing-App
 
 ### supported devices
-
-Fenix 3 [HR] / Quatix 3 / Tactix Bravo / D2 / D2 Titanum /
-Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / Fenix 5S Plus / 
-Forerunner 935
+D2 all, Descent: MK2, Mk1 Mk2S, FR: 245, 245, 645, 645M, 745, 935, 945, 945 LTE, MARQ: Adventurer, Athlete, Aviator, Captain, Commander, Driver, Expedition, Golfer, fēnix: 3, 3 HR, 5, 5 Plus, 5S Plus, 5X, 5X Plus, 6, 6 Pro *, 6S, 7, 7S, 7X, 6, 6X, VA 4
 
 ### install
 
