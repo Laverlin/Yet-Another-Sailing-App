@@ -7,38 +7,54 @@ class SignalWrapper
 {
 	hidden static var _isBacklightOn = false;
 	hidden static var _vibeBeep = [new Attention.VibeProfile(40, 300)];
-	
 	hidden static var _vibeStart = [
         new Attention.VibeProfile(  100, 100 ),
         new Attention.VibeProfile(  30, 200 ),
         new Attention.VibeProfile(  100, 400 ),
         new Attention.VibeProfile(  30, 200 ),
         new Attention.VibeProfile(  100, 400 )];
+
+	hidden static function _play(tone) 
+	{
+		if (!(Attention has :playTone)) 
+		{
+			return;
+		}
+
+		var tones = 
+		[	
+			Attention.TONE_LOUD_BEEP,
+			Attention.TONE_CANARY,
+			Attention.TONE_ALERT_HI,
+		];
+		Attention.playTone(tones[tone]);
+	}
+	
+
 	
 	static function PressButton()
 	{
-    	Attention.vibrate(_vibeBeep);		
-    	Attention.playTone(Attention.TONE_LOUD_BEEP);
+    	_play(0);
 	}
 	
 	static function HalfMinute()
 	{
 		Attention.vibrate(_vibeBeep);
-    	Attention.playTone(Attention.TONE_LOUD_BEEP);
+    	_play(0);
 	}
 	
 	static function TenSeconds(secLeft)
 	{
 		BacklightOn();
 		Attention.vibrate(_vibeBeep);
-    	Attention.playTone(Attention.TONE_LOUD_BEEP);
+    	_play(0);
     	
 	}
 	
 	static function Start()
 	{
 		Attention.vibrate(_vibeStart);
-	    Attention.playTone(Attention.TONE_CANARY);
+	    _play(1);
 	    BacklightOff();
 	}
 	
@@ -46,7 +62,7 @@ class SignalWrapper
 	//
 	static function StartEnd()
 	{
-    	Attention.playTone(Attention.TONE_ALERT_HI);
+    	_play(2);
     	Attention.vibrate(_vibeBeep);
 	}
 	

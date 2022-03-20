@@ -48,6 +48,10 @@ class YASailingApp extends App.AppBase
 		{
 			initFor280();
 		}
+		else if (deviceSettings.screenHeight == 416)
+		{
+			initFor416();
+		}
 		else 
 		{
 			LogWrapper.WriteWrongScreen();
@@ -105,6 +109,19 @@ class YASailingApp extends App.AppBase
     	
     	_mainMenu = new Rez.Menus.MainMenuFull(); 
 	}
+
+	(:savememory)
+    function initFor416()
+    {
+		_cruiseView = new CruiseView(_gpsWrapper, new CruiseView416Dc());
+	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView240Dc());
+    	_lapView = new LapView(new LapView240Dc(), _gpsWrapper);
+    	_waypointView = new WaypointView(_gpsWrapper, new WaypointView280Dc(), _cruiseView);
+    	_selectRouteView = new SelectRouteView(new SelectRouteView280Dc());
+    	_routeCustomMenuView = new RouteCustomMenuView(_gpsWrapper, new RouteCustomMenuView280Dc(), _waypointView, _selectRouteView); 
+    	
+    	_mainMenu = new Rez.Menus.MainMenuFull(); 
+	}	
 
     // onStart() is called on application start up
     //
