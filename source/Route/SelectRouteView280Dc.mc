@@ -50,28 +50,35 @@ class SelectRouteView280Dc
 	
 	function PrintSelectedRoute(dc, selectedRouteData, selectedRouteId, routesSize)
 	{
-		var mid = dc.getWidth()/2;
+		var mid = dc.getWidth() / 2;
 		
-		dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
+		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
 		dc.clear();
-		dc.fillRectangle(0, 0, 280, 105);
-	    dc.setColor( Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
+
     	dc.drawText(
-    		mid, 30, Gfx.FONT_SYSTEM_SMALL, Lang.format("Select Route\n$1$  [ $2$ ]", [selectedRouteId + 1, routesSize]), Gfx.TEXT_JUSTIFY_CENTER);
-    	dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
+    		mid, 
+			mid / 5, 
+			Gfx.FONT_SYSTEM_SMALL, 
+			Lang.format("Select Route\n$1$  [ $2$ ]", [selectedRouteId + 1, routesSize]), 
+			Gfx.TEXT_JUSTIFY_CENTER
+		);
+    	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
   		
-    	dc.drawText(mid, 140, Gfx.FONT_SYSTEM_XTINY, selectedRouteData["RouteName"], Gfx.TEXT_JUSTIFY_CENTER);	
-    	dc.drawText(mid, 170, Gfx.FONT_SYSTEM_XTINY, "WayPoints : " + selectedRouteData["WayPoints"].size(), Gfx.TEXT_JUSTIFY_CENTER);	
-    	dc.drawText(mid, 200, Gfx.FONT_SYSTEM_XTINY, YACommon.DateJson2Short(selectedRouteData["RouteDate"]), Gfx.TEXT_JUSTIFY_CENTER);
+		var fontHeight = dc.getFontHeight(Gfx.FONT_SYSTEM_XTINY) + 5;
+    	dc.drawText(mid, mid, Gfx.FONT_SYSTEM_XTINY, selectedRouteData["RouteName"], Gfx.TEXT_JUSTIFY_CENTER);	
+    	dc.drawText(mid, mid + fontHeight, Gfx.FONT_SYSTEM_XTINY, "WayPoints : " + selectedRouteData["WayPoints"].size(), Gfx.TEXT_JUSTIFY_CENTER);	
+    	dc.drawText(mid, mid + fontHeight * 2, Gfx.FONT_SYSTEM_XTINY, YACommon.DateJson2Short(selectedRouteData["RouteDate"]), Gfx.TEXT_JUSTIFY_CENTER);
     	
+		var buttonYtop = mid - fontHeight;
+		var buttonYbottom = mid + fontHeight * 4;
     	if (selectedRouteId > 0)
     	{
-    		dc.fillPolygon([[mid, 120], [mid - 10, 130], [mid + 10, 130]]);
+    		dc.fillPolygon([[mid, buttonYtop], [mid - 10, buttonYtop + 20], [mid + 10, buttonYtop + 20]]);
     	}
     	
     	if (selectedRouteId < routesSize - 1)
     	{
-    		dc.fillPolygon([[mid, 250], [mid - 10, 240], [mid + 10, 240]]);
+    		dc.fillPolygon([[mid, buttonYbottom], [mid - 10, buttonYbottom - 20], [mid + 10, buttonYbottom - 20]]);
     	}	    	 
 	}
 }

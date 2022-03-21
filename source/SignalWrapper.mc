@@ -30,8 +30,6 @@ class SignalWrapper
 		Attention.playTone(tones[tone]);
 	}
 	
-
-	
 	static function PressButton()
 	{
     	_play(0);
