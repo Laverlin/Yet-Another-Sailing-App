@@ -74,6 +74,8 @@ class WaypointView extends Ui.View
         _waypointViewDc.DisplayState(dc, 
         	gpsInfo.Accuracy, gpsInfo.IsRecording, _routeTrack.GetCurrentWayPoint(), _routeTrack.TotalWayPoints());
         
+        _waypointViewDc.DrawGrid(dc);
+        
         // Display speed and bearing if GPS available
         //
         if (gpsInfo.Accuracy > 0)
@@ -97,7 +99,6 @@ class WaypointView extends Ui.View
 			_waypointViewDc.DisplayDirection2Wp(dc, gpsInfo.BearingDegree, inRouteInfo.Bearing);
         }
         
-        _waypointViewDc.DrawGrid(dc);
     }
     
     function NextWayPoint()
