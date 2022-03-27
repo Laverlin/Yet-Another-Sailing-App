@@ -32,7 +32,7 @@ class CruiseView416Dc
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
         dc.drawText(200, 130, Gfx.FONT_NUMBER_HOT, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
         dc.setColor(Settings.DimColor, Settings.BackgroundColor);
-        dc.drawText(200, 260, Gfx.FONT_TINY, "SOG", Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(197, 255, Gfx.FONT_TINY, "SOG", Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
     function PrintBearing(dc, bearing)
@@ -41,14 +41,14 @@ class CruiseView416Dc
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
         dc.drawText(216, 130, Gfx.FONT_NUMBER_HOT, bearingString, Gfx.TEXT_JUSTIFY_LEFT);
         dc.setColor(Settings.DimColor, Settings.BackgroundColor);
-        dc.drawText(385, 260, Gfx.FONT_TINY, "COG", Gfx.TEXT_JUSTIFY_RIGHT);    
+        dc.drawText(385, 255, Gfx.FONT_TINY, "COG", Gfx.TEXT_JUSTIFY_RIGHT);    
     }
     
     function PrintMaxSpeed(dc, maxSpeed)
     {
         var maxSpeedString = maxSpeed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(95, 250, Gfx.FONT_MEDIUM, maxSpeedString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(95, 243, Gfx.FONT_MEDIUM, maxSpeedString, Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
     function PrintAvgSpeed(dc, avgSpeed)

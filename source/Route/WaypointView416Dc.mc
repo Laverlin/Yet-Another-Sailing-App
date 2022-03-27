@@ -28,7 +28,7 @@ class WaypointView416Dc
         var timeString = Lang.format("$1$:$2$:$3$", 
             [time.hour.format("%02d"), time.min.format("%02d"), time.sec.format("%02d")]);
 		dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(center, 32, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(center, 23, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 	
     function PrintSpeed(dc, speed)
