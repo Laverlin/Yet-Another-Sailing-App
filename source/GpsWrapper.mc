@@ -61,7 +61,14 @@ class GpsWrapper
 
     function initialize()
     {
-        _activeSession = Fit.createSession({:name => "Sailing", :sport => Fit.SPORT_GENERIC});
+        var deviceSettings = Sys.getDeviceSettings();
+
+        if(deviceSettings.monkeyVersion[0] >= 3) {
+            _activeSession = Fit.createSession({:name => "Sailing", :sport => Fit.SPORT_SAILING});    
+        } else {
+            _activeSession = Fit.createSession({:name => "Sailing", :sport => Fit.SPORT_GENERIC});
+        }
+        
     }
 
 	function SetPositionInfo(positionInfo)
