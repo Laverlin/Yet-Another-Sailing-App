@@ -53,7 +53,9 @@ class WaypointView240Dc
     			? topLine + 16 
     			: (dc.getFontHeight(Gfx.FONT_NUMBER_MEDIUM) == 54) 
     				? topLine - 15
-    				: topLine - 30);  
+    				: (dc.getFontHeight(Gfx.FONT_NUMBER_MEDIUM) == 57) 
+                        ? topLine - 15
+                        : topLine - 30); 
     
         var cogString = cog.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
@@ -71,7 +73,7 @@ class WaypointView240Dc
     	var y = (dc.getFontHeight(Gfx.FONT_NUMBER_MEDIUM) == 36) ? topLine + 8 : topLine - 8;
     	    
         var vmgString = vmg.format("%2.1f");
-    	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
+    	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
         dc.drawText(dc.getWidth() / 2 + dc.getWidth() / 4 + 5, y, Gfx.FONT_NUMBER_MEDIUM, vmgString, Gfx.TEXT_JUSTIFY_CENTER);
         
         dc.setColor(Settings.DimColor, Gfx.COLOR_TRANSPARENT);
@@ -88,7 +90,9 @@ class WaypointView240Dc
     			? topLine + 16 
     			: (dc.getFontHeight(Gfx.FONT_NUMBER_MEDIUM) == 54) 
     				? topLine - 15
-    				: topLine - 30); 
+    				: (dc.getFontHeight(Gfx.FONT_NUMBER_MEDIUM) == 57) 
+                        ? topLine - 15
+                        : topLine - 30); 
     	    
         var bearingString = bearing.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);

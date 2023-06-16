@@ -52,6 +52,10 @@ class YASailingApp extends App.AppBase
 		{
 			initFor416();
 		}
+		else if (deviceSettings.screenHeight == 454)
+		{
+			initFor454();
+		}
 		else 
 		{
 			LogWrapper.WriteWrongScreen();
@@ -121,6 +125,19 @@ class YASailingApp extends App.AppBase
     	_routeCustomMenuView = new RouteCustomMenuView(_gpsWrapper, new RouteCustomMenuView280Dc(), _waypointView, _selectRouteView); 
     	
     	_mainMenu = new Rez.Menus.MainMenuFull(); 
+	}
+
+	(:savememory)
+    function initFor454()
+    {
+		_cruiseView = new CruiseView(_gpsWrapper, new CruiseView454Dc());
+	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView240Dc());
+    	_lapView = new LapView(new LapView416Dc(), _gpsWrapper);
+    	_waypointView = new WaypointView(_gpsWrapper, new WaypointView454Dc(), _cruiseView);
+    	_selectRouteView = new SelectRouteView(new SelectRouteView280Dc());
+    	_routeCustomMenuView = new RouteCustomMenuView(_gpsWrapper, new RouteCustomMenuView280Dc(), _waypointView, _selectRouteView); 
+    	
+    	_mainMenu = new Rez.Menus.MainMenuFull(); 
 	}	
 
     // onStart() is called on application start up
@@ -166,7 +183,8 @@ class YASailingApp extends App.AppBase
     			
         return [ 
         	new StartupView(_mainMenu, 
-        	new MainMenuDelegate(_cruiseView, _raceTimerView, _lapView, _waypointView, _selectRouteView, _routeCustomMenuView, _gpsWrapper)) ];
+        	new MainMenuDelegate(_cruiseView, _raceTimerView, _lapView, _waypointView, _selectRouteView, _routeCustomMenuView, _gpsWrapper)) 
+		];
     }
     
     // Calls when app settings where updated from mobile device
