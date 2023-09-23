@@ -72,12 +72,10 @@ jobs:
           # If this is set to true, *every* commit will be treated as a new version.
           bump_each_commit: false
 
-
-
-      - name: Write Version 
+      - name: Write Version
         run: |
             cat <<EOF > $GITHUB_WORKSPACE/resources/version.xml
-            <string><string id="appVersion">${{ steps.semver.outputs.version }}</string><string id="apiUrl">$ROUTES_URL</string><string id="AppName">$APP_NAME</string></string>
+            <strings><string id="appVersion">${{ steps.semver.outputs.version }}</string><string id="apiUrl">$ROUTES_URL</string><string id="AppName">$APP_NAME</string></strings>
             EOF
 
       - name: Write AppId
