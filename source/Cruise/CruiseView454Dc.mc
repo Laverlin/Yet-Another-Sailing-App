@@ -10,6 +10,7 @@ using Toybox.Time as Time;
 class CruiseView454Dc
 {
 	hidden var _gpsColorsArray = [Gfx.COLOR_RED, Gfx.COLOR_RED, Gfx.COLOR_ORANGE, Gfx.COLOR_YELLOW, Gfx.COLOR_GREEN];
+    hidden var _digitFont = Ui.loadResource(Rez.Fonts.digits);
 
 	function ClearDc(dc)
 	{
@@ -30,7 +31,7 @@ class CruiseView454Dc
     {
         var speedString = speed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(220, 130, Gfx.FONT_NUMBER_HOT, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(220, 130, _digitFont, speedString, Gfx.TEXT_JUSTIFY_RIGHT);
         dc.setColor(Settings.DimColor, Settings.BackgroundColor);
         dc.drawText(217, 270, Gfx.FONT_TINY, "SOG", Gfx.TEXT_JUSTIFY_RIGHT);
     }
@@ -39,7 +40,7 @@ class CruiseView454Dc
     {
         var bearingString = bearing.format("%003d");
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
-        dc.drawText(236, 130, Gfx.FONT_NUMBER_HOT, bearingString, Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(236, 130, _digitFont, bearingString, Gfx.TEXT_JUSTIFY_LEFT);
         dc.setColor(Settings.DimColor, Settings.BackgroundColor);
         dc.drawText(425, 270, Gfx.FONT_TINY, "COG", Gfx.TEXT_JUSTIFY_RIGHT);
     }

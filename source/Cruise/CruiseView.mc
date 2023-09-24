@@ -46,7 +46,7 @@ class CruiseView extends Ui.View
     
     	// Display current time
     	//
-        var clockTime = Sys.getClockTime();        
+        var clockTime = Sys.getClockTime();
         _cruiseViewDc.PrintTime(dc, clockTime);
         
         // Display speed and bearing if GPS available

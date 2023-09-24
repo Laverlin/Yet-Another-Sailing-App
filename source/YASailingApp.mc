@@ -29,7 +29,7 @@ class YASailingApp extends App.AppBase
 			System.exit();
 		}
 		
-	    Settings.LoadSettings();        
+	    Settings.LoadSettings();
 		_gpsWrapper = new GpsWrapper();
 
 		if (deviceSettings.screenHeight == 218)
