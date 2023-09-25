@@ -2,10 +2,10 @@
 fileVersion=1
 
 # font settings
-fontName=DIN
+fontName=DIN Condensed
 fontFile=
 charSet=0
-fontSize=-66
+fontSize=-96
 aa=4
 scaleH=100
 useSmoothing=1
@@ -54,6 +54,6 @@ invB=0
 outlineThickness=0
 
 # selected chars
-chars=46,48-58
+chars=46,48-57
 
 # imported icon images
