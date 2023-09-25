@@ -2,10 +2,10 @@
 fileVersion=1
 
 # font settings
-fontName=Inconsolata SemiCondensed Mediu
+fontName=Trebuchet MS
 fontFile=
 charSet=0
-fontSize=-38
+fontSize=-30
 aa=4
 scaleH=100
 useSmoothing=1
