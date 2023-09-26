@@ -5,7 +5,7 @@ fileVersion=1
 fontName=DIN
 fontFile=
 charSet=0
-fontSize=-48
+fontSize=-44
 aa=4
 scaleH=100
 useSmoothing=1
@@ -54,6 +54,6 @@ invB=0
 outlineThickness=0
 
 # selected chars
-chars=45-46,48-58
+chars=32,45-46,48-58
 
 # imported icon images

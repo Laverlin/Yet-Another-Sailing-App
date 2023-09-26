@@ -9,7 +9,7 @@ fontSize=-110
 aa=4
 scaleH=100
 useSmoothing=1
-isBold=0
+isBold=1
 isItalic=0
 useUnicode=1
 disableBoxChars=1
@@ -54,6 +54,6 @@ invB=0
 outlineThickness=0
 
 # selected chars
-chars=46,48-57
+chars=32,45-46,48-58
 
 # imported icon images
