@@ -55,11 +55,11 @@ class CruiseView416Dc
     {
         var avgSpeedString = avgSpeed.format("%2.1f");
     	dc.setColor(Settings.ForegroundColor, Gfx.COLOR_TRANSPARENT);
-    	dc.drawText(200, 302, Gfx.FONT_LARGE, avgSpeedString, Gfx.TEXT_JUSTIFY_RIGHT);
+    	dc.drawText(240, 302, Gfx.FONT_LARGE, avgSpeedString, Gfx.TEXT_JUSTIFY_RIGHT);
     	
     	dc.setColor(Settings.DimColor, Settings.BackgroundColor);
-        dc.drawText(200, 350, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_LEFT);   	     
-        dc.drawText(203 + dc.getTextWidthInPixels(avgSpeedString, Gfx.FONT_LARGE), 209, Gfx.FONT_XTINY, "kn", Gfx.TEXT_JUSTIFY_LEFT);   
+        dc.drawText(275, 350, Gfx.FONT_XTINY, "avg", Gfx.TEXT_JUSTIFY_LEFT);   	     
+        dc.drawText(245 + dc.getTextWidthInPixels(avgSpeedString, Gfx.FONT_LARGE), 209, Gfx.FONT_XTINY, "kn", Gfx.TEXT_JUSTIFY_LEFT);   
     }
     
     function PrintAvgBearing(dc, avgBearing)

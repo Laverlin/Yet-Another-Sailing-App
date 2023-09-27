@@ -3,12 +3,10 @@
 <iq:manifest xmlns:iq="http://www.garmin.com/xml/connectiq" version="2">
     <iq:application entry="YASailingApp" id="6F24DA03D904483B9C0C4BAADF9B8B76" launcherIcon="@Drawables.LauncherIcon" minSdkVersion="3.0.0" name="@Strings.AppName" type="watch-app">
         <iq:products>
-            <iq:product id="approachs7047mm"/>
-            <iq:product id="d2air"/>
-            <iq:product id="d2airx10"/>
             <iq:product id="d2delta"/>
             <iq:product id="d2deltapx"/>
             <iq:product id="d2deltas"/>
+            <iq:product id="d2mach1"/>
             <iq:product id="descentmk1"/>
             <iq:product id="descentmk2"/>
             <iq:product id="descentmk2s"/>
@@ -53,8 +51,6 @@
             <iq:product id="marqdriver"/>
             <iq:product id="marqexpedition"/>
             <iq:product id="marqgolfer"/>
-            <iq:product id="venu3"/>
-            <iq:product id="vivoactive4"/>
         </iq:products>
         <iq:permissions>
             <iq:uses-permission id="Communications"/>

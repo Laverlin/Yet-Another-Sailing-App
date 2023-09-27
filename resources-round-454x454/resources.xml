@@ -1,3 +1,8 @@
 <resources>
-    <font id="digits" filename="big-digits-454.fnt" antialias="true"/> 
+    <font id="bigDigits" filename="big-digits-454.fnt" antialias="true"/> 
+    <font id="routeLDigits" filename="route-l-digits-454.fnt" antialias="true"/> 
+    <font id="midDigits" filename="medium-digits-454.fnt" antialias="true"/>
+    <font id="routeSDigits" filename="route-s-digits-454.fnt" antialias="true"/> 
+    <font id="text" filename="text-454.fnt" antialias="true"/>
+    <font id="hint" filename="hint-454.fnt" antialias="true"/> 
 </resources>
