@@ -99,11 +99,11 @@ jobs:
         env: 
           AZURE_RELEASE_SAS: ${{ secrets.AZURE_RELEASE_SAS }}
         run: |
-          curl -H "x-ms-blob-type: BlockBlob" --upload-file $RELEASE_PATH/yas-${{ steps.semver.outputs.version_tag }}.iq --url "https://ibglobalstorage.blob.core.windows.net/garmin-ysa-release/yas-${{ steps.semver.outputs.version_tag }}.iq?$AZURE_RELEASE_SAS"
+          curl -H "x-ms-blob-type: BlockBlob" --upload-file $RELEASE_PATH/yas-${{ steps.semver.outputs.version_tag }}.iq --url "https://ibglobalstorage.blob.core.windows.net/garmin-yas-release/yas-${{ steps.semver.outputs.version_tag }}.iq?$AZURE_RELEASE_SAS"
 
       - name: Create Tag
         run: |
-          if [[! $(git tag -l "${{ steps.semver.outputs.version_tag }}") ]]; then
+          if [[ -z $(git tag -l "${{ steps.semver.outputs.version_tag }}") ]]; then
             git tag ${{ steps.semver.outputs.version_tag }}
             git push origin ${{ steps.semver.outputs.version_tag }}
           fi
