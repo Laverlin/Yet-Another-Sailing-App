@@ -103,5 +103,7 @@ jobs:
 
       - name: Create Tag
         run: |
+          if [[! $(git tag -l "${{ steps.semver.outputs.version_tag }}") ]]; then
             git tag ${{ steps.semver.outputs.version_tag }}
             git push origin ${{ steps.semver.outputs.version_tag }}
+          fi
