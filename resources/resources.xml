@@ -1,4 +1,11 @@
 <resources>
     <font id="trebuchet" filename="Fonts/Trebuchet16.fnt" antialias="true"/> 
     <font id="verticalSSPSB12" filename="Fonts/VerticalSSPSB12.fnt" antialias="true"/> 
+
+    <font id="bigDigits" filename="Fonts/VerticalSSPSB12.fnt" antialias="true"/> 
+    <font id="routeLDigits" filename="Fonts/VerticalSSPSB12.fnt" antialias="true"/> 
+    <font id="midDigits" filename="Fonts/VerticalSSPSB12.fnt" antialias="true"/>
+    <font id="routeSDigits" filename="Fonts/VerticalSSPSB12.fnt" antialias="true"/> 
+    <font id="text" filename="Fonts/VerticalSSPSB12.fnt" antialias="true"/>
+    <font id="hint" filename="Fonts/VerticalSSPSB12.fnt" antialias="true"/> 
 </resources>

@@ -57,7 +57,6 @@ class Settings
 		IsTimerValueUpdated = false; 
 		return TimerValue;
 	}
-	
 
 	static function SetAutoRecording(isAutoRecording)
 	{

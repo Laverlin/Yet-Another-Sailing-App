@@ -29,7 +29,7 @@ class YASailingApp extends App.AppBase
 			System.exit();
 		}
 		
-	    Settings.LoadSettings();        
+	    Settings.LoadSettings();
 		_gpsWrapper = new GpsWrapper();
 
 		if (deviceSettings.screenHeight == 218)
@@ -131,8 +131,8 @@ class YASailingApp extends App.AppBase
     function initFor454()
     {
 		_cruiseView = new CruiseView(_gpsWrapper, new CruiseView454Dc());
-	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView240Dc());
-    	_lapView = new LapView(new LapView416Dc(), _gpsWrapper);
+	    _raceTimerView = new RaceTimerView(_gpsWrapper, _cruiseView, new RaceTimerView454Dc());
+    	_lapView = new LapView(new LapView454Dc(), _gpsWrapper);
     	_waypointView = new WaypointView(_gpsWrapper, new WaypointView454Dc(), _cruiseView);
     	_selectRouteView = new SelectRouteView(new SelectRouteView280Dc());
     	_routeCustomMenuView = new RouteCustomMenuView(_gpsWrapper, new RouteCustomMenuView280Dc(), _waypointView, _selectRouteView); 
