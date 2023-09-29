@@ -11,6 +11,7 @@
             <iq:product id="descentmk2"/>
             <iq:product id="descentmk2s"/>
             <iq:product id="epix2"/>
+            <iq:product id="epix2pro42mm"/>
             <iq:product id="epix2pro47mm"/>
             <iq:product id="epix2pro51mm"/>
             <iq:product id="fenix5"/>
@@ -43,6 +44,8 @@
             <iq:product id="fr945lte"/>
             <iq:product id="fr955"/>
             <iq:product id="fr965"/>
+            <iq:product id="marq2"/>
+            <iq:product id="marq2aviator"/>
             <iq:product id="marqadventurer"/>
             <iq:product id="marqathlete"/>
             <iq:product id="marqaviator"/>
@@ -51,6 +54,7 @@
             <iq:product id="marqdriver"/>
             <iq:product id="marqexpedition"/>
             <iq:product id="marqgolfer"/>
+            <iq:product id="venu"/>
         </iq:products>
         <iq:permissions>
             <iq:uses-permission id="Communications"/>

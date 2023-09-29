@@ -29,7 +29,6 @@ class LapView454Dc
     function PrintLapInfo(dc, lapInfo)
     {
     	var timeInfo = Time.Gregorian.info(lapInfo.StartTime, Time.FORMAT_MEDIUM);
-        var fontHeight = dc.getFontHeight(_fontText) + 5;
         var mid = dc.getHeight() / 2;
 
         dc.drawText(dc.getWidth() / 2, 10, _fontText, Lang.format("lap $1$", [lapInfo.LapNumber.format("%2d")]), Gfx.TEXT_JUSTIFY_CENTER);
