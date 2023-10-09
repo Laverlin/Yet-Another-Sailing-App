@@ -35,6 +35,10 @@ class SelectRouteView240Dc
 		{
 			message = "There is no routes,\n use Telegram NavGarminBot \n to upload route";
 		}
+		else if (errorCode == -403 || errorCode == -402)
+		{
+			message = "The payload is too big.\n Try to remove a few routes\n using the Telegram bot.";
+		}
 		else
 		{
 			message = "Loading Error\nCode: " + errorCode.toString();
@@ -54,9 +58,9 @@ class SelectRouteView240Dc
     		dc.getWidth() / 2, 30, Gfx.FONT_SYSTEM_SMALL, Lang.format("Select Route\n$1$  [ $2$ ]", [selectedRouteId + 1, routesSize]), Gfx.TEXT_JUSTIFY_CENTER);
     	dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
   		
-    	dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2, Gfx.FONT_SYSTEM_XTINY, selectedRouteData["RouteName"], Gfx.TEXT_JUSTIFY_CENTER);	
-    	dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 + 30, Gfx.FONT_SYSTEM_XTINY, "WayPoints : " + selectedRouteData["WayPoints"].size(), Gfx.TEXT_JUSTIFY_CENTER);	
-    	dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 + 60, Gfx.FONT_SYSTEM_XTINY, YACommon.DateJson2Short(selectedRouteData["RouteDate"]), Gfx.TEXT_JUSTIFY_CENTER);
+    	dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2, Gfx.FONT_SYSTEM_XTINY, selectedRouteData["routeName"], Gfx.TEXT_JUSTIFY_CENTER);	
+    	dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 + 30, Gfx.FONT_SYSTEM_XTINY, "Waypoints : " + selectedRouteData["waypoints"].size(), Gfx.TEXT_JUSTIFY_CENTER);	
+    	dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 + 60, Gfx.FONT_SYSTEM_XTINY, YACommon.DateJson2Short(selectedRouteData["routeDate"]), Gfx.TEXT_JUSTIFY_CENTER);
     	
     	if (selectedRouteId > 0)
     	{

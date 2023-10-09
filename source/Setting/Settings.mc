@@ -13,8 +13,8 @@ class Settings
 	static var IsAutoRecording = false;
 	static var IsWhiteBackground = false; 
 	
-	static var RouteApiUrl = "http://localhost:5051/api/YASail";
-	static var RouteListMethod = "routelist";
+	static var RouteApiUrl = "http://ib-nuc.ivan-b.com/yas-api/";
+	//static var RouteListMethod = "routelist";
 	static var UserId = "";
 	static var CurrentRoute = null;
 	static var WpEpsilon = 100;
@@ -26,7 +26,7 @@ class Settings
 		SetBackground(App.getApp().getProperty("isWhiteBackground"));
 		UserId = App.getApp().getProperty("userId");
 		WpEpsilon = App.getApp().getProperty("wpEpsilon");
-		CurrentRoute = App.getApp().getProperty("CurrentRoute");
+		CurrentRoute = App.getApp().getProperty("CurrentRoute2");
 		RouteApiUrl = Toybox.WatchUi.loadResource(Rez.Strings.apiUrl);
 	}
 

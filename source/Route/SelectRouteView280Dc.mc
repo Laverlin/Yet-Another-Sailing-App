@@ -37,7 +37,11 @@ class SelectRouteView280Dc
 		}
 		else if (errorCode == -404)
 		{
-			message = "There is no routes,\n use Telegram NavGarminBot \n to upload route";
+			message = "There is no routes,\n use Telegram YA-SailingBot \n to upload route";
+		}
+		else if (errorCode == -403 || errorCode == -402)
+		{
+			message = "The payload is too big.\n Try to remove a few routes\n using the Telegram bot.";
 		}
 		else
 		{
@@ -65,9 +69,9 @@ class SelectRouteView280Dc
     	dc.setColor(Settings.ForegroundColor, Settings.BackgroundColor);
   		
 		var fontHeight = dc.getFontHeight(Gfx.FONT_SYSTEM_XTINY) + 5;
-    	dc.drawText(mid, mid, Gfx.FONT_SYSTEM_XTINY, selectedRouteData["RouteName"], Gfx.TEXT_JUSTIFY_CENTER);	
-    	dc.drawText(mid, mid + fontHeight, Gfx.FONT_SYSTEM_XTINY, "WayPoints : " + selectedRouteData["WayPoints"].size(), Gfx.TEXT_JUSTIFY_CENTER);	
-    	dc.drawText(mid, mid + fontHeight * 2, Gfx.FONT_SYSTEM_XTINY, YACommon.DateJson2Short(selectedRouteData["RouteDate"]), Gfx.TEXT_JUSTIFY_CENTER);
+    	dc.drawText(mid, mid, Gfx.FONT_SYSTEM_XTINY, selectedRouteData["routeName"], Gfx.TEXT_JUSTIFY_CENTER);	
+    	dc.drawText(mid, mid + fontHeight, Gfx.FONT_SYSTEM_XTINY, "Waypoints : " + selectedRouteData["waypoints"].size(), Gfx.TEXT_JUSTIFY_CENTER);	
+    	dc.drawText(mid, mid + fontHeight * 2, Gfx.FONT_SYSTEM_XTINY, YACommon.DateJson2Short(selectedRouteData["routeDate"]), Gfx.TEXT_JUSTIFY_CENTER);
     	
 		var buttonYtop = mid - fontHeight;
 		var buttonYbottom = mid + fontHeight * 4;

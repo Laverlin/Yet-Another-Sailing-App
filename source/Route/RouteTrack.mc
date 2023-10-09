@@ -24,13 +24,13 @@ class RouteTrack
 	hidden function getRouteDistance()
 	{
 		var routeDistance = 0;
-		for(var i = _currentWayPoint; i < _currentRoute["WayPoints"].size() - 1; i++)
+		for(var i = _currentWayPoint; i < _currentRoute["waypoints"].size() - 1; i++)
     	{
     		routeDistance = routeDistance + GetDistance(	
-    			Math.toRadians(_currentRoute["WayPoints"][i]["Lat"].toFloat()), 
-    			Math.toRadians(_currentRoute["WayPoints"][i]["Lon"].toFloat()),
-    			Math.toRadians(_currentRoute["WayPoints"][i+1]["Lat"].toFloat()), 
-    			Math.toRadians(_currentRoute["WayPoints"][i+1]["Lon"].toFloat()));
+    			Math.toRadians(_currentRoute["waypoints"][i]["lat"].toFloat()), 
+    			Math.toRadians(_currentRoute["waypoints"][i]["lon"].toFloat()),
+    			Math.toRadians(_currentRoute["waypoints"][i+1]["lat"].toFloat()), 
+    			Math.toRadians(_currentRoute["waypoints"][i+1]["lon"].toFloat()));
     	}
     	
     	return routeDistance;
@@ -43,10 +43,10 @@ class RouteTrack
 		if (_currentWayPoint > 0)
 		{
 			return GetBearing(
-				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint - 1]["Lat"].toFloat()), 
-				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint - 1]["Lon"].toFloat()), 
-				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint]["Lat"].toFloat()), 
-				Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint]["Lon"].toFloat()));
+				Math.toRadians(_currentRoute["waypoints"][_currentWayPoint - 1]["lat"].toFloat()), 
+				Math.toRadians(_currentRoute["waypoints"][_currentWayPoint - 1]["lon"].toFloat()), 
+				Math.toRadians(_currentRoute["waypoints"][_currentWayPoint]["lat"].toFloat()), 
+				Math.toRadians(_currentRoute["waypoints"][_currentWayPoint]["lon"].toFloat()));
 		}
 		
 		return null;
@@ -79,10 +79,10 @@ class RouteTrack
 	function initialize(currentRoute)
 	{
 		Test.assertMessage(currentRoute != null, "currentRoute can not be null!");
-		Test.assertMessage(currentRoute["WayPoints"] != null, "currentRoute should have WayPoints dictionary.");
+		Test.assertMessage(currentRoute["waypoints"] != null, "currentRoute should have WayPoints dictionary.");
 		
 		_currentRoute = currentRoute;
-		_totalWayPoints = _currentRoute["WayPoints"].size();
+		_totalWayPoints = _currentRoute["waypoints"].size();
 		if (_currentRoute["CurrentWayPoint"] != null)
 		{
 			_currentWayPoint = _currentRoute["CurrentWayPoint"];
@@ -110,8 +110,8 @@ class RouteTrack
 	//
 	function GetInRouteInfo(gpsInfo)
 	{
-	    var wpLat = Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint]["Lat"].toFloat());
-    	var wpLon = Math.toRadians(_currentRoute["WayPoints"][_currentWayPoint]["Lon"].toFloat());
+	    var wpLat = Math.toRadians(_currentRoute["waypoints"][_currentWayPoint]["lat"].toFloat());
+    	var wpLon = Math.toRadians(_currentRoute["waypoints"][_currentWayPoint]["lon"].toFloat());
     	var gpsLocation = gpsInfo.GpsLocation.toRadians();
     	var gpsLat = gpsLocation[0];
     	var gpsLon = gpsLocation[1];

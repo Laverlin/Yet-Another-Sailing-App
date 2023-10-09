@@ -102,12 +102,10 @@ class SelectRouteView extends Ui.View
 	//	
 	hidden function makeLoadRoutesRequest()
 	{
-		var url = Lang.format("$1$/$2$/$3$", [
+		var url = Lang.format("$1$/route-store/users/$2$/routes?limit=0", [
 			Settings.RouteApiUrl,
-			Settings.RouteListMethod,
-			Settings.UserId]);     
-
-		//Sys.println(url);
+			Settings.UserId
+		]);     
 		
         var options = {
           :method => Comm.HTTP_REQUEST_METHOD_GET,

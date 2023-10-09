@@ -2,6 +2,7 @@ using Toybox.WatchUi as Ui;
 using Toybox.Graphics as Gfx;
 using Toybox.Lang as Lang;
 using Toybox.Time as Time;
+using Toybox.System as Sys;
 
 /// Since there is no way to setup a background color in layout.xml
 /// all boiler-plate code for drawing objects need to be done manually.
@@ -24,10 +25,11 @@ class RouteCustomMenuView280Dc
     
     function PrintActualRoute(dc, actualRoute, _currentSelection)
     {
+		Sys.println(actualRoute);
     	var font = (_currentSelection == :start) ? Gfx.FONT_SYSTEM_SMALL : Gfx.FONT_SYSTEM_XTINY;
 
     	dc.drawText(dc.getWidth() / 2, dc.getHeight() / 4 + 10, font, 
-    		Lang.format("$1$\n$2$", [actualRoute["RouteName"], YACommon.DateJson2Short(actualRoute["RouteDate"])]), 
+    		Lang.format("$1$\n$2$", [actualRoute["routeName"], YACommon.DateJson2Short(actualRoute["routeDate"])]), 
     		Gfx.TEXT_JUSTIFY_CENTER);
     }
     

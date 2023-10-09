@@ -29,6 +29,7 @@ class YACommon
     
     static function DateJson2Short(date)
     {
+        Sys.println(date);
     	return Lang.format("$1$ $2$", [date.substring(0, 10), date.substring(11, 16)]);
     }
     

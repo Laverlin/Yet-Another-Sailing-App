@@ -29,7 +29,7 @@ class RouteCustomMenuView240Dc
 
 		//dc.drawText(120, 65, Gfx.FONT_SYSTEM_XTINY, "start", Gfx.TEXT_JUSTIFY_CENTER);
     	dc.drawText(dc.getWidth() / 2, dc.getHeight() / 3.5 + 15, font, 
-    		Lang.format("$1$\n$2$", [actualRoute["RouteName"], YACommon.DateJson2Short(actualRoute["RouteDate"])]), 
+    		Lang.format("$1$\n$2$", [actualRoute["routeName"], YACommon.DateJson2Short(actualRoute["routeDate"])]), 
     		Gfx.TEXT_JUSTIFY_CENTER);
     }
     
