@@ -1,10 +1,18 @@
 using Toybox.Graphics as Gfx;
 using Toybox.Application as App;
 
+
+
+
 // set of permanently stored values
 //
 class Settings
 {
+	enum 
+	{
+		Cruise,
+		Route
+	}
 	static var ForegroundColor = Gfx.COLOR_WHITE;
 	static var BackgroundColor = Gfx.COLOR_BLACK;
 	static var DimColor = Gfx.COLOR_LT_GRAY;
@@ -17,6 +25,8 @@ class Settings
 	static var UserId = "";
 	static var CurrentRoute = null;
 	static var WpEpsilon = 100;
+
+	static var TimerSuccessor = Cruise;
 
 	static function LoadSettings()
 	{

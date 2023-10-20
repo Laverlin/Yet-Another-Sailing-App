@@ -8,16 +8,18 @@ class RaceTimerView extends Ui.View
 {
     hidden var _gpsWrapper;
     hidden var _cruiseView;
+    hidden var _waypointView;
     hidden var _raceTimerViewDc;
 	hidden var _timer; 
 	hidden var _timerValue = 0;
 	hidden var _isTimerRun = false;
 
-    function initialize(gpsWrapper, cruiseView, raceTimerViewDc) 
+    function initialize(gpsWrapper, cruiseView, waypointView, raceTimerViewDc) 
     {
         View.initialize();
         _gpsWrapper = gpsWrapper;
         _cruiseView = cruiseView;
+        _waypointView = waypointView;
         _raceTimerViewDc = raceTimerViewDc;
         _timer = new T.Timer();
     }
@@ -56,7 +58,14 @@ class RaceTimerView extends Ui.View
                 stopTimer();
         		SignalWrapper.Start();
         		_gpsWrapper.AddLap();
-        		Ui.switchToView(_cruiseView, new CruiseViewDelegate(_cruiseView, _gpsWrapper), Ui.SLIDE_LEFT);
+                if (Settings.TimerSuccessor == Settings.Cruise)
+                {
+        		    Ui.switchToView(_cruiseView, new CruiseViewDelegate(_cruiseView, _gpsWrapper), Ui.SLIDE_LEFT);
+                }
+                else 
+                {
+                    Ui.switchToView(_waypointView, new WaypointViewDelegate(_waypointView, _gpsWrapper), Ui.SLIDE_RIGHT);
+                }
         		return;
         	}
         	
