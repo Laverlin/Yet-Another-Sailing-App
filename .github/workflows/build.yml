@@ -65,12 +65,7 @@ jobs:
           major_pattern: "(MAJOR)"
           minor_pattern: "(MINOR)"
           search_commit_body: true
-          # A string to determine the format of the version output
-          # version_format: "${major}.${minor}.${patch}-prerelease${increment}"
           version_format: "${major}.${minor}.${patch}+${increment}"
-
-          # If this is set to true, *every* commit will be treated as a new version.
-          bump_each_commit: false
 
       - name: Write Version
         run: |
@@ -78,18 +73,19 @@ jobs:
             <strings><string id="appVersion">${{ steps.semver.outputs.version }}</string><string id="apiUrl">$ROUTES_URL</string><string id="AppName">$APP_NAME</string></strings>
             EOF
 
-      - name: Write AppId
-        env:
-          APP_ID: ${{ secrets.APP_ID }}
-        run: |
-          xmlstarlet ed -L -N iq="http://www.garmin.com/xml/connectiq" -u '/iq:manifest/iq:application/@id' -v $APP_ID $GITHUB_WORKSPACE/manifest.xml
-
-
       - name: Download App Key
         env: 
           AZURE_KEYS_SAS: ${{ secrets.AZURE_KEYS_SAS }}
         run: |
           curl "https://ibglobalstorage.blob.core.windows.net/garmin-ci/YASailingApp.key?$AZURE_KEYS_SAS" --output $GITHUB_WORKSPACE/app.key
+
+      ## Build Release
+      ##
+      - name: Write AppId
+        env:
+          APP_ID: ${{ secrets.APP_ID }}
+        run: |
+          xmlstarlet ed -L -N iq="http://www.garmin.com/xml/connectiq" -u '/iq:manifest/iq:application/@id' -v $APP_ID $GITHUB_WORKSPACE/manifest.xml
 
       - name: Build
         run: |
@@ -100,6 +96,24 @@ jobs:
           AZURE_RELEASE_SAS: ${{ secrets.AZURE_RELEASE_SAS }}
         run: |
           curl -H "x-ms-blob-type: BlockBlob" --upload-file $RELEASE_PATH/yas-${{ steps.semver.outputs.version_tag }}.iq --url "https://ibglobalstorage.blob.core.windows.net/garmin-yas-release/yas-${{ steps.semver.outputs.version_tag }}.iq?$AZURE_RELEASE_SAS"
+
+      ## Build Test
+      ##
+      - name: Write AppId
+        env:
+          APP_ID: ${{ secrets.DEV_APP_ID }}
+        run: |
+          xmlstarlet ed -L -N iq="http://www.garmin.com/xml/connectiq" -u '/iq:manifest/iq:application/@id' -v $DEV_APP_ID $GITHUB_WORKSPACE/manifest.xml
+
+      - name: Build
+        run: |
+          sudo java -cp /garminsdk/bin/monkeybrains.jar com.garmin.monkeybrains.Monkeybrains -o $RELEASE_PATH/yas-${{ steps.semver.outputs.version_tag }}-dev.iq -f $GITHUB_WORKSPACE/monkey.jungle -y $GITHUB_WORKSPACE/app.key -e -w -r -l 0
+
+      - name: Publish build result
+        env: 
+          AZURE_RELEASE_SAS: ${{ secrets.AZURE_RELEASE_SAS }}
+        run: |
+          curl -H "x-ms-blob-type: BlockBlob" --upload-file $RELEASE_PATH/yas-${{ steps.semver.outputs.version_tag }}-dev.iq --url "https://ibglobalstorage.blob.core.windows.net/garmin-yas-release/yas-${{ steps.semver.outputs.version_tag }}-dev.iq?$AZURE_RELEASE_SAS"
 
       - name: Create Tag
         run: |
