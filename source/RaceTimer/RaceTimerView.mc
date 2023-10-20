@@ -28,6 +28,7 @@ class RaceTimerView extends Ui.View
     {
         if (!_isTimerRun) 
         {
+            _timer.stop();
             _timer.start(method(:onTimerUpdate), 1000, true);
             if (_timerValue <= 0 || Settings.IsTimerValueUpdated)
             {
