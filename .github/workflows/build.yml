@@ -27,7 +27,7 @@ jobs:
       SDK_PATH: "/garminsdk"
       DEVICES_PATH: "/root/.Garmin/ConnectIQ/"
       RELEASE_PATH: "/release"
-      ROUTES_URL: "https://ivan-b.com/garminapi"
+      ROUTES_URL: "https://ivan-b.com/yas-api"
       APP_NAME: "YA-Sailing"
 
     # Steps represent a sequence of tasks that will be executed as part of the job

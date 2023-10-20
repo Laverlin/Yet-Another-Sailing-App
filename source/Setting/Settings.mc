@@ -13,8 +13,7 @@ class Settings
 	static var IsAutoRecording = false;
 	static var IsWhiteBackground = false; 
 	
-	static var RouteApiUrl = "http://ib-nuc.ivan-b.com/yas-api/";
-	//static var RouteListMethod = "routelist";
+	static var RouteApiUrl = "";
 	static var UserId = "";
 	static var CurrentRoute = null;
 	static var WpEpsilon = 100;
