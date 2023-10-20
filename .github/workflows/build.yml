@@ -29,6 +29,7 @@ jobs:
       RELEASE_PATH: "/release"
       ROUTES_URL: "https://ivan-b.com/yas-api"
       APP_NAME: "YA-Sailing"
+      DEV_APP_NAME: "YA-Sailing-Test"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -67,12 +68,6 @@ jobs:
           search_commit_body: true
           version_format: "${major}.${minor}.${patch}+${increment}"
 
-      - name: Write Version
-        run: |
-            cat <<EOF > $GITHUB_WORKSPACE/resources/version.xml
-            <strings><string id="appVersion">${{ steps.semver.outputs.version }}</string><string id="apiUrl">$ROUTES_URL</string><string id="AppName">$APP_NAME</string></strings>
-            EOF
-
       - name: Download App Key
         env: 
           AZURE_KEYS_SAS: ${{ secrets.AZURE_KEYS_SAS }}
@@ -81,6 +76,12 @@ jobs:
 
       ## Build Release
       ##
+      - name: Write Version
+        run: |
+            cat <<EOF > $GITHUB_WORKSPACE/resources/version.xml
+            <strings><string id="appVersion">${{ steps.semver.outputs.version }}</string><string id="apiUrl">$ROUTES_URL</string><string id="AppName">$APP_NAME</string></strings>
+            EOF
+
       - name: Write AppId
         env:
           APP_ID: ${{ secrets.APP_ID }}
@@ -99,6 +100,12 @@ jobs:
 
       ## Build Test
       ##
+      - name: Write Version
+        run: |
+            cat <<EOF > $GITHUB_WORKSPACE/resources/version.xml
+            <strings><string id="appVersion">${{ steps.semver.outputs.version }}-dev</string><string id="apiUrl">$ROUTES_URL</string><string id="AppName">$DEV_APP_NAME</string></strings>
+            EOF
+
       - name: Write AppId
         env:
           DEV_APP_ID: ${{ secrets.DEV_APP_ID }}
