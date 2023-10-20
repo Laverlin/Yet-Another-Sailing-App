@@ -1,8 +1,5 @@
 # Yet-Another-Sailing-App
 
-### supported devices
-D2 all, Descent: MK2, Mk1 Mk2S, FR: 245, 245, 645, 645M, 745, 935, 945, 945 LTE, MARQ: Adventurer, Athlete, Aviator, Captain, Commander, Driver, Expedition, Golfer, fēnix: 3, 3 HR, 5, 5 Plus, 5S Plus, 5X, 5X Plus, 6, 6 Pro *, 6S, 7, 7S, 7X, 6, 6X, VA 4
-
 ### install
 
 https://apps.garmin.com/en-US/apps/159028ac-590b-4836-a1e2-474d248469c5
@@ -77,40 +74,3 @@ In **Laps View** you can see data from last 20 laps. This data stores permanentl
 - DOWN scroll to next lap
 - BACK offer you to clear all laps from permanent storage and drop lap counter to zero.  
 
-### Changelog
-
-**version 1.0.181**
-- add Route mode
-  
-**version 0.75**
-- minor UI adjustments in Cruise mode for 240px devices
-
-**version 0.71**
-- add Fenix 5S Plus support (Fenix 5S does not supported yet)
-
-**version 0.70**
-- add support  D2 / D2 Titanum / Fenix 5 [Plus] / Fenix 5X [Plus] / Quatix 5 / ForeRunner 935 / Tactix Charlie
-
-**version 0.67**
-- fix set timer issue: it was needed to reload app after init countdown timer 
-- race timer will pop out automatically, after new countdown timer initialization
-
-**version 0.66**
-- set main menu as a default view from start 
- 
-**version 0.65** 
-- display distance covered in cruise mode 
-- change layout in cruise mode
-- max speed calculated as moving average for 3 sec, to avoid fluctuation 
-  
-**version 0.6**
-- color countdown progress bar   
-- new main menu   
-- permanently stored laps   
-   
-**version 0.5**  
-- add Race Timer   
-- fix view issues   
-   
-**version 0.21**   
-- minor change in UI   
