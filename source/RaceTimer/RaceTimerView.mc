@@ -26,21 +26,22 @@ class RaceTimerView extends Ui.View
     //
     function onShow() 
     {
-    	_timer.start(method(:onTimerUpdate), 1000, true);
-    	if (_timerValue <= 0 || Settings.IsTimerValueUpdated)
-    	{
-    		_timerValue = Settings.GetTimerValue();
-    	}
+        if (!_isTimerRun) 
+        {
+            _timer.start(method(:onTimerUpdate), 1000, true);
+            if (_timerValue <= 0 || Settings.IsTimerValueUpdated)
+            {
+                _timerValue = Settings.GetTimerValue();
+            }
+        }
     }
 
-    // Stop timer then hide
-    //
-    function onHide() 
+    function stopTimer()
     {
-    	_isTimerRun =false;
         _timer.stop();
+        _isTimerRun = false;
     }
-    
+
     // Refresh view every second
     //
     function onTimerUpdate()
@@ -51,6 +52,7 @@ class RaceTimerView extends Ui.View
         	
         	if (_timerValue <= 0)
         	{
+                stopTimer();
         		SignalWrapper.Start();
         		_gpsWrapper.AddLap();
         		Ui.switchToView(_cruiseView, new CruiseViewDelegate(_cruiseView, _gpsWrapper), Ui.SLIDE_LEFT);
