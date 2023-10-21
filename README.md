@@ -6,7 +6,7 @@ https://apps.garmin.com/en-US/apps/159028ac-590b-4836-a1e2-474d248469c5
 
 ### feedback 
 
-https://forums.garmin.com/forum/developers/connect-iq/connect-iq-showcase/1383630-app-yet-another-sailing-app 
+https://github.com/Laverlin/Yet-Another-Sailing-App/issues
 
 ### description
 
@@ -18,7 +18,7 @@ This app has
 - Route View, advanced Waypoint mode to track your way along specified route 
 - Laps view 
 
-In **Route** (NEW) mode you may track you way along specified route. There will be displayed SOG, COG, VMG, Course to closest waypoint, amount of way points along the route (and the current WP), distance to WP, distance to finish, distance covered and Cross-track error.
+In **Route** mode you may track you way along specified route. There will be displayed SOG, COG, VMG, Course to closest waypoint, amount of way points along the route (and the current WP), distance to WP, distance to finish, distance covered and Cross-track error.
 The Navionics (navionics.com) is used to setup the route.
 **Note** This mode is not available on D2/Bravo/Titanium and Fx3/HR watches due to low available memory on these devices.       
 
@@ -42,7 +42,7 @@ In **Laps view** you may see data - max speed, average speed, distance and time 
 **Route** mode:
 This is a bit tricky and here is a short description why is that. Watches has a limited UX ability and setting a waypoint[s] is not a very convenient. A little more handy using phone for this, but still typing a GPS coordinates is not how you'd like to spend your time... On the other hands, there is a lot of nice services and applications, which allows you to plan a route, so why is not use one of them?
 After some considerations I chose the "Navionics" (navionics.com) for that purpose. So, the basic idea is to plan your route in Navionics and export it to the Yet-Another-Sailing-App, to track this Route during the cruise, on a watch, leaving the phone on the pocket.
-Sounds good, but unfortunately Navionics does not have an API to import routes... Fortunately, Navionics mobile app has an option to export saved Route in a well known format. Unfortunately, there is no option to export it directly to the Watch Application, so we need some intermediate service which should be able to accept Routes from Navionics mobile App and has an API for import Routes to the watch application. It turns out that for such kind of scenarios chat bots, like Telegram bots, work surprisingly good.
+Sounds good, but unfortunately Navionics does not have an API to import routes... Fortunately, Navionics mobile app has an option to export saved Route in a well known format. Unfortunately, there is no option to export it directly to the Watch Application, so we need some intermediate service which should be able to accept Routes from Navionics mobile App and has an API for import Routes to the watch application. It turns out for such kind of scenarios chat bots, like Telegram bots, work surprisingly good.
 So, in general it works like this:
 - plan your route in Navionics mobile app or web-site.
 - open Navionics mobile app and export your route to Telegram bot, named "YA-SailingBot" (you have to install telegram messenger on your iPhone or Android and type @YA-SailngBot in search to enable the bot)
