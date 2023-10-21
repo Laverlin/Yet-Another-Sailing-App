@@ -38,9 +38,9 @@ class SettingMenuDelegate extends Ui.MenuInputDelegate
         else if (item == :afterTimer)
         {
             var afterTimerMenu = new Ui.Menu();
-            afterTimerMenu.setTitle("Switch after Countdown");
-            afterTimerMenu.addItem((Settings.TimerSuccessor == Settings.Cruise ? "*" : "") + " Cruise", :setCruise);
-            afterTimerMenu.addItem((Settings.TimerSuccessor == Settings.Route ? "*" : "") + " Route", :setRoute);
+            afterTimerMenu.setTitle("After countdown");
+            afterTimerMenu.addItem((Settings.TimerSuccessor == Settings.Cruise ? "*" : "") + " Run Cruise", :setCruise);
+            afterTimerMenu.addItem((Settings.TimerSuccessor == Settings.Route ? "*" : "") + " Run Route", :setRoute);
             Ui.pushView(afterTimerMenu, new AfterTimerMenuDelegate(), Ui.SLIDE_LEFT);
         }
     }
