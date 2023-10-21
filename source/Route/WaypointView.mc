@@ -21,6 +21,7 @@ class WaypointView extends Ui.View
         _gpsWrapper = gpsWrapper;
         _waypointViewDc = waypointViewDc;
         _cruiseView = cruiseView;
+        _timer = new Toybox.Timer.Timer();
     }
 
 	// SetUp timer on show to update every second
@@ -31,11 +32,11 @@ class WaypointView extends Ui.View
     	if (currentRoute == null)
     	{
     		//Sys.println("there is no active route");
+            // Ui.popView(Ui.SLIDE_IMMEDIATE);
     		return;
     	}
         _routeTrack = new RouteTrack(currentRoute);
-        
-    	_timer = new Toybox.Timer.Timer();
+
     	_timer.start(method(:onTimerUpdate), 1000, true);
     }
 
@@ -64,12 +65,21 @@ class WaypointView extends Ui.View
     //
     function onUpdate(dc) 
     {   
+        // if set to switch to the Route mode after RaceTimer finished
+        // here is the only point to check if the Route is set and rollback if not
+        //
+        if (_routeTrack == null)
+        {
+            Ui.popView(Ui.SLIDE_IMMEDIATE);
+            return;
+        }
+
     	_waypointViewDc.ClearDc(dc);
         
         // Display current state
     	//
         var clockTime = Sys.getClockTime();
-        var gpsInfo = _gpsWrapper.GetGpsInfo();        
+        var gpsInfo = _gpsWrapper.GetGpsInfo();
         _waypointViewDc.PrintTime(dc, clockTime);
         _waypointViewDc.DisplayState(dc, 
         	gpsInfo.Accuracy, gpsInfo.IsRecording, _routeTrack.GetCurrentWayPoint(), _routeTrack.TotalWayPoints());

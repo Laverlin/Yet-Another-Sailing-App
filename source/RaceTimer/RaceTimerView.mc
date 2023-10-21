@@ -95,7 +95,7 @@ class RaceTimerView extends Ui.View
 
 		_raceTimerViewDc.PrintCountdown(dc, _timerValue.toLong());
 		
-        var clockTime = Sys.getClockTime();        
+        var clockTime = Sys.getClockTime();
         _raceTimerViewDc.PrintTime(dc, clockTime);
 
         var gpsInfo = _gpsWrapper.GetGpsInfo();

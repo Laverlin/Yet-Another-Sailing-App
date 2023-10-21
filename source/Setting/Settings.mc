@@ -1,9 +1,6 @@
 using Toybox.Graphics as Gfx;
 using Toybox.Application as App;
 
-
-
-
 // set of permanently stored values
 //
 class Settings

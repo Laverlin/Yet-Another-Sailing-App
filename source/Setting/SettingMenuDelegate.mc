@@ -35,6 +35,14 @@ class SettingMenuDelegate extends Ui.MenuInputDelegate
             autoRecordingMenu.addItem((Settings.IsAutoRecording ? "" : "*") + " Off", :isAutoOff);
             Ui.pushView(autoRecordingMenu, new AutoRecordingMenuDelegate(), Ui.SLIDE_LEFT);
         }
+        else if (item == :afterTimer)
+        {
+            var afterTimerMenu = new Ui.Menu();
+            afterTimerMenu.setTitle("Switch after Countdown");
+            afterTimerMenu.addItem((Settings.TimerSuccessor == Settings.Cruise ? "*" : "") + " Cruise", :setCruise);
+            afterTimerMenu.addItem((Settings.TimerSuccessor == Settings.Route ? "*" : "") + " Route", :setRoute);
+            Ui.pushView(afterTimerMenu, new AfterTimerMenuDelegate(), Ui.SLIDE_LEFT);
+        }
     }
 }
 
@@ -74,6 +82,26 @@ class AutoRecordingMenuDelegate extends Ui.MenuInputDelegate
         else if (item == :isAutoOff)
         {
             Settings.SetAutoRecording(false);
+        }
+    }
+}
+
+class AfterTimerMenuDelegate extends Ui.MenuInputDelegate
+{
+    function initialize() 
+    {
+        MenuInputDelegate.initialize();
+    }
+    
+    function onMenuItem(item) 
+    {
+        if (item == :setCruise)
+        {
+            Settings.TimerSuccessor = Settings.Cruise;
+        }
+        else if (item == :setRoute)
+        {
+            Settings.TimerSuccessor = Settings.Route;
         }
     }
 }
