@@ -53,6 +53,8 @@ So, in general it works like this:
 UP and DOWN buttons on your watch will change current waypoint.
 START/STOP button will start/stop track recording, just like in *Cruise* mode
 
+![Route Mode](NoCompiledResources/mockup-route.png)
+
 Couple notes about YA-SailingBot telegram bot:
 - Navionics allow to change route name but for some reason does not export it. But you can change Route name using /rename command
 - Use /list command to get list of available routes and /delete:<id> command to delete route by id      
