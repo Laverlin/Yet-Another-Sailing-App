@@ -6,6 +6,7 @@
     <string id="IsAutoRecordingTitle">Enable Auto Recording</string>
     <string id="isWhiteBackgroundTitle">White Background</string>
     <string id="wpEpsilonTitle">Pass Waypoint Radius (m)</string>
+    <string id="loadLimitTitle">Routes load limit</string>
     
     <string id="mmenuRacetimer">Race Timer</string>
     <string id="mmenuCruise">Cruise</string>

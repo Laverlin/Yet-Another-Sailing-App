@@ -102,9 +102,10 @@ class SelectRouteView extends Ui.View
 	//	
 	hidden function makeLoadRoutesRequest()
 	{
-		var url = Lang.format("$1$/route-store/users/$2$/routes?limit=10", [
+		var url = Lang.format("$1$/route-store/users/$2$/routes?limit=$3$", [
 			Settings.RouteApiUrl,
-			Settings.UserId
+			Settings.UserId,
+			Settings.LoadRoutesLimit
 		]);     
 		
         var options = {

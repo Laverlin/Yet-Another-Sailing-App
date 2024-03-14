@@ -22,6 +22,7 @@ class Settings
 	static var UserId = "";
 	static var CurrentRoute = null;
 	static var WpEpsilon = 100;
+	static var LoadRoutesLimit = 10;
 
 	static var TimerSuccessor = Cruise;
 
@@ -34,6 +35,7 @@ class Settings
 		WpEpsilon = App.getApp().getProperty("wpEpsilon");
 		CurrentRoute = App.getApp().getProperty("CurrentRoute2");
 		RouteApiUrl = Toybox.WatchUi.loadResource(Rez.Strings.apiUrl);
+		LoadRoutesLimit = App.getApp().getProperty("loadLimit");
 	}
 
 	static function SaveSettings()

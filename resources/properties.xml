@@ -5,4 +5,5 @@
     <property id="IsAutoRecording" type="boolean">false</property>
     <property id="userId" type = "string"></property>
     <property id="wpEpsilon" type="number">100</property>
+    <property id="loadLimit" type="number">10</property> 
 </properties>
